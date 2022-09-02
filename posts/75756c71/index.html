@@ -1,0 +1,689 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+
+<head>
+  <meta name="generator" content="Hexo 5.4.2">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://fastly.jsdelivr.net'>
+  <link rel="preconnect" href="https://fastly.jsdelivr.net" crossorigin>
+  <link rel='dns-prefetch' href='//unpkg.com'>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" content="#f8f8f8">
+  <title>数字信号处理期末口试 - aJream</title>
+
+  
+    <meta name="description" content="期末口试复习题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数字信号处理期末口试">
+<meta property="og:url" content="https://ajream-n.netlify.app/posts/75756c71/index.html">
+<meta property="og:site_name" content="aJream">
+<meta property="og:description" content="期末口试复习题">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-12-06T13:11:32.000Z">
+<meta property="article:modified_time" content="2021-12-07T00:30:11.000Z">
+<meta property="article:author" content="aJream">
+<meta property="article:tag" content="数字信号处理">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+
+  <!-- feed -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/main.css">
+
+  
+
+  
+
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"onload="renderMathInElement(document.body);"></script>
+  
+
+
+  
+</head>
+
+<body>
+  
+
+<div class="l_cover post"><div class="cover"><div class="lazy img bg" data-bg="https://acgapi.shifeiti.com/api"></div></div></div>
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left' layout='post'>
+    
+
+
+<header class="header">
+
+<div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://fastly.jsdelivr.net/gh/cdn-x/placeholder@1.0.2/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="/images/avatar2.png" onerror="javascript:this.classList.add('error');this.src='https://fastly.jsdelivr.net/gh/cdn-x/placeholder@1.0.1/image/2659360.svg';"></a><a class="title" href="/"><div class="main">aJream</div><div class="sub cap">🔻依梦🔺</div></a></div>
+<nav class="menu dis-select"><a class="nav-item active" href="/">文章</a><a class="nav-item" href="/wiki/">专栏</a><a class="nav-item" href="/notes/">便笺</a><a class="nav-item" href="/about/">更多</a></nav></header>
+
+<div class="widgets">
+
+<div class="widget-wrap single" id="toc"><div class="widget-header cap dis-select"><span class="name">本文目录</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC2%E7%AB%A0"><span class="toc-text"> 第2章</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC3%E7%AB%A0"><span class="toc-text"> 第3章</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC4%E7%AB%A0"><span class="toc-text"> 第4章</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC5%E7%AB%A0"><span class="toc-text"> 第5章</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC6%E7%AB%A0"><span class="toc-text"> 第6章</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC7%E7%AB%A0"><span class="toc-text"> 第7章</span></a></li></ol></div></div></div>
+
+
+</div>
+<footer class="footer dis-select"><div class="social-wrap"><a class="social" href="https://github.com/ajream" target="_blank" rel="external nofollow noopener noreferrer"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://fastly.jsdelivr.net/gh/cdn-x/placeholder@1.0.3/social/08a41b181ce68.svg"/></a><a class="social" href="https://music.163.com/#/user/home?id=3962513076" target="_blank" rel="external nofollow noopener noreferrer"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://fastly.jsdelivr.net/gh/cdn-x/placeholder@1.0.3/social/3845874.svg"/></a><a class="social" href="/about/#comments" rel="noopener noreferrer"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://fastly.jsdelivr.net/gh/cdn-x/placeholder@1.0.3/social/942ebbf1a4b91.svg"/></a></div></footer>
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+
+<div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/%E8%AF%BE%E7%A8%8B%E8%80%83%E8%AF%95/">课程考试</a></div><div id="post-meta">发布于&nbsp;<time datetime="2021-12-06T13:11:32.000Z">2021-12-06</time></div></div>
+
+<article class='content md post'>
+<h1 class="article-title"><span>数字信号处理期末口试</span></h1>
+<h1 id="数字信号处理期末考试基本概念复习题"><a class="markdownIt-Anchor" href="#数字信号处理期末考试基本概念复习题"></a> 数字信号处理——期末考试基本概念复习题</h1>
+<h2 id="第2章"><a class="markdownIt-Anchor" href="#第2章"></a> 第2章</h2>
+<ol>
+<li>
+<p>模拟信号、离散时间信号和数字信号三者的特点是什么？</p>
+</li>
+<li>
+<p>数字信号和离散时间信号相同吗？</p>
+<details class="tag-plugin folding" color="green"><summary><span>查看答案</span></summary><div class="body"><p>模拟信号在时间和幅值上都连续</p><p>离散信号在时间上离散，幅值上连续（对连续信号采样得）</p><p>数字信号在时间、幅值上均离散（对连续信号采样、量化得）</p></div></details>
+</li>
+<li>
+<p>离散时间信号x(n)的n下标如何表示时间？</p>
+<blockquote>
+<p>n=nT</p>
+<p>由于T是固定的，不同x(nT)通过n即可区分，并且在DSP系统，x(nT)的存放是靠n来放置的，所以将T省略不写</p>
+</blockquote>
+</li>
+<li>
+<p>DSP系统中最常见的三种基本运算是哪几种？</p>
+<p>加法、数乘、移位</p>
+</li>
+<li>
+<p>DSP的延时操作是怎么实现的？</p>
+<details class="tag-plugin folding" color="green"><summary><span>查看答案</span></summary><div class="body"><p>通过右移位操作实现</p></div></details>
+</li>
+<li>
+<p>非时变系统的特点是什么？</p>
+<details class="tag-plugin folding" color="green"><summary><span>查看答案</span></summary><div class="body"><p>系统的输出只取决于输入，不随输入时间不同而发生改变</p></div></details>
+</li>
+<li>
+<p>系统一般因果性的概念是什么？</p>
+ <details class="tag-plugin folding" color="green"><summary><span>查看答案</span></summary><div class="body"><p>系统任意时刻的输出只取决于该时刻或该时刻之前的输入，而与该时刻之后的输入无关</p></div></details>
+<blockquote>
+<p>判断方法：h(n)=0, n&lt;0</p>
+<p>拓展：因果序列: x(n)=0, n&lt;0</p>
+</blockquote>
+</li>
+<li>
+<p>系统一般稳定性的概念是什么？</p>
+ <details class="tag-plugin folding" color="green"><summary><span>查看答案</span></summary><div class="body"><p>有界输入对应有界输出</p></div></details>
+<blockquote>
+<p>判断方式：单位取样响应 h(n) 绝对可和</p>
+</blockquote>
+</li>
+<li>
+<p>线性非时变系统（LTI或LSI）输入和输出的时域关系是什么？</p>
+<details class="tag-plugin folding" color="green"><summary><span>查看答案</span></summary><div class="body"><p>输出序列等于输入序列与系统单位取样响应的【卷积】</p></div></details>
+</li>
+<li>
+<p>LTI系统的单位冲激响应h(n)如何表述它的因果性和稳定性？</p>
+<details class="tag-plugin folding" color="green"><summary><span>查看答案</span></summary><div class="body"><p>因果性：h(n)=0, n&lt;0</p><p>稳定性：h(n)绝对可和</p></div></details>
+</li>
+<li>
+<p>非因果系统能实现吗？为什么？</p>
+<details class="tag-plugin folding" color="green"><summary><span>查看答案</span></summary><div class="body"><p>不能，系统输出与未来的输入有关，在现实中无法实现</p></div></details>
+</li>
+<li>
+<p>LTI系统卷积的物理意义是什么？</p>
+<details class="tag-plugin folding" color="green"><summary><span>查看答案</span></summary><div class="body"><p>LTI系统对输入的一种通用数学处理方法，可以反应系统的结构特性</p></div></details>
+</li>
+<li>
+<p>一个模拟低通带限信号进行采样时，理论上不失真的最低采样频率等于什么？</p>
+<p>采样频率fs &gt;= 2倍信号最高频率fm</p>
+</li>
+<li>
+<p>模拟信号被采样以后，频域怎样变化？</p>
+<details class="tag-plugin folding" color="green"><summary><span>查看答案</span></summary><div class="body"><p>频谱将<u>以采样频率为周期</u>进行<u>无限周期延拓</u></p></div></details>
+</li>
+<li>
+<p>实际中采样模拟信号用什么器件实现？它的输出是离散时间信号还是数字信号？</p>
+<p>AD转换器，数字信号</p>
+</li>
+<li>
+<p>一个模拟信号和它采样后序列的频率关系是什么？</p>
+<details class="tag-plugin folding" color="green"><summary><span>查看答案</span></summary><div class="body"><p>呈线性关系，数字频率=模拟频率x采样间隔，即 ω=ΩT</p></div></details>
+</li>
+<li>
+<p>DAC能实现数字信号到模拟信号的理想重构吗？为什么？</p>
+<details class="tag-plugin folding" color="green"><summary><span>查看答案</span></summary><div class="body"><p>不能，实际中的DAC是一个非理想的低通滤波器，恢复的模拟信号是近似的</p></div></details>
+</li>
+<li>
+<p>理论上离散时间信号重构模拟信号的最佳内插函数是哪一种函数？</p>
+<p>Sa函数，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>S</mi><mi>a</mi><mo stretchy="false">(</mo><mi>x</mi><mo stretchy="false">)</mo><mo>=</mo><mfrac><mrow><mi>s</mi><mi>i</mi><mi>n</mi><mi>x</mi></mrow><mi>x</mi></mfrac></mrow><annotation encoding="application/x-tex">Sa(x)=\frac{sinx}{x}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.05764em;">S</span><span class="mord mathnormal">a</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.200664em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.855664em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">x</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">s</span><span class="mord mathnormal mtight">i</span><span class="mord mathnormal mtight">n</span><span class="mord mathnormal mtight">x</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></p>
+</li>
+</ol>
+<h2 id="第3章"><a class="markdownIt-Anchor" href="#第3章"></a> 第3章</h2>
+<ol start="19">
+<li>
+<p>LTI系统对正弦序列的响应有什么特点？</p>
+<details class="tag-plugin folding" color="green"><summary><span>查看答案</span></summary><div class="body"><p>是<u>与输入序列同频率</u>的正弦序列（即系统不会改变输入序列的频率），但输出序列的幅度由幅频响应改变，输出序列的相位由相频响应改变</p></div></details>
+</li>
+<li>
+<p>LTI系统幅频响应的物理意义是什么？</p>
+<details class="tag-plugin folding" color="green"><summary><span>查看答案</span></summary><div class="body"><p>幅频响应刻画了系统对输入序列幅度的影响，即对幅度改变的倍数</p></div></details>    
+</li>
+<li>
+<p>LTI系统相频响应的物理意义是什么？</p>
+<details class="tag-plugin folding" color="green"><summary><span>查看答案</span></summary><div class="body"><p>刻画了系统对输入序列的相位影响，表示对相位的增加或减少</p></div></details>
+</li>
+<li>
+<p>序列傅里叶变换DTFT的定义式什么？</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>X</mi><mo stretchy="false">(</mo><msup><mi>e</mi><mrow><mi>j</mi><mi>ω</mi></mrow></msup><mo stretchy="false">)</mo><mo>=</mo><munderover><mo>∑</mo><mrow><mi>n</mi><mo>=</mo><mo>−</mo><mi mathvariant="normal">∞</mi></mrow><mrow><mo>+</mo><mi mathvariant="normal">∞</mi></mrow></munderover><mi>x</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><msup><mi>e</mi><mrow><mo>−</mo><mi>j</mi><mi>ω</mi><mi>n</mi></mrow></msup></mrow><annotation encoding="application/x-tex">X(e^{j\omega})=\sum_{n=-\infty}^{+\infty}x(n)e^{-j\omega n}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.124664em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.07847em;">X</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">e</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.874664em;"><span style="top:-3.1130000000000004em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span><span class="mord mathnormal mtight" style="margin-right:0.03588em;">ω</span></span></span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:3.0666720000000005em;vertical-align:-1.308336em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.7583360000000003em;"><span style="top:-1.8999949999999999em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span><span class="mrel mtight">=</span><span class="mord mtight">−</span><span class="mord mtight">∞</span></span></span></span><span style="top:-3.050005em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-4.300005em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">+</span><span class="mord mtight">∞</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.308336em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">x</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span><span class="mord"><span class="mord mathnormal">e</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.874664em;"><span style="top:-3.1130000000000004em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span><span class="mord mathnormal mtight" style="margin-right:0.03588em;">ω</span><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span></span></span></span></span></span></p>
+</li>
+<li>
+<p>序列傅里叶变换DTFT是信号的频谱，频谱的物理概念是什么？</p>
+<details class="tag-plugin folding" color="green"><summary><span>查看答案</span></summary><div class="body"><p>信号的<u>在各频率点上</u>的<u>能量分布</u>情况</p></div></details>
+</li>
+<li>
+<p>序列频谱（DTFT）是周期函数吗？周期等于多少？</p>
+<p>是， <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mn>2</mn><mi>π</mi></mrow><annotation encoding="application/x-tex">2\pi</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.03588em;">π</span></span></span></span></p>
+</li>
+<li>
+<p>DTFT频谱在一个周期<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>0</mn><mo separator="true">,</mo><mn>2</mn><mi>π</mi><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[0,2\pi]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.03588em;">π</span><span class="mclose">]</span></span></span></span>内的负频率范围是什么？</p>
+<p>[<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>π</mi><mo separator="true">,</mo><mtext> </mtext><mn>2</mn><mi>π</mi></mrow><annotation encoding="application/x-tex">\pi, ~ 2\pi</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8388800000000001em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.03588em;">π</span><span class="mpunct">,</span><span class="mspace nobreak"> </span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.03588em;">π</span></span></span></span>]</p>
+</li>
+<li>
+<p>为什么要对信号进行傅里叶变换？它比时域分析好在哪里？</p>
+<details class="tag-plugin folding" color="green"><summary><span>查看答案</span></summary><div class="body"><p>一是得到信号的频谱，物理意义更清楚，二是简化计算</p></div></details>
+</li>
+<li>
+<p>LTI系统的频域描述关系式是什么？</p>
+<details class="tag-plugin folding" color="green"><summary><span>查看答案</span></summary><div class="body"><p>相乘</p></div></details>
+</li>
+<li>
+<p>LTI系统的频率响应函数和单位冲激响应的关系是什么？</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><semantics><mrow><mi>H</mi><mo stretchy="false">(</mo><msup><mi>e</mi><mrow><mi>j</mi><mi>w</mi></mrow></msup><mo stretchy="false">)</mo><mo>=</mo><munderover><mo>∑</mo><mrow><mi>n</mi><mo>=</mo><mo>−</mo><mi mathvariant="normal">∞</mi></mrow><mrow><mo>+</mo><mi mathvariant="normal">∞</mi></mrow></munderover><mi>h</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><msup><mi>e</mi><mrow><mo>−</mo><mi>j</mi><mi>w</mi><mi>n</mi></mrow></msup></mrow><annotation encoding="application/x-tex">H(e^{jw})=\sum_{n=-\infty}^{+\infty}h(n)e^{-jwn}
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.124664em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.08125em;">H</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">e</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.874664em;"><span style="top:-3.1130000000000004em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span><span class="mord mathnormal mtight" style="margin-right:0.02691em;">w</span></span></span></span></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:3.0666720000000005em;vertical-align:-1.308336em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.7583360000000003em;"><span style="top:-1.8999949999999999em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span><span class="mrel mtight">=</span><span class="mord mtight">−</span><span class="mord mtight">∞</span></span></span></span><span style="top:-3.050005em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span><span style="top:-4.300005em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">+</span><span class="mord mtight">∞</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.308336em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">h</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span><span class="mord"><span class="mord mathnormal">e</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.874664em;"><span style="top:-3.1130000000000004em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span><span class="mord mathnormal mtight" style="margin-right:0.02691em;">w</span><span class="mord mathnormal mtight">n</span></span></span></span></span></span></span></span></span></span></span></span></span></p>
+</li>
+<li>
+<p>系统幅频响应的物理意义是什么？</p>
+<details class="tag-plugin folding" color="green"><summary><span>查看答案</span></summary><div class="body"><p>对不同频率正弦信号幅值大小的改变</p></div></details>
+</li>
+<li>
+<p>系统相频响应的物理意义是什么？</p>
+<details class="tag-plugin folding" color="green"><summary><span>查看答案</span></summary><div class="body"><p>对不同频率正弦信号初相位的改变</p></div></details>
+</li>
+<li>
+<p>一个序列的Z变换与DTFT的关系是什么？</p>
+<blockquote>
+<p>在Z平面单位圆上的Z变换即DTFT</p>
+</blockquote>
+</li>
+<li>
+<p>与傅里叶变换相比，Z变换的优点是什么？</p>
+<details class="tag-plugin folding" color="green"><summary><span>查看答案</span></summary><div class="body"><p>Z变换的【存在条件】比傅里叶变换更宽松，分析的区域得到扩大</p></div></details>
+</li>
+<li>
+<p>Z变换收敛域的概念是什么？</p>
+<details class="tag-plugin folding" color="green"><summary><span>查看答案</span></summary><div class="body"><p>对于任意给定的序列，使z变换收敛的【z值的集合】称为收敛域</p></div></details>
+</li>
+<li>
+<p>一个稳定因果系统的系统函数的收敛域有什么特点？</p>
+<p>包含单位圆</p>
+</li>
+<li>
+<p>一个因果有限长序列的z变换收敛域存在吗？有什么特点？</p>
+<details class="tag-plugin folding" color="green"><summary><span>查看答案</span></summary><div class="body"><p>存在，收敛域<u>不包含零点</u>，但<u>包含无穷远点</u>，即 0 &lt; z &lt;=<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi mathvariant="normal">∞</mi></mrow><annotation encoding="application/x-tex">∞</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord">∞</span></span></span></span></p></div></details>
+</li>
+<li>
+<p>系统函数H(z)和单位取样响应是什么关系？</p>
+<details class="tag-plugin folding" color="green"><summary><span>查看答案</span></summary><div class="body"><p>H(z)是单位取样响应的<u>Z变换</u>，即 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>H</mi><mo stretchy="false">(</mo><mi>z</mi><mo stretchy="false">)</mo><mo>=</mo><msubsup><mo>∑</mo><mrow><mi>n</mi><mo>=</mo><mo>−</mo><mi mathvariant="normal">∞</mi></mrow><mi mathvariant="normal">∞</mi></msubsup><mi>h</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><msup><mi>e</mi><mrow><mo>−</mo><mi>z</mi></mrow></msup></mrow><annotation encoding="application/x-tex">H(z)=\sum_{n=-\infty}^{\infty} h(n)e^{-z}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.08125em;">H</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.04398em;">z</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.162333em;vertical-align:-0.35804100000000005em;"></span><span class="mop"><span class="mop op-symbol small-op" style="position:relative;top:-0.0000050000000000050004em;">∑</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.804292em;"><span style="top:-2.40029em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">n</span><span class="mrel mtight">=</span><span class="mord mtight">−</span><span class="mord mtight">∞</span></span></span></span><span style="top:-3.2029em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">∞</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.35804100000000005em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathnormal">h</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span><span class="mord"><span class="mord mathnormal">e</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.771331em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mathnormal mtight" style="margin-right:0.04398em;">z</span></span></span></span></span></span></span></span></span></span></span></span></p></div></details>
+</li>
+<li>
+<p>系统函数H(z)和系统的频率响应函数的关系是什么？</p>
+<blockquote>
+<p>系统函数 H(z)在单位圆上的情况就是频率响应函数H(<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>e</mi><mrow><mi>j</mi><mi>ω</mi></mrow></msup></mrow><annotation encoding="application/x-tex">e^{j\omega}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.824664em;vertical-align:0em;"></span><span class="mord"><span class="mord mathnormal">e</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.824664em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span><span class="mord mathnormal mtight" style="margin-right:0.03588em;">ω</span></span></span></span></span></span></span></span></span></span></span></span>)</p>
+</blockquote>
+</li>
+<li>
+<p>系统函数的零点和极点对幅频响应的影响是什么？</p>
+<details class="tag-plugin folding" color="green"><summary><span>查看答案</span></summary><div class="body"><ul><li><p>极点位置影响幅频响应的【峰值位置】及【尖锐程度】，极点不能位于单位圆上；</p></li><li><p>零点位置影响幅频响应【谷点位置】及形状;</p></li><li><p>在原点处的零点和极点不影响系统的幅频特性，只影响【相频特性】</p></li></ul></div></details>
+</li>
+</ol>
+<p>​</p>
+<ol start="39">
+<li>
+<p>系统函数的极点是否可以在Z平面的单位圆上？为什么？</p>
+<blockquote>
+<p>不能，因为会使得系统不稳定</p>
+</blockquote>
+</li>
+<li>
+<p>什么是FIR系统？它的<u>系统函数</u>有什么特点？</p>
+<details class="tag-plugin folding" color="green"><summary><span>查看答案</span></summary><div class="body"><ul><li><p>h(n)为<u>有限长度序列</u>的系统称为有限冲激响应系统，即【FIR系统】</p></li><li><p><u>系统函数</u>只有零点，也称【全零点系统】</p></li></ul></div></details>
+<p>系统的输出只与输入有关，也叫【滑动平均（MA）系统】</p>
+</li>
+<li>
+<p>什么是IIR系统？它的系统函数有什么特点？</p>
+<details class="tag-plugin folding" color="green"><summary><span>查看答案</span></summary><div class="body"><ul><li>h(n)为<u>无限长序列</u>的系统称为无限冲激响应系统，即【IIR系统】</li><li><u>系统函数</u>是一个有理分式，既有零点又有极点，也称作【零极点系统】</li></ul></div></details>
+<p>系统的输出只与<u>当前的输入及过去的输出</u>有关，也叫【自回归(AR) 系统】</p>
+</li>
+<li>
+<p><strong>常系数差分方程表示系统的优点是什么？</strong></p>
+<details class="tag-plugin folding" color="green"><summary><span>查看答案</span></summary><div class="body"><p>外特性描述法，描述输入输出之间的关系，而无关系统内部状态的变量</p></div></details>
+</li>
+<li>
+<p><strong>系统的网络结构表示系统的意义是什么？</strong></p>
+<details class="tag-plugin folding" color="green"><summary><span>查看答案</span></summary><div class="body"><p>一种运算结构，反映系统具体的实现方式</p></div></details>
+</li>
+</ol>
+<h2 id="第4章"><a class="markdownIt-Anchor" href="#第4章"></a> 第4章</h2>
+<ol start="44">
+<li>
+<p>DFS适用于哪一类序列的频谱计算？</p>
+<p>周期性无限长序列</p>
+</li>
+<li>
+<p>DFT适用于哪一类序列的频谱计算？</p>
+<p>非周期性的有限长序列</p>
+</li>
+<li>
+<p>DFT和DTFT的表示的频域信息相同吗？它们有什么区别？</p>
+<blockquote>
+<p>基本相同，DFT相当于DTFT频域频谱的离散化表达，本质并无区别</p>
+</blockquote>
+</li>
+<li>
+<p>对一个序列进行DFT计算，序列的频谱DTFT如何变化？</p>
+<blockquote>
+<p>离散化</p>
+</blockquote>
+</li>
+<li>
+<p>工程实际中对序列进行频谱分析采用的是DTFT还是DFT？为什么？</p>
+<details class="tag-plugin folding" color="green"><summary><span>查看答案</span></summary><div class="body"><p>DFT，DFT变换后频域是离散化的，便于计算机计算和存储，并且DFT拥有快速算法FFT</p></div></details>
+</li>
+<li>
+<p>一个N点有限长序列的DTFT、DFT和Z变换都存在吗？它们的关系是什么？</p>
+<details class="tag-plugin folding" color="green"><summary><span>查看答案</span></summary><div class="body"><p>都存在</p><ul><li>N点DFT是在DTFT的区间<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo stretchy="false">[</mo><mn>0</mn><mo separator="true">,</mo><mn>2</mn><mi>π</mi><mo stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">[0,2\pi]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mopen">[</span><span class="mord">0</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">2</span><span class="mord mathnormal" style="margin-right:0.03588em;">π</span><span class="mclose">]</span></span></span></span>进行N点等间隔采样</li><li>是在Z变换的单位圆上进行N点等间隔采样</li></ul></div></details>
+</li>
+<li>
+<p>为什么DFT可以用在工程实际中？</p>
+<details class="tag-plugin folding" color="green"><summary><span>查看答案</span></summary><div class="body"><p>DFT变换后频域是离散化的，便于计算机计算和存储，并且DFT拥有快速算法FFT</p></div></details>
+</li>
+<li>
+<p>DFT比DTFT好在哪里？</p>
+<details class="tag-plugin folding" color="green"><summary><span>查看答案</span></summary><div class="body"><p>(正反变换的数学运算非常相似，硬件软件上实现都比较便捷；计算简便)</p></div></details>
+</li>
+</ol>
+<h2 id="第5章"><a class="markdownIt-Anchor" href="#第5章"></a> 第5章</h2>
+<ol start="52">
+<li>
+<p>FFT名称的含义是什么？它是一种新的傅里叶变换吗？</p>
+<p>快速傅里叶变换，是一种更方便快捷，计算次数更少的进行傅里叶变换的算法；</p>
+<p>不是新的傅里叶变换</p>
+</li>
+<li>
+<p>发明FFT算法的目的是什么？它有什么好处？</p>
+<details class="tag-plugin folding" color="green"><summary><span>查看答案</span></summary><div class="body"><p>简化傅里叶变换，提升运算速度，节约设备成本</p></div></details>
+</li>
+<li>
+<p>对一个N点序列，直接计算DFT的<u>复数乘</u>法计算量是多大？FFT的计算量是多大？</p>
+<details class="tag-plugin folding" color="green"><summary><span>查看答案</span></summary><div class="body"><p>DFT: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mi>N</mi><mn>2</mn></msup></mrow><annotation encoding="application/x-tex">N^2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></p><p>FFT: <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mi>N</mi><mn>2</mn></mfrac><mi>l</mi><mi>o</mi><msub><mi>g</mi><mn>2</mn></msub><mi>N</mi></mrow><annotation encoding="application/x-tex">\frac{N}{2}log_2 N</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.217331em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.872331em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.10903em;">N</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mord mathnormal" style="margin-right:0.01968em;">l</span><span class="mord mathnormal">o</span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">g</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span></span></span></span></p></div></details>
+</li>
+<li>
+<p>一个N点序列的N点FFT和DFT的结果相等吗？</p>
+<p>相等</p>
+</li>
+<li>
+<p>FFT算法可以减少计算量的最主要思路是什么？</p>
+<details class="tag-plugin folding" color="green"><summary><span>查看答案</span></summary><div class="body"><p>利用W因子的周期性、对称性和正交性等性质，同时将一个N点DFT的计算划分成 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>N</mi><mi mathvariant="normal">/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">N/2</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mord">/</span><span class="mord">2</span></span></span></span>个 2点序列</p></div></details>
+</li>
+<li>
+<p>按时间抽取基2-FFT算法的抽取规律是什么？</p>
+<blockquote>
+<p>将N点序列按时间下标的奇偶分为两个N/2点序列，每一个N/2点序列按照同样的划分原则，再次划分，以此类推最终将原序列划分为 <u>N/2 个 2 点序列</u></p>
+</blockquote>
+</li>
+</ol>
+<p>​</p>
+<ol start="58">
+<li>
+<p>FFT算法中码位倒置规律和同址运算概念是什么？</p>
+<details class="tag-plugin folding" color="green"><summary><span>查看答案</span></summary><div class="body"><ul><li>码位倒置：序列在进行FFT运算前，需要将序列重新排序，使之符合FFT要求，新序列是原序列二进制码位倒置顺序</li><li>同址运算：蝶形运算符的两个输入变量在运算后会产生两个输出变量，而在之后的运算中输入变量不再需要，因此可以两个输出变量存储在原输入变量的存储单元</li></ul></div></details>
+</li>
+</ol>
+<h2 id="第6章"><a class="markdownIt-Anchor" href="#第6章"></a> 第6章</h2>
+<ol start="59">
+<li>
+<p>数字滤波器分为哪两种类型？</p>
+<p>经典滤波器、现代滤波器</p>
+</li>
+<li>
+<p>数字滤波器的通带指标含义是什么？阻带指标含义是什么？</p>
+<ul>
+<li>通带指标：在通带内要求误差在正负<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>δ</mi><mi>p</mi></mrow><annotation encoding="application/x-tex">\delta p</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span><span class="mord mathnormal">p</span></span></span></span>内，系统幅频响应接近1</li>
+<li>阻带指标：在阻带内，要求误差不大于<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>δ</mi><mi>s</mi></mrow><annotation encoding="application/x-tex">\delta s</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.03785em;">δ</span><span class="mord mathnormal">s</span></span></span></span>，系统幅频响应接近0</li>
+</ul>
+</li>
+<li>
+<p>3分贝截止频率的概念是什么？</p>
+<details class="tag-plugin folding" color="green"><summary><span>查看答案</span></summary><div class="body"><p>使信号通过滤波器后幅度降低到原来的 <span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mfrac><mrow><mtext>√</mtext><mn>2</mn></mrow><mn>2</mn></mfrac></mrow><annotation encoding="application/x-tex">\frac{√2}{2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.355em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.01em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.45em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">√</span><span class="mord mtight">2</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span>时的频率，即<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ω</mi><mi>c</mi></msub></mrow><annotation encoding="application/x-tex">\omega_c</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">ω</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">c</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> ，此时<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>α</mi><mi>p</mi></msub><mo>=</mo><mn>3</mn><mi>d</mi><mi>B</mi></mrow><annotation encoding="application/x-tex">\alpha_p=3dB</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.716668em;vertical-align:-0.286108em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.0037em;">α</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.15139200000000003em;"><span style="top:-2.5500000000000003em;margin-left:-0.0037em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">p</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.286108em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord">3</span><span class="mord mathnormal">d</span><span class="mord mathnormal" style="margin-right:0.05017em;">B</span></span></span></span>，故称<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>ω</mi><mi>c</mi></msub></mrow><annotation encoding="application/x-tex">\omega_c</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.03588em;">ω</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.03588em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">c</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span>为3dB截止频率</p></div></details>
+</li>
+<li>
+<p>理想滤波器能实现吗？为什么？</p>
+<details class="tag-plugin folding" color="green"><summary><span>查看答案</span></summary><div class="body"><p>不能，因为滤波器的<u>单位冲激响应</u>是<u>非因果且无限长</u>的</p></div></details>
+</li>
+<li>
+<p>巴特沃斯滤波器的特点是什么？</p>
+<blockquote>
+<p>通带最平坦（通带内幅频响应曲线最大限度平坦，没有纹波，而在阻带内逐渐下降为0）</p>
+</blockquote>
+</li>
+<li>
+<p>通带最平坦滤波器是哪一种滤波器？</p>
+<p>巴特沃斯滤波器</p>
+</li>
+<li>
+<p>冲激响应不变设计法的缺点是什么？</p>
+<p>会产生频率混叠现象，适合低通、带通，不适合高通、带阻</p>
+</li>
+<li>
+<p>双线性变换设计法可以设计高通滤波器吗？为什么？</p>
+<details class="tag-plugin folding" color="green"><summary><span>查看答案</span></summary><div class="body"><p>可以，频域直接映射，频率一一对应，可设计各种功能的滤波器</p></div></details>
+</li>
+</ol>
+<h2 id="第7章"><a class="markdownIt-Anchor" href="#第7章"></a> 第7章</h2>
+<ol start="67">
+<li>
+<p>FIR滤波器实现第一类线性相位特性的条件是什么？它能实现吗？</p>
+<p>条件：<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>h</mi><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo><mo>=</mo><mi>h</mi><mo stretchy="false">(</mo><mi>N</mi><mo>−</mo><mn>1</mn><mo>−</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">h(n)=h(N-1-n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">h</span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">h</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right:0.10903em;">N</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.72777em;vertical-align:-0.08333em;"></span><span class="mord">1</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span></p>
+<p>因为h(n)是因果序列且有限长(绝对可和，即是稳定的)，可以实现</p>
+</li>
+<li>
+<p>系统具有线性相位特性处理信号的优点是什么？</p>
+<details class="tag-plugin folding" color="green"><summary><span>查看答案</span></summary><div class="body"><p>数字信号的包络不会失真</p></div></details>
+</li>
+<li>
+<p>FIR滤波器窗函数设计法的阻带指标由什么因素决定？</p>
+<details class="tag-plugin folding" color="green"><summary><span>查看答案</span></summary><div class="body"><p>主要是第一旁瓣（由窗函数频谱的主瓣和副瓣之比决定，而它们的相对值主要取决于窗函数的形状）</p></div></details>
+</li>
+<li>
+<p>吉布斯效应是什么？</p>
+<details class="tag-plugin folding" color="green"><summary><span>查看答案</span></summary><div class="body"><p>理想滤波器<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>H</mi><mi>d</mi></msub><mo stretchy="false">(</mo><msup><mi>e</mi><mrow><mi>j</mi><mi>ω</mi></mrow></msup><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">H_d(e^{j\omega})</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.0746639999999998em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right:0.08125em;">H</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:-0.08125em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">d</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">e</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.824664em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.05724em;">j</span><span class="mord mathnormal mtight" style="margin-right:0.03588em;">ω</span></span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span> 变换到时域<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msub><mi>h</mi><mi>d</mi></msub><mo stretchy="false">(</mo><mi>n</mi><mo stretchy="false">)</mo></mrow><annotation encoding="application/x-tex">h_d(n)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathnormal">h</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">d</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">(</span><span class="mord mathnormal">n</span><span class="mclose">)</span></span></span></span>后被截断，导致滤波器通带和阻带内出现波动，使阻带衰减性变差，引入过渡带等，也叫“截断效应”。</p></div></details>
+</li>
+<li>
+<p>窗函数设计法中，增加FIR滤波器长度N可以改进阻带和通带技术指标吗？为什么？</p>
+<details class="tag-plugin folding" color="green"><summary><span>查看答案</span></summary><div class="body"><p>不能，增加截取长度N只能减小过渡带宽度，不能减小主瓣与旁瓣相对值（由窗函数频谱的主瓣与副瓣比值决定）</p></div></details>
+</li>
+<li>
+<p>N点长度的线性相位FIR滤波器的处理时延等于多少？</p>
+<p><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>τ</mi><mo>=</mo><mfrac><mrow><mi>N</mi><mo>−</mo><mn>1</mn></mrow><mn>2</mn></mfrac></mrow><annotation encoding="application/x-tex">\tau=\frac{N-1}{2}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.43056em;vertical-align:0em;"></span><span class="mord mathnormal" style="margin-right:0.1132em;">τ</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1.217331em;vertical-align:-0.345em;"></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.872331em;"><span style="top:-2.6550000000000002em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span><span style="top:-3.23em;"><span class="pstrut" style="height:3em;"></span><span class="frac-line" style="border-bottom-width:0.04em;"></span></span><span style="top:-3.394em;"><span class="pstrut" style="height:3em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight" style="margin-right:0.10903em;">N</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.345em;"><span></span></span></span></span></span><span class="mclose nulldelimiter"></span></span></span></span></span></p>
+</li>
+<li>
+<p>FIR滤波器的<u>频率取样设计法</u>的特点是什么？</p>
+<details class="tag-plugin folding" color="green"><summary><span>查看答案</span></summary><div class="body"><p>直接从频率域进行设计，比较直观，适合于设计具有<u>任意幅度特性</u>的滤波器</p></div></details>
+</li>
+<li>
+<p>如何改进<u>频率取样</u>设计法的阻带技术指标？</p>
+<details class="tag-plugin folding" color="green"><summary><span>查看答案</span></summary><div class="body"><p>频域取样时，在通带和阻带交界处人为加若干过度点</p></div></details>
+</li>
+</ol>
+
+
+<div class="article-footer reveal fs14"><section id="license"><div class="header"><span>许可协议</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div></section></div>
+
+</article>
+
+<div class="related-wrap reveal" id="read-next"><section class="header cap theme"><span>接下来阅读</span></section><section class="body fs14"><div class="line"></div><a id="prev" href="/posts/f3a00df2/">利用傅里叶级数绘图<span class="note">较新</span></a></section></div>
+
+
+
+
+
+
+  <div class='related-wrap md reveal' id="comments">
+    <div class='cmt-title cap theme'>
+      快来参与讨论吧
+    </div>
+    <div class='cmt-body valine'>
+      
+
+<div id="valine_container" class="valine_thread"><svg class="loading" style="vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2709"><path d="M832 512c0-176-144-320-320-320V128c211.2 0 384 172.8 384 384h-64zM192 512c0 176 144 320 320 320v64C300.8 896 128 723.2 128 512h64z" p-id="2710"></path></svg></div>
+
+    </div>
+  </div>
+
+
+
+      
+<footer class="page-footer reveal fs12"><hr><div class="sitemap"><div class="sitemap-group"><span class="fs14">博客</span><a href="/">近期</a><a href="/categories/">分类</a><a href="/tags/">标签</a><a href="/archievs/">归档</a></div><div class="sitemap-group"><span class="fs14">专栏</span><a href="/wiki/">全部</a><a href="/wiki/tags/Java/">Java</a><a href="/wiki/tags/%E5%8D%95%E7%89%87%E6%9C%BA/">单片机</a></div><div class="sitemap-group"><span class="fs14">社交</span><a href="/friends/">友链</a><a href="/about/#comments">留言板</a></div><div class="sitemap-group"><span class="fs14">更多</span><a href="/about/">关于本站</a><a target="_blank" rel="noopener" href="https://github.com/ajream">GitHub</a></div></div><div class="text"><p>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+<p>本站由 <a href="https://ajream-n.netlify.app/">@aJream</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.9.0" title="v1.9.0">Stellar</a> 主题创建。</p>
+</div></footer>
+
+      <div class='float-panel mobile-only blur' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15301"><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 2.3 26.8 24.6 47.5 51.6 47.6h416.5v4z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15302"></path><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 1.9 27.7 23.9 49.7 51.6 51.6h416.5z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15303"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.9.0';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://fastly.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js',
+    sitesjs: '/js/plugins/sites.js',
+    friendsjs: '/js/plugins/friends.js',
+  };
+
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://fastly.jsdelivr.net/npm/vanilla-lazyload@17.3.1/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper@6/swiper-bundle.min.css","js":"https://unpkg.com/swiper@6/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://fastly.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://fastly.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://fastly.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.fancybox = Object.assign({"enable":true,"js":"https://fastly.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js","css":"https://fastly.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css","selector":".swiper-slide img"});
+  }
+  if ('false' == 'true') {
+    stellar.plugins.heti = Object.assign({"enable":false,"css":"https://unpkg.com/heti/umd/heti.min.css","js":"https://unpkg.com/heti/umd/heti-addon.min.js"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+  <script>
+  function getEmojiMaps() {
+    function emoji(path, idx, ext) {
+      return path + "/" + path + "-" + idx + "." + ext;
+    }
+    var emojiMaps = {};
+    for (var i = 1; i <= 54; i++) {
+      emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+    }
+    for (var i = 1; i <= 101; i++) {
+      emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+    }
+    for (var i = 1; i <= 116; i++) {
+      emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+    }
+    for (var i = 1; i <= 125; i++) {
+      emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+    }
+    for (var i = 1; i <= 4; i++) {
+      emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+    }
+    return emojiMaps;
+  }
+  function load_comment(){
+    if(!document.getElementById("valine_container"))return;
+    stellar.loadScript('https://fastly.jsdelivr.net/gh/XuxuGood/simple-blog-cdn@main/js/Valine.min.js', {defer:true}).then(function () {
+      const el = document.getElementById("valine_container");
+      var path = el.getAttribute('comment_id');
+      const placeholder = "";
+      if (!path) {
+        path = decodeURI(window.location.pathname);
+      }
+      var valine = new Valine();
+      valine.init(Object.assign({"js":"https://fastly.jsdelivr.net/gh/XuxuGood/simple-blog-cdn@main/js/Valine.min.js","appId":"pzbFTXqhpBeDgCeiSD4IU3Uo-gzGzoHsz","appKey":"8t6hlt5VaX21ITVWzzNRGAWe","placeholder":null,"requiredFields":["nick","mail"],"enableQQ":true,"recordIP":false,"avatar":"robohash","pageSize":10,"lang":"zh-cn","highlight":true,"mathJax":false,"tagMeta":["博主","小伙伴","访客"],"metaPlaceholder":{"nick":"昵称/QQ号(必填)","mail":"邮箱（必填，完全保密）","link":"网址(https://)"},"master":["6783037F2DF30EAB99F9FC256157D875"],"friends":["6783037F2DF30EAB99F9FC256157D875"]}, {
+        el: '#valine_container',
+        path: path,
+        placeholder: placeholder,
+        emojiCDN: 'https://fastly.jsdelivr.net/gh/volantis-x/cdn-emoji/valine/',
+        emojiMaps: getEmojiMaps(),
+      }));
+    });
+  }
+  window.addEventListener('DOMContentLoaded', (event) => {
+    console.log('DOM fully loaded and parsed');
+    load_comment();
+  });
+
+</script>
+
+
+
+
+<!-- inject -->
+
+
+  </div>
+</body>
+</html>

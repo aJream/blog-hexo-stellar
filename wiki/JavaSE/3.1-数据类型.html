@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+
+<head>
+  <meta name="generator" content="Hexo 5.4.2">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://fastly.jsdelivr.net'>
+  <link rel="preconnect" href="https://fastly.jsdelivr.net" crossorigin>
+  <link rel='dns-prefetch' href='//unpkg.com'>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" content="#f8f8f8">
+  <title>JavaSE：Java(3.1) 数据类型 - aJream</title>
+
+  
+    <meta name="description" content="数据类型  基本数据类型  整型 （4种）   byte (8位)，最高位表示正负，−27-2^7−27~27−12^7-127−1 byte a &#x3D; 15;   short(16位)，−215-2^{15}−215~215−12^{15}-1215−1 short a &#x3D; 567;   int(32位)，−231-2^{31}−231~231−12^{31}-1231−1，默认为int型  1">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Java(3.1) 数据类型">
+<meta property="og:url" content="https://ajream-n.netlify.app/wiki/JavaSE/3.1-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.html">
+<meta property="og:site_name" content="aJream">
+<meta property="og:description" content="数据类型  基本数据类型  整型 （4种）   byte (8位)，最高位表示正负，−27-2^7−27~27−12^7-127−1 byte a &#x3D; 15;   short(16位)，−215-2^{15}−215~215−12^{15}-1215−1 short a &#x3D; 567;   int(32位)，−231-2^{31}−231~231−12^{31}-1231−1，默认为int型  1">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-09-02T10:53:45.195Z">
+<meta property="article:modified_time" content="2022-09-02T10:53:45.195Z">
+<meta property="article:author" content="aJream">
+<meta name="twitter:card" content="summary">
+  
+  
+
+  <!-- feed -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/main.css">
+
+  
+
+  
+
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"onload="renderMathInElement(document.body);"></script>
+  
+
+
+  
+</head>
+
+<body>
+  
+
+
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left' layout='wiki'>
+    
+
+
+<header class="header">
+
+<div class="logo-wrap wiki"><a style="filter: grayscale(100%)" class="wiki-home cap" href="/"><svg aria-hidden="true" viewBox="0 0 16 16" width="1rem" height="1rem" fill="currentColor"><path fill-rule="evenodd" d="M7.78 12.53a.75.75 0 01-1.06 0L2.47 8.28a.75.75 0 010-1.06l4.25-4.25a.75.75 0 011.06 1.06L4.81 7h7.44a.75.75 0 010 1.5H4.81l2.97 2.97a.75.75 0 010 1.06z"></path></svg>所有专栏</a><a class="title" href="/wiki/JavaSE/1-%E7%B1%BB%E4%B8%8E%E5%AF%B9%E8%B1%A1.html"><div class="main">☕JavaSE学习笔记</div><div class="sub cap">Java基础</div></a></div>
+</header>
+
+<div class="widgets">
+
+<div class="widget-wrap multi" id="toc"><div class="widget-header cap dis-select"><span class="name">基础学习</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/1-%E7%B1%BB%E4%B8%8E%E5%AF%B9%E8%B1%A1.html"><span class="toc-text">Java(1) 类与对象</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/2.1-%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%B1%9E%E6%80%A7%E5%88%9D%E5%A7%8B%E5%8C%96.html"><span class="toc-text">Java(2.1) 类和对象的属性初始化</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/2.2-%E8%AE%BF%E9%97%AE%E4%BF%AE%E9%A5%B0%E7%AC%A6.html"><span class="toc-text">Java(2.2) 访问修饰符</span></a></div><div class="doc-tree active"><a class="doc-tree-link active" href="/wiki/JavaSE/3.1-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.html"><span class="toc-text">Java(3.1) 数据类型</span></a><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-text"> 基本数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B4%E5%9E%8B-4%E7%A7%8D"><span class="toc-text"> 整型 （4种）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E5%9E%8B-1%E7%A7%8D"><span class="toc-text"> 字符型 （1种）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B5%AE%E7%82%B9%E5%9E%8B-2%E7%A7%8D"><span class="toc-text"> 浮点型 （2种）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%83%E5%B0%94%E5%9E%8B1%E7%A7%8D"><span class="toc-text"> 布尔型（1种）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%95%E7%94%A8%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-text"> 引用数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B1%BB"><span class="toc-text"> 类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2string"><span class="toc-text"> 字符串(String)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E7%BB%84"><span class="toc-text"> 数组</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A3%B0%E6%98%8E%E6%95%B0%E7%BB%84%E4%B8%8D%E4%BC%9A%E5%88%9B%E5%BB%BA%E6%95%B0%E7%BB%84"><span class="toc-text"> 声明数组（不会创建数组）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E6%95%B0%E7%BB%84"><span class="toc-text"> 创建数组</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E6%95%B0%E7%BB%84"><span class="toc-text"> 初始化数组</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%BF%E9%97%AE%E6%95%B0%E7%BB%84"><span class="toc-text"> 访问数组</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E7%BB%84%E9%95%BF%E5%BA%A6"><span class="toc-text"> 数组长度</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BA%8C%E7%BB%B4%E6%95%B0%E7%BB%84"><span class="toc-text"> 二维数组</span></a></li></ol></li></ol></li></ol></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/3.2-%E6%95%B0%E7%BB%84.html"><span class="toc-text">Java(3.2) 数组</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/4-%E5%8F%98%E9%87%8F.html"><span class="toc-text">Java(4) 变量</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/5-%E6%93%8D%E4%BD%9C%E7%AC%A6.html"><span class="toc-text">Java(5) 操作符</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/6-%E8%BE%93%E5%85%A5%E8%AF%AD%E5%8F%A5.html"><span class="toc-text">Java(6) 输入语句</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/7-%E6%9D%A1%E4%BB%B6%E8%AF%AD%E5%8F%A5.html"><span class="toc-text">Java(7) 条件语句</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/8-%E5%BE%AA%E7%8E%AF%E8%AF%AD%E5%8F%A5.html"><span class="toc-text">Java(8) 循环语句</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/9-package%E5%8C%85.html"><span class="toc-text">Java(9) package包</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/10-%E8%A3%85%E7%AE%B1%E4%B8%8E%E6%8B%86%E7%AE%B1.html"><span class="toc-text">Java(10) 装箱与拆箱</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/11-%E6%95%B0%E5%AD%97%E4%B8%8E%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9B%B8%E4%BA%92%E8%BD%AC%E6%8D%A2.html"><span class="toc-text">Java(11) 数字与字符串相互转换</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/12-%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%93%8D%E4%BD%9C.html"><span class="toc-text">Java(12) 字符串操作</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/13-%E6%97%A5%E6%9C%9F.html"><span class="toc-text">Java(13) 日期与日历</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/14-%E6%8E%A5%E5%8F%A3%E4%B8%8E%E7%BB%A7%E6%89%BF.html"><span class="toc-text">Java(14) 接口与继承</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/15-%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86.html"><span class="toc-text">Java(15) 异常处理</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/16-%E6%96%87%E4%BB%B6IO.html"><span class="toc-text">Java(16) 文件IO</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/17-%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6.html"><span class="toc-text">Java(17) 集合框架</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/17-%E5%AE%B9%E5%99%A8.html"><span class="toc-text">Java(17) 容器</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/18-%E6%B3%9B%E5%9E%8B.html"><span class="toc-text">Java(18) 泛型</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/19-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%B3%BB%E5%88%97.html"><span class="toc-text">Java(19) 多线程系列</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/20-%E5%8F%8D%E5%B0%84%E6%9C%BA%E5%88%B6.html"><span class="toc-text">Java(20) 反射机制</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/21-%E6%B3%A8%E8%A7%A3.html"><span class="toc-text">Java(21) 注解</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/22-lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F.html"><span class="toc-text">Java(22) Lambda表达式</span></a></div></div><div class="widget-header cap dis-select"><span class="name">面试八股</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/java%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95.html"><span class="toc-text">java垃圾回收算法</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/java%E9%9D%A2%E8%AF%95%E9%A2%98.html"><span class="toc-text">Java面试基础题</span></a></div></div><div class="widget-header cap dis-select"><span class="name">GUI开发</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/awt.html"><span class="toc-text">AWT基本操作与使用</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/swing.html"><span class="toc-text">Swing基本操作与使用</span></a></div></div></div>
+
+
+
+<div class="widget-wrap" id="related"><div class="widget-header cap dis-select"><span class="name">更多Java</span></div><div class="widget-body fs14"><a class="more-item wiki" href="/wiki/ssm/spring/1-spring%E6%A1%86%E6%9E%B6%E4%BB%8B%E7%BB%8D.html">🚀SSM学习笔记<div class="excerpt">SSM框架是Spring MVC ，Spring和Mybatis框架的整合，是标准的MVC模式，将整个系统划分为View层，Controller层，Service层，DAO层四层，使用Spring MVC负责请求的转发和视图管理，Spring实现业务对象管理，Mybatis作为数据对象的持久化引擎。</div></a><a class="more-item wiki" href="/wiki/mysql/1-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%A4%E8%AF%86.html">🍬MySQL学习笔记<div class="excerpt">MySQL是一种关系型数据库管理系统，采用了双授权政策，分为社区版和商业版，由于其体积小、速度快、总体拥有成本低，尤其是开放源码这一特点，一般中小型和大型网站的开发都选择 MySQL 作为网站数据库。</div></a></div></div>
+</div>
+
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+  
+  
+<div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" id="home" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" id="menu" href="/wiki/">专栏</a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/wiki/JavaSE/1-%E7%B1%BB%E4%B8%8E%E5%AF%B9%E8%B1%A1.html">☕JavaSE学习笔记</a></div><div id="post-meta">更新于&nbsp;<time datetime="2022-09-02T10:53:45.195Z">2022-09-02</time></div></div>
+
+  <article class='content md wiki'>
+  <h1 class="article-title"><span>Java(3.1) 数据类型</span></h1>
+  <h1 id="数据类型"><a class="markdownIt-Anchor" href="#数据类型"></a> 数据类型</h1>
+<h2 id="基本数据类型"><a class="markdownIt-Anchor" href="#基本数据类型"></a> 基本数据类型</h2>
+<h3 id="整型-4种"><a class="markdownIt-Anchor" href="#整型-4种"></a> 整型 （4种）</h3>
+<ul>
+<li>
+<p>byte (8位)，最高位表示正负，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><msup><mn>2</mn><mn>7</mn></msup></mrow><annotation encoding="application/x-tex">-2^7</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="mord">−</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">7</span></span></span></span></span></span></span></span></span></span></span>~<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>7</mn></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2^7-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">7</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span></p>
+<p>byte a = 15;</p>
+</li>
+<li>
+<p>short(16位)，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><msup><mn>2</mn><mn>15</mn></msup></mrow><annotation encoding="application/x-tex">-2^{15}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="mord">−</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">5</span></span></span></span></span></span></span></span></span></span></span></span>~<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>15</mn></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2^{15}-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">1</span><span class="mord mtight">5</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span></p>
+<p>short a = 567;</p>
+</li>
+<li>
+<p>int(32位)，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><msup><mn>2</mn><mn>31</mn></msup></mrow><annotation encoding="application/x-tex">-2^{31}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="mord">−</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span></span></span></span>~<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>31</mn></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2^{31}-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">3</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span>，默认为int型</p>
+<ul>
+<li>10进制：int a = 123;</li>
+<li>16进制：int a = 0x4f;</li>
+<li>8进制：int a = 0123;</li>
+</ul>
+</li>
+<li>
+<p>long(64位)，<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>−</mo><msup><mn>2</mn><mn>63</mn></msup></mrow><annotation encoding="application/x-tex">-2^{63}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="mord">−</span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">6</span><span class="mord mtight">3</span></span></span></span></span></span></span></span></span></span></span></span>~<span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mn>2</mn><mn>63</mn></msup><mo>−</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">2^{63}-1</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">6</span><span class="mord mtight">3</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.64444em;vertical-align:0em;"></span><span class="mord">1</span></span></span></span></p>
+<p>long a = 678L;</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HelloWorld</span>&#123;</span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">      <span class="type">byte</span> <span class="variable">b</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line">      <span class="type">short</span> <span class="variable">s</span> <span class="operator">=</span> <span class="number">200</span>;</span><br><span class="line">      <span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">300</span>;</span><br><span class="line">      <span class="type">long</span> <span class="variable">l</span> <span class="operator">=</span> <span class="number">400</span>;</span><br><span class="line"> </span><br><span class="line">      <span class="comment">/*如果试图给byte类型的变量赋予超出其范围的值，就会产生编译错误*/</span></span><br><span class="line">      <span class="type">byte</span> <span class="variable">b2</span> <span class="operator">=</span> <span class="number">200</span>; <span class="comment">//报错</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HelloWorld</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="type">long</span> <span class="variable">val</span> <span class="operator">=</span> <span class="number">26L</span>; <span class="comment">//以L结尾的字面值表示long型</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">decVal</span> <span class="operator">=</span> <span class="number">26</span>; <span class="comment">//默认就是int型</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">hexVal</span> <span class="operator">=</span> <span class="number">0x1a</span>; <span class="comment">//16进制</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">oxVal</span> <span class="operator">=</span> <span class="number">032</span>; <span class="comment">//8进制</span></span><br><span class="line">        <span class="type">int</span> <span class="variable">binVal</span> <span class="operator">=</span> <span class="number">0b11010</span>; <span class="comment">//2进制</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="字符型-1种"><a class="markdownIt-Anchor" href="#字符型-1种"></a> 字符型 （1种）</h3>
+<ul>
+<li><code>char</code>类型用于存放一个字符，值用单引号 <code>''</code> 表示 (双引号表示字符串)；</li>
+<li>长度和short一样，也是16位的，<strong>只能存放一个字符</strong>，超过一个字符就会产生编译错误；</li>
+<li>中文字符与英文字母一样，都占用2个字节，即16位</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HelloWorld</span>&#123;</span><br><span class="line">    </span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">      <span class="type">char</span> <span class="variable">c</span> <span class="operator">=</span> <span class="string">&#x27;中&#x27;</span>;</span><br><span class="line">      <span class="type">char</span> <span class="variable">A</span> <span class="operator">=</span> <span class="number">65</span>;  </span><br><span class="line">      </span><br><span class="line">      <span class="comment">//char 只能存放一个字符，超过一个字符就会产生编译错误</span></span><br><span class="line">      <span class="type">char</span> <span class="variable">c2</span> <span class="operator">=</span> <span class="string">&#x27;中国&#x27;</span>; <span class="comment">//报错</span></span><br><span class="line">      <span class="type">char</span> <span class="variable">c3</span> <span class="operator">=</span> <span class="string">&#x27;ab&#x27;</span>; <span class="comment">//报错</span></span><br><span class="line"> </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>char与short区别：</p>
+<p>​	在java中，char和short都是两个字节的长度。但char表示的是16位无符号整数，表示的范围是0~65535。short表示的是16位有符号整数，范围为-32768～32767。char用来保存一个Unicode编码的字符。char和short之间类型转换需要强转。</p>
+</blockquote>
+<h3 id="浮点型-2种"><a class="markdownIt-Anchor" href="#浮点型-2种"></a> 浮点型 （2种）</h3>
+<ul>
+<li>float(32位)</li>
+<li>double(64位)，小数默认都是double类型，因此要声明float类型的数，要在末尾加一个字母<code>f</code></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HelloWorld</span>&#123;</span><br><span class="line">     </span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span>&#123;</span><br><span class="line">        </span><br><span class="line">      <span class="type">float</span> <span class="variable">f</span> <span class="operator">=</span> <span class="number">54.321</span>;<span class="comment">//报错,因为54.321是double型的</span></span><br><span class="line">      <span class="type">float</span> <span class="variable">f2</span> <span class="operator">=</span> <span class="number">54.321f</span>;</span><br><span class="line">      </span><br><span class="line">      <span class="type">double</span> <span class="variable">d1</span> <span class="operator">=</span> <span class="number">1.234</span>;</span><br><span class="line">      <span class="type">double</span> <span class="variable">d2</span> <span class="operator">=</span> <span class="number">1.2e3</span> <span class="comment">//即1.2*1000</span></span><br><span class="line">      </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="布尔型1种"><a class="markdownIt-Anchor" href="#布尔型1种"></a> 布尔型（1种）</h3>
+<ul>
+<li>boolen（1位）：用于表示真假，<code>true</code>或 <code>false</code>，注意不能用1或0来代替</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HelloWorld</span> &#123;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line"> </span><br><span class="line">        <span class="type">boolean</span> <span class="variable">b1</span> <span class="operator">=</span> <span class="literal">true</span>;</span><br><span class="line">        <span class="type">boolean</span> <span class="variable">b2</span> <span class="operator">=</span> <span class="literal">false</span>;</span><br><span class="line"> </span><br><span class="line">        <span class="comment">// 虽然布尔型真正存放的数据是0(false) 1(true)</span></span><br><span class="line">        <span class="comment">// 但是，不能直接使用0 1 进行赋值</span></span><br><span class="line">        <span class="type">boolean</span> <span class="variable">b3</span> <span class="operator">=</span> <span class="number">1</span>;</span><br><span class="line"> </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="引用数据类型"><a class="markdownIt-Anchor" href="#引用数据类型"></a> 引用数据类型</h2>
+<p>引用数据类型存储的是数据存放的地址</p>
+<h3 id="类"><a class="markdownIt-Anchor" href="#类"></a> 类</h3>
+<p>在Java中，可以创建一个类，再利用类来创建一个新的实例（对象），该实例的类型就是一种引用数据类型</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Date</span>&#123;</span><br><span class="line">    <span class="type">int</span> year;</span><br><span class="line">    <span class="type">int</span> month;</span><br><span class="line">    <span class="type">int</span> day;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Date</span> <span class="variable">d1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Date</span>() <span class="comment">//d1为引用数据类型</span></span><br></pre></td></tr></table></figure>
+<h3 id="字符串string"><a class="markdownIt-Anchor" href="#字符串string"></a> 字符串(String)</h3>
+<p>String将字符串当作一个整体来处理，不能修改串中的字符元素，可看作一个字符串常量。</p>
+<p>如<code>&quot;This is a string.\n&quot;</code>。注意使用双引号。</p>
+<ul>
+<li>定义一个String：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">s1</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">String</span>(<span class="string">&quot;123abc&quot;</span>);</span><br><span class="line"></span><br><span class="line">String s2;</span><br><span class="line">s2 = <span class="string">&quot;123abc&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">String</span> <span class="variable">s3</span> <span class="operator">=</span> <span class="string">&quot;123abc&quot;</span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>连接两个字符串用 <code>+</code></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">s1</span> <span class="operator">=</span> <span class="string">&quot;123&quot;</span>;</span><br><span class="line"><span class="type">String</span> <span class="variable">s2</span> <span class="operator">=</span> <span class="string">&quot;abc&quot;</span>;</span><br><span class="line">String s3;</span><br><span class="line">s3 = s1 + s2;</span><br></pre></td></tr></table></figure>
+<h3 id="数组"><a class="markdownIt-Anchor" href="#数组"></a> 数组</h3>
+<p>数组是一个<strong>固定长度</strong>的，包含了<strong>相同类型</strong>数据的 <strong>容器</strong></p>
+<ul>
+<li>
+<h4 id="声明数组不会创建数组"><a class="markdownIt-Anchor" href="#声明数组不会创建数组"></a> 声明数组（不会创建数组）</h4>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HelloWorld</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">// 声明一个数组</span></span><br><span class="line">        <span class="type">int</span>[] a;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">int[] a; 声明了一个数组变量。</span></span><br><span class="line"><span class="comment">[]表示该变量是一个数组</span></span><br><span class="line"><span class="comment">int 表示数组里的每一个元素都是一个整数</span></span><br><span class="line"><span class="comment">a 是变量名</span></span><br><span class="line"><span class="comment">但是，仅仅是这一句声明，不会创建数组</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>
+<h4 id="创建数组"><a class="markdownIt-Anchor" href="#创建数组"></a> 创建数组</h4>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//先声明再创建</span></span><br><span class="line"><span class="type">int</span>[] a;</span><br><span class="line">a = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">5</span>]</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//声明的同时，创建一个数组</span></span><br><span class="line"><span class="type">int</span>[] a = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">5</span>]; </span><br></pre></td></tr></table></figure>
+<p>数组名 <code>a</code>是一个引用</p>
+<ul>
+<li>
+<h4 id="初始化数组"><a class="markdownIt-Anchor" href="#初始化数组"></a> 初始化数组</h4>
+<p>如果数组的类型为int，未初始化时每个元素默认为0</p>
+<ul>
+<li>先声明，创建数组，再一个个元素进行赋值</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>[] a = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">5</span>]; <span class="comment">//声明和创建</span></span><br><span class="line">    </span><br><span class="line"><span class="comment">//没有赋值，那么就会使用默认值</span></span><br><span class="line"><span class="comment">//作为int类型的数组，默认值是0</span></span><br><span class="line">System.out.println(a[<span class="number">0</span>]);</span><br><span class="line">    </span><br><span class="line"><span class="comment">//进行赋值</span></span><br><span class="line"></span><br><span class="line">a[<span class="number">0</span>] = <span class="number">100</span>;</span><br><span class="line">a[<span class="number">1</span>] = <span class="number">101</span>;</span><br><span class="line">a[<span class="number">2</span>] = <span class="number">103</span>;</span><br><span class="line">a[<span class="number">3</span>] = <span class="number">120</span>;</span><br><span class="line">a[<span class="number">4</span>] = <span class="number">140</span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>声明、创建的同时初始化</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">HelloWorld</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="comment">//写法一： 分配空间同时赋值</span></span><br><span class="line">        <span class="type">int</span>[] a = <span class="keyword">new</span> <span class="title class_">int</span>[]&#123;<span class="number">100</span>,<span class="number">102</span>,<span class="number">444</span>,<span class="number">836</span>,<span class="number">3236</span>&#125;;</span><br><span class="line"> </span><br><span class="line">        <span class="comment">//写法二： 省略了new int[],效果一样</span></span><br><span class="line">        <span class="type">int</span>[] b = &#123;<span class="number">100</span>,<span class="number">102</span>,<span class="number">444</span>,<span class="number">836</span>,<span class="number">3236</span>&#125;;</span><br><span class="line">         </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意：初始化的同时不能指定数组长度：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>[] c = <span class="keyword">new</span> <span class="title class_">int</span>[<span class="number">5</span>]&#123;<span class="number">100</span>,<span class="number">102</span>,<span class="number">444</span>,<span class="number">836</span>,<span class="number">3236</span>&#125;;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<h4 id="访问数组"><a class="markdownIt-Anchor" href="#访问数组"></a> 访问数组</h4>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">a[<span class="number">0</span>]=<span class="number">1</span>;</span><br><span class="line">a[<span class="number">1</span>]=<span class="number">2</span>;</span><br><span class="line">a[<span class="number">2</span>]=<span class="number">3</span>;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>
+<h4 id="数组长度"><a class="markdownIt-Anchor" href="#数组长度"></a> 数组长度</h4>
+<p><code>.length</code>属性用于访问一个数组的长度</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">System.out.println(a.length)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>
+<h4 id="二维数组"><a class="markdownIt-Anchor" href="#二维数组"></a> 二维数组</h4>
+<p>下面声明、创建并初始化了一个二维数组</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span>[][] b = <span class="keyword">new</span> <span class="title class_">int</span>[][]&#123;</span><br><span class="line">   &#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;,</span><br><span class="line">   &#123;<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>&#125;,</span><br><span class="line">   &#123;<span class="number">7</span>,<span class="number">8</span>,<span class="number">9</span>&#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+  
+
+
+  </article>
+  
+<div class="related-wrap reveal" id="read-next"><section class="header cap theme"><span>接下来阅读</span></section><section class="body fs14"><a id="next" href="/wiki/JavaSE/3.2-%E6%95%B0%E7%BB%84.html">Java(3.2) 数组<span class="note">下一篇</span></a><div class="line"></div><a id="prev" href="/wiki/JavaSE/2.2-%E8%AE%BF%E9%97%AE%E4%BF%AE%E9%A5%B0%E7%AC%A6.html">Java(2.2) 访问修饰符<span class="note">上一篇</span></a></section></div>
+
+  
+
+  <div class='related-wrap md reveal' id="comments">
+    <div class='cmt-title cap theme'>
+      快来参与讨论吧
+    </div>
+    <div class='cmt-body valine'>
+      
+
+<div id="valine_container" class="valine_thread"><svg class="loading" style="vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2709"><path d="M832 512c0-176-144-320-320-320V128c211.2 0 384 172.8 384 384h-64zM192 512c0 176 144 320 320 320v64C300.8 896 128 723.2 128 512h64z" p-id="2710"></path></svg></div>
+
+    </div>
+  </div>
+
+
+
+
+      
+<footer class="page-footer reveal fs12"><hr><div class="sitemap"><div class="sitemap-group"><span class="fs14">博客</span><a href="/">近期</a><a href="/categories/">分类</a><a href="/tags/">标签</a><a href="/archievs/">归档</a></div><div class="sitemap-group"><span class="fs14">专栏</span><a href="/wiki/">全部</a><a href="/wiki/tags/Java/">Java</a><a href="/wiki/tags/%E5%8D%95%E7%89%87%E6%9C%BA/">单片机</a></div><div class="sitemap-group"><span class="fs14">社交</span><a href="/friends/">友链</a><a href="/about/#comments">留言板</a></div><div class="sitemap-group"><span class="fs14">更多</span><a href="/about/">关于本站</a><a target="_blank" rel="noopener" href="https://github.com/ajream">GitHub</a></div></div><div class="text"><p>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+<p>本站由 <a href="https://ajream-n.netlify.app/">@aJream</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.9.0" title="v1.9.0">Stellar</a> 主题创建。</p>
+</div></footer>
+
+      <div class='float-panel mobile-only blur' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15301"><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 2.3 26.8 24.6 47.5 51.6 47.6h416.5v4z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15302"></path><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 1.9 27.7 23.9 49.7 51.6 51.6h416.5z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15303"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.9.0';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://fastly.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js',
+    sitesjs: '/js/plugins/sites.js',
+    friendsjs: '/js/plugins/friends.js',
+  };
+
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://fastly.jsdelivr.net/npm/vanilla-lazyload@17.3.1/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper@6/swiper-bundle.min.css","js":"https://unpkg.com/swiper@6/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://fastly.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://fastly.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://fastly.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.fancybox = Object.assign({"enable":true,"js":"https://fastly.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js","css":"https://fastly.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css","selector":".swiper-slide img"});
+  }
+  if ('false' == 'true') {
+    stellar.plugins.heti = Object.assign({"enable":false,"css":"https://unpkg.com/heti/umd/heti.min.css","js":"https://unpkg.com/heti/umd/heti-addon.min.js"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+  <script>
+  function getEmojiMaps() {
+    function emoji(path, idx, ext) {
+      return path + "/" + path + "-" + idx + "." + ext;
+    }
+    var emojiMaps = {};
+    for (var i = 1; i <= 54; i++) {
+      emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+    }
+    for (var i = 1; i <= 101; i++) {
+      emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+    }
+    for (var i = 1; i <= 116; i++) {
+      emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+    }
+    for (var i = 1; i <= 125; i++) {
+      emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+    }
+    for (var i = 1; i <= 4; i++) {
+      emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+    }
+    return emojiMaps;
+  }
+  function load_comment(){
+    if(!document.getElementById("valine_container"))return;
+    stellar.loadScript('https://fastly.jsdelivr.net/gh/XuxuGood/simple-blog-cdn@main/js/Valine.min.js', {defer:true}).then(function () {
+      const el = document.getElementById("valine_container");
+      var path = el.getAttribute('comment_id');
+      const placeholder = "";
+      if (!path) {
+        path = decodeURI(window.location.pathname);
+      }
+      var valine = new Valine();
+      valine.init(Object.assign({"js":"https://fastly.jsdelivr.net/gh/XuxuGood/simple-blog-cdn@main/js/Valine.min.js","appId":"pzbFTXqhpBeDgCeiSD4IU3Uo-gzGzoHsz","appKey":"8t6hlt5VaX21ITVWzzNRGAWe","placeholder":null,"requiredFields":["nick","mail"],"enableQQ":true,"recordIP":false,"avatar":"robohash","pageSize":10,"lang":"zh-cn","highlight":true,"mathJax":false,"tagMeta":["博主","小伙伴","访客"],"metaPlaceholder":{"nick":"昵称/QQ号(必填)","mail":"邮箱（必填，完全保密）","link":"网址(https://)"},"master":["6783037F2DF30EAB99F9FC256157D875"],"friends":["6783037F2DF30EAB99F9FC256157D875"]}, {
+        el: '#valine_container',
+        path: path,
+        placeholder: placeholder,
+        emojiCDN: 'https://fastly.jsdelivr.net/gh/volantis-x/cdn-emoji/valine/',
+        emojiMaps: getEmojiMaps(),
+      }));
+    });
+  }
+  window.addEventListener('DOMContentLoaded', (event) => {
+    console.log('DOM fully loaded and parsed');
+    load_comment();
+  });
+
+</script>
+
+
+
+
+<!-- inject -->
+
+
+  </div>
+</body>
+</html>
