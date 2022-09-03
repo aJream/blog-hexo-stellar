@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+
+<head>
+  <meta name="generator" content="Hexo 5.4.2">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://fastly.jsdelivr.net'>
+  <link rel="preconnect" href="https://fastly.jsdelivr.net" crossorigin>
+  <link rel='dns-prefetch' href='//unpkg.com'>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" content="#f8f8f8">
+  <title>Notes：嵌入式软件开发方面知识 - aJream</title>
+
+  
+    <meta name="description" content="参考文章  C&#x2F;C++编程方面  关键字const含义 被const修饰的变量意味着是“只读”变量 123456789101112131415161718const int a1;int const a2;  &#x2F;&#x2F;这两个的作用是一样，a1，a2是一个常整型数。const int *a3; &#x2F;&#x2F;a3是一个指向常整型数的指针（也就是指针指向的内容不能改，但可以修改指向其它内容）int * const">
+<meta property="og:type" content="website">
+<meta property="og:title" content="嵌入式软件开发方面知识">
+<meta property="og:url" content="https://ajream-n.netlify.app/notes/%E9%9D%A2%E7%BB%8F/%E5%B5%8C%E5%85%A5%E5%BC%8F.html">
+<meta property="og:site_name" content="aJream">
+<meta property="og:description" content="参考文章  C&#x2F;C++编程方面  关键字const含义 被const修饰的变量意味着是“只读”变量 123456789101112131415161718const int a1;int const a2;  &#x2F;&#x2F;这两个的作用是一样，a1，a2是一个常整型数。const int *a3; &#x2F;&#x2F;a3是一个指向常整型数的指针（也就是指针指向的内容不能改，但可以修改指向其它内容）int * const">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/pictures/2022/08/26_21_47_12_20200727134828326.png">
+<meta property="article:published_time" content="2022-08-26T13:32:29.000Z">
+<meta property="article:modified_time" content="2022-08-26T15:10:13.000Z">
+<meta property="article:author" content="aJream">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitcode.net/ajream/myimages/-/raw/master/pictures/2022/08/26_21_47_12_20200727134828326.png">
+  
+  
+
+  <!-- feed -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/main.css">
+
+  
+
+  
+
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"onload="renderMathInElement(document.body);"></script>
+  
+
+
+  
+    
+      <script defer src="https://fastly.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+    
+      <link rel="stylesheet" href="https://npm.elemecdn.com/font-awesome/css/font-awesome.min.css"/ media="defer" onload="this.media='all'">
+    
+      <link rel="shortcut icon" href="/images/favicon.png">
+    
+      <link rel="stylesheet" type="text/css" href="/css/custom/return_top_bilibili.css" />
+    
+      <link rel="stylesheet" type="text/css" href="/css/custom/code_copy.css" />
+    
+      <link rel="stylesheet" type="text/css" href="/css/custom/code_unfold.css" />
+    
+  
+</head>
+
+<body>
+  
+
+
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left' layout='wiki'>
+    
+
+
+<header class="header">
+
+<div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://fastly.jsdelivr.net/gh/cdn-x/placeholder@1.0.2/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="/images/avatar2.png" onerror="javascript:this.classList.add('error');this.src='https://fastly.jsdelivr.net/gh/cdn-x/placeholder@1.0.1/image/2659360.svg';"></a><a class="title" href="/"><div class="main">aJream</div><div class="sub cap">🔻依梦🔺</div></a></div>
+</header>
+
+<div class="widgets">
+
+<div class="widget-wrap multi" id="toc"><div class="widget-header cap dis-select"><span class="name">win10问题解决</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/notes/win10/win10%E4%BB%BB%E5%8A%A1%E6%A0%8F%E9%80%8F%E6%98%8E.html"><span class="toc-text">win10任务栏透明 - win10</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/notes/win10/win10%E5%88%9B%E5%BB%BA%E7%B3%BB%E7%BB%9F%E8%BF%98%E5%8E%9F%E8%8A%82%E7%82%B9.html"><span class="toc-text">win10创建系统还原及如何还原</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/notes/win10/win10%E7%BD%91%E7%BB%9C%E8%BF%9E%E6%8E%A5%E9%97%AE%E9%A2%98.html"><span class="toc-text">WIN10突然无法上网(WiFi)的解决方法</span></a></div></div><div class="widget-header cap dis-select"><span class="name">面经</span></div><div class="widget-body fs14"><div class="doc-tree active"><a class="doc-tree-link active" href="/notes/%E9%9D%A2%E7%BB%8F/%E5%B5%8C%E5%85%A5%E5%BC%8F.html"><span class="toc-text">嵌入式软件开发方面知识</span></a><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#cc%E7%BC%96%E7%A8%8B%E6%96%B9%E9%9D%A2"><span class="toc-text"> C&#x2F;C++编程方面</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E5%AD%97const%E5%90%AB%E4%B9%89"><span class="toc-text"> 关键字const含义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#const%E5%8F%98%E9%87%8F%E4%B8%8E%E5%AE%8F%E5%AE%9A%E4%B9%89%E5%8C%BA%E5%88%AB"><span class="toc-text"> const变量与宏定义区别</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BC%96%E8%AF%91%E5%99%A8%E5%A4%84%E7%90%86%E4%B8%8D%E5%90%8C"><span class="toc-text"> 编译器处理不同</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E6%96%B9%E5%BC%8F%E4%B8%8D%E5%90%8C"><span class="toc-text"> 存储方式不同</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%AE%89%E5%85%A8%E6%A3%80%E6%9F%A5%E4%B8%8D%E5%90%8C"><span class="toc-text"> 类型和安全检查不同</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%B3%E9%94%AE%E5%AD%97static%E4%BD%9C%E7%94%A8"><span class="toc-text"> 关键字static作用</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%A8%E5%B1%80%E9%9D%99%E6%80%81%E5%8F%98%E9%87%8F"><span class="toc-text"> 全局静态变量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B1%80%E9%83%A8%E9%9D%99%E6%80%81%E5%8F%98%E9%87%8F"><span class="toc-text"> 局部静态变量</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%9D%99%E6%80%81%E5%87%BD%E6%95%B0"><span class="toc-text"> 静态函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B1%BB%E7%9A%84%E9%9D%99%E6%80%81%E6%88%90%E5%91%98"><span class="toc-text"> 类的静态成员</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%B1%BB%E7%9A%84%E9%9D%99%E6%80%81%E5%87%BD%E6%95%B0"><span class="toc-text"> 类的静态函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#c%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B"><span class="toc-text"> C++内存模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%95%E7%94%A8%E5%92%8C%E6%8C%87%E9%92%88%E6%9C%89%E4%BB%80%E4%B9%88%E5%8C%BA%E5%88%AB"><span class="toc-text"> 引用和指针有什么区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%B4%E6%96%87%E4%BB%B6%E4%B8%ADifndefdefineendif%E4%BD%9C%E7%94%A8"><span class="toc-text"> 头文件中ifndef&#x2F;define&#x2F;endif作用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E9%A2%84%E7%BC%96%E8%AF%91%E4%BD%95%E6%97%B6%E9%9C%80%E8%A6%81%E9%A2%84%E7%BC%96%E8%AF%91"><span class="toc-text"> 什么是预编译，何时需要预编译</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E5%AE%8F%E7%9A%84%E4%BC%98%E7%BC%BA%E7%82%B9"><span class="toc-text"> 使用宏的优缺点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E8%81%94%E5%87%BD%E6%95%B0%E4%B8%8E%E5%AE%8F%E5%8C%BA%E5%88%AB"><span class="toc-text"> 内联函数与宏区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%8F%E8%BF%B0%E5%AE%9E%E6%97%B6%E7%B3%BB%E7%BB%9F%E7%9A%84%E5%9F%BA%E6%9C%AC%E7%89%B9%E6%80%A7"><span class="toc-text"> 描述实时系统的基本特性</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F%E5%92%8C%E5%B1%80%E9%83%A8%E5%8F%98%E9%87%8F%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text"> 全局变量和局部变量的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F%E5%92%8C%E9%9D%99%E6%80%81%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text"> 全局变量和静态全局变量的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A0%86%E6%A0%88%E6%BA%A2%E5%87%BA%E4%B8%80%E8%88%AC%E5%8E%9F%E5%9B%A0"><span class="toc-text"> 堆栈溢出一般原因</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%8F%E8%BF%B0%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E6%96%B9%E5%BC%8F%E4%BB%A5%E5%8F%8A%E5%AE%83%E4%BB%AC%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text"> 描述内存分配方式以及它们的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#malloc%E5%92%8Cnew%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text"> malloc和new的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text"> 进程与线程的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E7%A7%8D%E5%9F%BA%E6%9C%AC%E7%9A%84%E6%95%B0%E6%8D%AE%E6%A8%A1%E5%9E%8B"><span class="toc-text"> 三种基本的数据模型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E7%BB%84%E4%B8%8E%E6%8C%87%E9%92%88%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text"> 数组与指针的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8C%87%E9%92%88%E6%95%B0%E7%BB%84%E4%B8%8E%E6%95%B0%E7%BB%84%E6%8C%87%E9%92%88"><span class="toc-text"> 指针数组与数组指针</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%8D%E6%93%8D%E4%BD%9C"><span class="toc-text"> 位操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BF%E9%97%AE%E5%9B%BA%E5%AE%9A%E5%86%85%E5%AD%98%E4%BD%8D%E7%BD%AE"><span class="toc-text"> 访问固定内存位置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sizeof%E4%B8%8Estrlen%E6%9C%89%E4%BB%A5%E4%B8%8B%E5%8C%BA%E5%88%AB"><span class="toc-text"> sizeof与strlen有以下区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%96%E8%AF%91%E6%97%B6%E4%B8%8E%E8%BF%90%E8%A1%8C%E6%97%B6"><span class="toc-text"> 编译时与运行时</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%93%88%E5%B8%8C%E5%87%BD%E6%95%B0%E4%B8%8E%E5%93%88%E5%B8%8C%E5%86%B2%E7%AA%81"><span class="toc-text"> 哈希函数与哈希冲突</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%A1%AC%E4%BB%B6%E6%96%B9%E9%9D%A2"><span class="toc-text"> 硬件方面</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%AD%E6%96%AD%E4%B8%8E%E5%BC%82%E5%B8%B8%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text"> 中断与异常的区别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#bootloader"><span class="toc-text"> BootLoader</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mcu%E5%90%AF%E5%8A%A8%E8%BF%87%E7%A8%8B"><span class="toc-text"> MCU启动过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#dma%E4%B8%BA%E4%BB%80%E4%B9%88%E8%83%BD%E6%8F%90%E9%AB%98%E6%95%88%E7%8E%87"><span class="toc-text"> DMA为什么能提高效率</span></a></li></ol></li></ol></div></div></div>
+</div>
+
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+  
+  
+<div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" id="home" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" id="menu" href="/wiki/">专栏</a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/notes/index.html">便笺</a></div><div id="post-meta">更新于&nbsp;<time datetime="2022-08-26T15:10:13.000Z">2022-08-26</time></div></div>
+
+  <article class='content md wiki'>
+  <h1 class="article-title"><span>嵌入式软件开发方面知识</span></h1>
+  <p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_43253519/article/details/107523751"><em>参考文章</em></a></p>
+<h2 id="cc编程方面"><a class="markdownIt-Anchor" href="#cc编程方面"></a> C/C++编程方面</h2>
+<h3 id="关键字const含义"><a class="markdownIt-Anchor" href="#关键字const含义"></a> 关键字const含义</h3>
+<p>被const修饰的变量意味着是“只读”变量</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">const</span> <span class="type">int</span> a1;</span><br><span class="line"><span class="type">int</span> <span class="type">const</span> a2;  </span><br><span class="line"><span class="comment">//这两个的作用是一样，a1，a2是一个常整型数。</span></span><br><span class="line"></span><br><span class="line"><span class="type">const</span> <span class="type">int</span> *a3; </span><br><span class="line"><span class="comment">//a3是一个指向常整型数的指针（也就是指针指向的内容不能改，但可以修改指向其它内容）</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> * <span class="type">const</span> a4; </span><br><span class="line"><span class="comment">//a4是一个指向整型数的常指针（也就是指针指向的内容可以修改，但不能修改指针指向其它变量）</span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="type">const</span> * a5 <span class="type">const</span>; </span><br><span class="line"><span class="comment">//a5是一个指向常数的常指针（说明内容和指针本身都不能修改）</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">可以这样来记忆：</span></span><br><span class="line"><span class="comment">const 离变量名近就是用来修饰指针变量的，离变量名远就是用来修饰指针指向的数据;</span></span><br><span class="line"><span class="comment">如果近的和远的都有，那么就同时修饰指针变量以及它指向的数据。</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>（1）const可以将一个对象变成一个常量，不可被修改，所以定义的时候必须进行初始化<br />
+（2）可以修饰函数的参数、返回值、甚至函数的定义体。被const修改时的东西受到强制保护，可以预防意外的变动，提高程序的健壮性。</p>
+</blockquote>
+<h3 id="const变量与宏定义区别"><a class="markdownIt-Anchor" href="#const变量与宏定义区别"></a> const变量与宏定义区别</h3>
+<h4 id="编译器处理不同"><a class="markdownIt-Anchor" href="#编译器处理不同"></a> 编译器处理不同</h4>
+<p>宏定义是一个“编译时”概念，在预处理阶段展开（在编译时把所有用到宏定义值的地方用宏定义常量替换），不能对宏定义进行调试，生命周期结束于编译时期；<br />
+const常量是一个“运行时”概念，在程序运行使用，类似于一个只读行数据</p>
+<h4 id="存储方式不同"><a class="markdownIt-Anchor" href="#存储方式不同"></a> 存储方式不同</h4>
+<p>宏定义是直接替换，不会分配内存，存储与程序的代码段中；<br />
+const常量需要进行内存分配</p>
+<h4 id="类型和安全检查不同"><a class="markdownIt-Anchor" href="#类型和安全检查不同"></a> 类型和安全检查不同</h4>
+<p>宏定义是字符替换，没有数据类型的区别，同时这种替换没有类型安全检查，可能产生边际效应等错误；<br />
+const常量是常量的声明，有类型区别，需要在编译阶段进行类型检查</p>
+<h3 id="关键字static作用"><a class="markdownIt-Anchor" href="#关键字static作用"></a> 关键字static作用</h3>
+<h4 id="全局静态变量"><a class="markdownIt-Anchor" href="#全局静态变量"></a> 全局静态变量</h4>
+<ul>
+<li>在全局变量前加上关键字static，全局变量就定义成一个全局静态变量.</li>
+<li>内存中的位置：【静态存储区】，在整个程序运行期间一直存在。</li>
+<li>初始化：未经初始化的全局静态变量会被自动初始化为0（自动对象的值是任意的，除非他被显式初始化）；</li>
+<li>作用域：全局静态变量在声明他的文件之外是不可见的，准确地说是从定义之处开始，到文件结尾。</li>
+</ul>
+<h4 id="局部静态变量"><a class="markdownIt-Anchor" href="#局部静态变量"></a> 局部静态变量</h4>
+<ul>
+<li>
+<p>在局部变量之前加上关键字static，局部变量就成为一个局部静态变量。</p>
+</li>
+<li>
+<p>内存中的位置：【静态存储区】</p>
+</li>
+<li>
+<p>初始化：未经初始化的全局静态变量会被自动初始化为0（自动对象的值是任意的，除非他被显式初始化）；</p>
+</li>
+<li>
+<p>作用域：作用域仍为局部作用域，当定义它的函数或者语句块结束的时候，作用域结束。但是当局部静态变量离开作用域后，并没有销毁，而是仍然驻留在内存当中，只不过我们<u>不能再对它进行访问</u>，直到该函数再次被调用，并且值不变；</p>
+</li>
+</ul>
+<h4 id="静态函数"><a class="markdownIt-Anchor" href="#静态函数"></a> 静态函数</h4>
+<ul>
+<li>在函数返回类型前加static，函数就定义为静态函数。函数的定义和声明在默认情况下都是extern的，但静态函数只是在声明他的文件当中可见，不能被其他文件所用。</li>
+<li>函数的实现使用static修饰，那么这个函数只可在本cpp内使用，不会同其他cpp中的同名函数引起冲突；</li>
+<li>warning：不要再头文件中声明static的全局函数，不要在cpp内声明非static的全局函数，如果你要在多个cpp中复用该函数，就把它的声明提到头文件里去，否则cpp内部声明需加上static修饰；</li>
+</ul>
+<h4 id="类的静态成员"><a class="markdownIt-Anchor" href="#类的静态成员"></a> 类的静态成员</h4>
+<p>在类中，静态成员可以实现多个对象之间的数据共享，并且使用静态数据成员还不会破坏隐藏的原则，即保证了安全性。</p>
+<p>因此，<u>静态成员是【类】的所有对象中共享的成员，而不是某个对象的成员</u>。对多个对象来说，静态数据成员只存储一处，供所有对象共用。</p>
+<h4 id="类的静态函数"><a class="markdownIt-Anchor" href="#类的静态函数"></a> 类的静态函数</h4>
+<p>静态成员函数和静态数据成员一样，<u>它们都【属于类】的静态成员，而不属于某个对象</u>。因此，对静态成员的引用不需要用对象名。<br />
+在静态成员函数的实现中不能直接引用类中说明的非静态成员，可以引用类中说明的静态成员（这点非常重要）。如果静态成员函数中要引用非静态成员时，可通过对象来引用。从中可看出，调用静态成员函数使用如下格式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;类名&gt;::&lt;静态成员函数名&gt;(&lt;参数表&gt;);</span><br></pre></td></tr></table></figure>
+<h3 id="c内存模型"><a class="markdownIt-Anchor" href="#c内存模型"></a> C++内存模型</h3>
+<p>C++内存主要分为5个区：</p>
+<ol>
+<li>
+<p>堆heap</p>
+<p>编译器不用去管，可以使用new和malloc来申请内存，但必须在不使用的时候使用delete和free释放掉。</p>
+</li>
+<li>
+<p>栈stack</p>
+<p>栈中存放着局部变量，函数参数，局部常量。（由编译器自动分配释放）</p>
+</li>
+<li>
+<p>静态存储区（bss段）</p>
+<p>存放全局变量、（全局、局部）静态变量、虚函数</p>
+</li>
+<li>
+<p>常量存储区（data段）</p>
+<p>存放常量：全局常量，函数指针，常量数组</p>
+</li>
+<li>
+<p>代码区（text段）</p>
+<p>存放代码内容</p>
+</li>
+</ol>
+<h3 id="引用和指针有什么区别"><a class="markdownIt-Anchor" href="#引用和指针有什么区别"></a> 引用和指针有什么区别</h3>
+<ol>
+<li>引用必须被初始化，指针不必。</li>
+<li>引用初始化以后不能被改变，指针可以改变所指的对象。</li>
+<li>不存在指向空值的引用，但是存在指向空值的指针。</li>
+</ol>
+<h3 id="头文件中ifndefdefineendif作用"><a class="markdownIt-Anchor" href="#头文件中ifndefdefineendif作用"></a> 头文件中ifndef/define/endif作用</h3>
+<p>防止该头文件被重复引用。</p>
+<h3 id="什么是预编译何时需要预编译"><a class="markdownIt-Anchor" href="#什么是预编译何时需要预编译"></a> 什么是预编译，何时需要预编译</h3>
+<p>预编译又称为<strong>预处理</strong>,是做些<strong>代码文本的替换工作</strong>。主要处理<code>#</code>开始的预编译指令，预编译指令指示了在程序<u>正式编译前</u>就由编译器进行的操作，可以放在程序中的任何位置。</p>
+<h3 id="使用宏的优缺点"><a class="markdownIt-Anchor" href="#使用宏的优缺点"></a> 使用宏的优缺点</h3>
+<p><strong>优点</strong></p>
+<p>因为函数的调用必须要将程序执行的顺序转移到函数所存放在内存中的某个地址，将函数的内容执行完后再返回到转去执行该函数前的地方。这种转移操作要求在转去执行前要保存现场并记忆执行的地址，转回后要恢复现场，并按原来保存地址继续执行。因此函数调用要有一定的时间和空间方面的开销，于是将影响其效率。</p>
+<p>而宏只是在预处理的地方将代码简单替换，不需要跳入跳出函数，也就不需要额外的空间和时间方面的开销，所以调用一个宏比调用一个函数更有效率。</p>
+<p><strong>缺点</strong></p>
+<ul>
+<li>宏常量：在预处理阶段进行替换，不会进行类型检测，安全性低（如果写错因为在预处理阶段不会在文件定义宏处报错，而会在使用处报错，因此建议使用const代替）</li>
+<li>宏函数：
+<ol>
+<li>在预处理阶段被替换，不会进行类型检测，代码安全性低</li>
+<li>每个使用部分都会展开----&gt;造成代码膨胀</li>
+<li>容易出错，每个部分需要加括号</li>
+</ol>
+</li>
+</ul>
+<h3 id="内联函数与宏区别"><a class="markdownIt-Anchor" href="#内联函数与宏区别"></a> 内联函数与宏区别</h3>
+<p>宏是由<strong>预处理器对宏进行替换</strong>的，而<strong>内联函数是通过编译器控制实现</strong>的。</p>
+<p>而且内联函数是真正的函数，只是在需要用到的时候内联函数像宏一样的展开，所以取消了函数的参数入栈，减少了调用的开销。所以可以像调用函数一样来调用内联函数，而不必担心会产生像宏出现的问题</p>
+<h3 id="描述实时系统的基本特性"><a class="markdownIt-Anchor" href="#描述实时系统的基本特性"></a> 描述实时系统的基本特性</h3>
+<p>在特定时间内完成特定的任务，实时性与可靠性。</p>
+<h3 id="全局变量和局部变量的区别"><a class="markdownIt-Anchor" href="#全局变量和局部变量的区别"></a> 全局变量和局部变量的区别</h3>
+<ol>
+<li>存储位置：全局变量储存在静态存储区，局部变量在堆栈中。</li>
+<li>作用域：全局变量的生命周期是整个函数区间，局部变量的生命周期是声明该变量的函数区间。</li>
+</ol>
+<h3 id="全局变量和静态全局变量的区别"><a class="markdownIt-Anchor" href="#全局变量和静态全局变量的区别"></a> 全局变量和静态全局变量的区别</h3>
+<ol>
+<li>全局变量和静态全局变量都存储在静态数据区</li>
+<li>全局变量的作用域是整个代码文件，静态全局变量的作用域是<strong>声明该变量的模块</strong></li>
+<li>static全局变量只初使化一次</li>
+</ol>
+<h3 id="堆栈溢出一般原因"><a class="markdownIt-Anchor" href="#堆栈溢出一般原因"></a> 堆栈溢出一般原因</h3>
+<ol>
+<li>没有回收垃圾资源</li>
+<li>层次太深的递归调用</li>
+</ol>
+<h3 id="描述内存分配方式以及它们的区别"><a class="markdownIt-Anchor" href="#描述内存分配方式以及它们的区别"></a> 描述内存分配方式以及它们的区别</h3>
+<ol>
+<li>从静态存储区域分配。内存在程序编译的时候就已经分配好，这块内存在程序的整个运行期间都存在。例如全局变量，static 变量。</li>
+<li>在栈上创建。在执行函数时，系统为函数参数、局部变量在【栈】等分配存储单元，函数执行结束时这些存储单元自动被释放。栈内存分配运算内置于处理器的指令集。</li>
+<li>从堆上分配，亦称动态内存分配。程序在运行的时候用malloc或new申请任意多少的内存，程序员自己负责在何时用free 或delete 释放内存。动态内存的生存期由程序员决定，使用非常灵活，但问题也最多</li>
+</ol>
+<h3 id="malloc和new的区别"><a class="markdownIt-Anchor" href="#malloc和new的区别"></a> malloc和new的区别</h3>
+<p>new/delete是C++关键字，需要编译器支持。</p>
+<p>malloc/free是库函数，需要头文件支持。</p>
+<h3 id="进程与线程的区别"><a class="markdownIt-Anchor" href="#进程与线程的区别"></a> 进程与线程的区别</h3>
+<ul>
+<li>
+<p><strong>进程</strong>：一个在内存中运行的应用程序。每个进程都有自己独立的一块内存空间，一个进程可以有多个线程，比如在Windows系统中，一个运行的xx.exe就是一个进程。进程是拥有资源的基本单位，线程是调度和分配的基本单位线程和进程都可以并发执行。</p>
+</li>
+<li>
+<p><strong>线程</strong>：线程是进程中的一个执行任务（控制单元），负责当前进程中程序的执行。一个进程至少有一个线程，一个进程可以运行多个线程，多个线程可共享数据。</p>
+<p>与进程不同的是同类的<u>多个线程共享进程的堆和方法区资源</u>，但每个线程有自己的程序计数器、虚拟机栈和本地方法栈，所以系统在产生一个线程，或是在各个线程之间作切换工作时，负担要比进程小得多，也正因为如此，线程也被称为轻量级进程。</p>
+</li>
+</ul>
+<blockquote>
+<p>多进程和多线程的区别</p>
+<p>多进程：操作系统中同时运行的多个程序</p>
+<p>多线程：在同一个进程中同时运行的多个任务</p>
+<blockquote>
+<p>多线程并不能提高运行速度，但可以提高运行效率，让CPU的使用率更高。但是如果多线程有安全问题或出现频繁的上下文切换时，运算速度可能反而更低。</p>
+</blockquote>
+</blockquote>
+<h3 id="三种基本的数据模型"><a class="markdownIt-Anchor" href="#三种基本的数据模型"></a> 三种基本的数据模型</h3>
+<p>按照数据结构类型的不同，将数据模型划分为<strong>层次模型</strong>、<strong>网状模型</strong>和<strong>关系模型</strong>。</p>
+<h3 id="数组与指针的区别"><a class="markdownIt-Anchor" href="#数组与指针的区别"></a> 数组与指针的区别</h3>
+<p>数组要么在静态存储区被创建（如全局数组），要么在栈上被创建。</p>
+<p>指针可以随时指向任意类型的内存块。</p>
+<blockquote>
+<p>用运算符sizeof可以计算出数组的容量（字节数）。但不能得到指针所指向内存块的大小。</p>
+<p>sizeof(指针)得到的是一个指针变量的字节数，而不是所指的内存容量。</p>
+<p>C/C++没有办法知道指针所指的内存容量，除非在<u>申请内存时记住它</u>。</p>
+<blockquote>
+<p>注意当数组作为函数的参数进行传递时，该数组自动退化为同类型的指针</p>
+</blockquote>
+</blockquote>
+<h3 id="指针数组与数组指针"><a class="markdownIt-Anchor" href="#指针数组与数组指针"></a> 指针数组与数组指针</h3>
+<p>指针数组：本质上是一个数组，其中每个元素都是一个指针</p>
+<p>数组指针：一个指向数组的指针</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> *a[<span class="number">10</span>];  <span class="comment">//指针数组，a是一个数组，a[0]是一个指针</span></span><br><span class="line"><span class="type">int</span> (*a)[<span class="number">10</span>]  <span class="comment">// 数组指针，a指向一个数组</span></span><br></pre></td></tr></table></figure>
+<h3 id="位操作"><a class="markdownIt-Anchor" href="#位操作"></a> 位操作</h3>
+<p>对第3位进行操作：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">define</span> BIT3 (0x1 &lt;&lt; 3)</span></span><br><span class="line"><span class="type">static</span> <span class="type">int</span> a;</span><br><span class="line"><span class="type">void</span> <span class="title function_">set_bit3</span><span class="params">(<span class="type">void</span>)</span> &#123;</span><br><span class="line">	a |= BIT3;</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">void</span> <span class="title function_">clear_bit3</span><span class="params">(<span class="type">void</span>)</span> &#123;</span><br><span class="line">	a &amp;= ~BIT3;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="访问固定内存位置"><a class="markdownIt-Anchor" href="#访问固定内存位置"></a> 访问固定内存位置</h3>
+<p>为了访问一绝对地址，把一个整型数强制转换为一指针是合法的</p>
+<p>某工程中，要求将绝对地址为0x67a9的整型变量的值设置为0xaa66</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> *ptr;</span><br><span class="line">ptr = (<span class="type">int</span> *)<span class="number">0x67a9</span>;<span class="comment">//先让指针指向该地址</span></span><br><span class="line">*ptr = <span class="number">0xaa66</span>;      <span class="comment">//再把指针解引用</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//一个较晦涩的方法是：</span></span><br><span class="line">*(<span class="type">int</span> * <span class="type">const</span>)(<span class="number">0x67a9</span>) = <span class="number">0xaa55</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h3 id="sizeof与strlen有以下区别"><a class="markdownIt-Anchor" href="#sizeof与strlen有以下区别"></a> sizeof与strlen有以下区别</h3>
+<ol>
+<li>sizeof是一个操作符，而strlen是库函数。</li>
+<li>sizeof的参数可以是数据的类型，也可以是变量，而strlen只能以结尾为’\0’的字符串作参数。</li>
+<li>编译器在<u>编译时</u>就计算出了sizeof的结果，而strlen必须在<u>运行时</u>才能计算出来。</li>
+<li>sizeof计算数据类型占内存的大小，strlen计算字符串实际长度。</li>
+</ol>
+<h3 id="编译时与运行时"><a class="markdownIt-Anchor" href="#编译时与运行时"></a> 编译时与运行时</h3>
+<p>编译时：编译器将代码翻译为机器（Java语言是jvm）能识别的代码的过程</p>
+<p>编译时做的就是一些简单的翻译工作，比如检查老兄你有没有粗心写错啥关键字了啊，有啥词法分析，语法分析之类的过程；就像个老师检查学生的作文中有没有错别字和病句一样，如果发现啥错误编译器就告诉你。</p>
+<p><strong>运行时</strong></p>
+<p>所谓运行时就是代码跑起来了，被装载到内存中去了(你的代码保存在磁盘上没装入内存之前是个死家伙，只有跑到内存中才变成活的)。而运行时类型检查就与前面讲的编译时类型检查(或者静态类型检查)不一样。不是简单的扫描代码，而是在内存中做些操作，做些判断。</p>
+<blockquote>
+<p>比如你做了一个&quot;除以0&quot;的操作，这个在编译过程检查不出来，但在运行过程就出错了，这时产生的就是运行时错误，类似的还有数组越界错误等</p>
+</blockquote>
+<h3 id="哈希函数与哈希冲突"><a class="markdownIt-Anchor" href="#哈希函数与哈希冲突"></a> 哈希函数与哈希冲突</h3>
+<p>哈希函数：也叫散列函数，一个把查找表中的关键字映射成该关键字对应地址的函数，记为 <code>addr=Hash(key)</code></p>
+<p>哈希冲突：哈希函数可能会把不同的关键字映射到同一地址上，这会造成哈希冲突，即<code>Hash(key1)=Hash(key2)</code>就会造成哈希冲突</p>
+<blockquote>
+<p>哈希冲突解决办法：</p>
+<ul>
+<li>
+<p>可以把产生冲突的关键字存储在一个线性【链表】中</p>
+</li>
+<li>
+<p>除留余数法（假设散列表长度设置为m）</p>
+<p>选择哈希函数为：<code>Hash(k)=k%p (p&lt;=m且为最接近m的质数)</code></p>
+</li>
+<li>
+<p>数字分析法</p>
+</li>
+<li>
+<p>平方取中法：取关键字平方值的中间几位作为哈希地址。</p>
+</li>
+</ul>
+</blockquote>
+<h2 id="硬件方面"><a class="markdownIt-Anchor" href="#硬件方面"></a> 硬件方面</h2>
+<h3 id="中断与异常的区别"><a class="markdownIt-Anchor" href="#中断与异常的区别"></a> 中断与异常的区别</h3>
+<p>中断是指 CPU 对系统发生某事件时的这样一种响应:</p>
+<p>CPU 暂停正在执行的程序，在<u>保留现场</u>后自动地转去执行该事件的中断处理程序；执行完后，再返回到原程序的断点处继续执行。</p>
+<p>还可进一步把中断分为外部中断和内部中断：</p>
+<ul>
+<li>外部中断：由于外部设备事件所引起的中断，如通常的按键中断、磁盘中断、打印机中断等；</li>
+<li>内部中断：由于 CPU 内部事件所引起的中断，如程序出错(非法指令、地址越界、数据溢出)。</li>
+</ul>
+<p>【异常】是由于执行了<u>现行指令</u>所引起的。由于系统调用引起的中断属于异常。</p>
+<p>中断则是由于系统中某事件引起的，该事件与现行指令无关。</p>
+<h3 id="bootloader"><a class="markdownIt-Anchor" href="#bootloader"></a> BootLoader</h3>
+<p>什么是bootloader？</p>
+<ul>
+<li>
+<p>定义一：初始化开发板上主要硬件（时钟，内存，硬盘），把操作系统从硬盘拷贝到内存，然后让CPU跳到内存中执行操作系统。</p>
+</li>
+<li>
+<p>定义二：芯片上电后运行的一段裸机程序，功能是：初始化DDR（内存控制寄存器）等外设，然后将linux内核从flash（SD卡、NAND、EMMC）拷贝到DDR中，最后启动linux内核。</p>
+</li>
+<li>
+<p>BootLoader和linux系统的关系就如同一BIOS和Windows的关系</p>
+</li>
+</ul>
+<h3 id="mcu启动过程"><a class="markdownIt-Anchor" href="#mcu启动过程"></a> MCU启动过程</h3>
+<p>一个工程代码总是以main函数作为入口，芯片上电时完成软硬件初始化工作，为执行main函数作准备<br />
+MCU复位时，完成以下工作：（见下图）</p>
+<ol>
+<li>从中断向量表的第一项（0x00000000）中取出MSP值（main stack pointer）；</li>
+<li>从复位向量（0x00000004）中取出Reset_Handler函数地址；</li>
+<li>跳转到Reset_Handler位置并执行；在Reset_Handler函数中，MCU执行软硬件初始化，包括Flash和RAM位置、时钟和PLL（锁相环）、静态和全局变量等。</li>
+</ol>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/pictures/2022/08/26_21_47_12_20200727134828326.png" alt="在这里插入图片描述" /></p>
+<h3 id="dma为什么能提高效率"><a class="markdownIt-Anchor" href="#dma为什么能提高效率"></a> DMA为什么能提高效率</h3>
+<p>DMA(Direct Memory Access，直接存储器访问)。传输方式无需CPU直接控制传输，也没有中断处理方式那样保留现场和回复现场的过程，通过硬件为<u>RAM与I/O设备开辟一条【直接传送】数据的通路</u>，能使得CPU效率大大提高。</p>
+
+  
+
+
+  </article>
+  
+<br>
+
+  
+
+  <div class='related-wrap md reveal' id="comments">
+    <div class='cmt-title cap theme'>
+      快来参与讨论吧
+    </div>
+    <div class='cmt-body valine'>
+      
+
+<div id="valine_container" class="valine_thread"><svg class="loading" style="vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2709"><path d="M832 512c0-176-144-320-320-320V128c211.2 0 384 172.8 384 384h-64zM192 512c0 176 144 320 320 320v64C300.8 896 128 723.2 128 512h64z" p-id="2710"></path></svg></div>
+
+    </div>
+  </div>
+
+
+
+
+      
+<footer class="page-footer reveal fs12"><hr><div class="sitemap"><div class="sitemap-group"><span class="fs14">博客</span><a href="/">近期</a><a href="/categories/">分类</a><a href="/tags/">标签</a><a href="/archievs/">归档</a></div><div class="sitemap-group"><span class="fs14">专栏</span><a href="/wiki/">全部</a><a href="/wiki/tags/Java/">Java</a><a href="/wiki/tags/%E5%8D%95%E7%89%87%E6%9C%BA/">嵌入式</a></div><div class="sitemap-group"><span class="fs14">社交</span><a href="/friends/">友链</a><a href="/about/#comments">留言板</a></div><div class="sitemap-group"><span class="fs14">更多</span><a href="/about/">关于本站</a><a target="_blank" rel="noopener" href="https://github.com/ajream">GitHub</a></div></div><div class="text"><p>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+<p>本站由 <a href="https://ajream-n.netlify.app/">@aJream</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.9.0" title="v1.9.0">Stellar</a> 主题创建。</p>
+</div></footer>
+
+      <div class='float-panel mobile-only blur' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15301"><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 2.3 26.8 24.6 47.5 51.6 47.6h416.5v4z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15302"></path><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 1.9 27.7 23.9 49.7 51.6 51.6h416.5z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15303"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.9.0';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://fastly.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js',
+    sitesjs: '/js/plugins/sites.js',
+    friendsjs: '/js/plugins/friends.js',
+  };
+
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://fastly.jsdelivr.net/npm/vanilla-lazyload@17.3.1/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper@6/swiper-bundle.min.css","js":"https://unpkg.com/swiper@6/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://fastly.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://fastly.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://fastly.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.fancybox = Object.assign({"enable":true,"js":"https://fastly.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js","css":"https://fastly.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css","selector":".swiper-slide img"});
+  }
+  if ('false' == 'true') {
+    stellar.plugins.heti = Object.assign({"enable":false,"css":"https://unpkg.com/heti/umd/heti.min.css","js":"https://unpkg.com/heti/umd/heti-addon.min.js"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+  <script>
+  function getEmojiMaps() {
+    function emoji(path, idx, ext) {
+      return path + "/" + path + "-" + idx + "." + ext;
+    }
+    var emojiMaps = {};
+    for (var i = 1; i <= 54; i++) {
+      emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+    }
+    for (var i = 1; i <= 101; i++) {
+      emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+    }
+    for (var i = 1; i <= 116; i++) {
+      emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+    }
+    for (var i = 1; i <= 125; i++) {
+      emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+    }
+    for (var i = 1; i <= 4; i++) {
+      emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+    }
+    return emojiMaps;
+  }
+  function load_comment(){
+    if(!document.getElementById("valine_container"))return;
+    stellar.loadScript('https://fastly.jsdelivr.net/gh/XuxuGood/simple-blog-cdn@main/js/Valine.min.js', {defer:true}).then(function () {
+      const el = document.getElementById("valine_container");
+      var path = el.getAttribute('comment_id');
+      const placeholder = "";
+      if (!path) {
+        path = decodeURI(window.location.pathname);
+      }
+      var valine = new Valine();
+      valine.init(Object.assign({"js":"https://fastly.jsdelivr.net/gh/XuxuGood/simple-blog-cdn@main/js/Valine.min.js","appId":"pzbFTXqhpBeDgCeiSD4IU3Uo-gzGzoHsz","appKey":"8t6hlt5VaX21ITVWzzNRGAWe","placeholder":null,"requiredFields":["nick","mail"],"enableQQ":true,"recordIP":false,"avatar":"robohash","pageSize":10,"lang":"zh-cn","highlight":true,"mathJax":false,"tagMeta":["博主","小伙伴","访客"],"metaPlaceholder":{"nick":"昵称/QQ号(必填)","mail":"邮箱（必填，完全保密）","link":"网址(https://)"},"master":["6783037F2DF30EAB99F9FC256157D875"],"friends":["6783037F2DF30EAB99F9FC256157D875"]}, {
+        el: '#valine_container',
+        path: path,
+        placeholder: placeholder,
+        emojiCDN: 'https://fastly.jsdelivr.net/gh/volantis-x/cdn-emoji/valine/',
+        emojiMaps: getEmojiMaps(),
+      }));
+    });
+  }
+  window.addEventListener('DOMContentLoaded', (event) => {
+    console.log('DOM fully loaded and parsed');
+    load_comment();
+  });
+
+</script>
+
+
+
+
+<!-- inject -->
+
+  
+    <script defer src="/live2d-widget/autoload.js"></script>
+  
+    <script defer src="/js/custom/custom.js"></script>
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.js"></script>
+  
+    <script defer src="/js/custom/code_unfold.js"></script>
+  
+
+
+  </div>
+
+</body>
+</html>
