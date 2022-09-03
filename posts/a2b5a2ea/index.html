@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+
+<head>
+  <meta name="generator" content="Hexo 5.4.2">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://fastly.jsdelivr.net'>
+  <link rel="preconnect" href="https://fastly.jsdelivr.net" crossorigin>
+  <link rel='dns-prefetch' href='//unpkg.com'>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" content="#f8f8f8">
+  <title>疫情填报自动化 - aJream</title>
+
+  
+    <meta name="description" content="西北某大学疫情填报实现信息自动填写、上传">
+<meta property="og:type" content="article">
+<meta property="og:title" content="疫情填报自动化">
+<meta property="og:url" content="https://ajream-n.netlify.app/posts/a2b5a2ea/index.html">
+<meta property="og:site_name" content="aJream">
+<meta property="og:description" content="西北某大学疫情填报实现信息自动填写、上传">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20211001140952_image-20211001140949171.png">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20211001155632_image-20211001155629264.png">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20211001142045_image-20211001142044564.png">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20211001142355_image-20211001142354717.png">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20211001142559_image-20211001142558049.png">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20211001142821_image-20211001142820237.png">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20211001143233_image-20211001143232707.png">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20211001143820_image-20211001143819013.png">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20211001144128_image-20211001144126831.png">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20211001144519_image-20211001144518716.png">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20211001144741_image-20211001144740277.png">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20211002102305_image-20211002102256427.png">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20211002210103_image-20211002210058967.png">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20211002211733_image-20211002211732268.png">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20211002103907_image-20211002101210323.png">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20211002101330_image-20211002101326881.png">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20211002212401_image-20211002212400561.png">
+<meta property="article:published_time" content="2021-09-30T04:51:26.000Z">
+<meta property="article:modified_time" content="2022-07-30T06:26:15.000Z">
+<meta property="article:author" content="aJream">
+<meta property="article:tag" content="自动化">
+<meta property="article:tag" content="疫情填报">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20211001140952_image-20211001140949171.png">
+  
+  
+
+  <!-- feed -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/main.css">
+
+  
+
+  
+
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"onload="renderMathInElement(document.body);"></script>
+  
+
+
+  
+    
+      <script defer src="https://fastly.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+    
+      <link rel="stylesheet" href="https://npm.elemecdn.com/font-awesome/css/font-awesome.min.css"/ media="defer" onload="this.media='all'">
+    
+      <link rel="shortcut icon" href="/images/favicon.png">
+    
+      <link rel="stylesheet" type="text/css" href="/css/custom/return_top_bilibili.css" />
+    
+      <link rel="stylesheet" type="text/css" href="/css/custom/code_copy.css" />
+    
+      <link rel="stylesheet" type="text/css" href="/css/custom/code_unfold.css" />
+    
+  
+</head>
+
+<body>
+  
+
+<div class="l_cover post"><div class="cover"><div class="lazy img bg" data-bg="http://www.dmoe.cc/random.php"></div></div></div>
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left' layout='post'>
+    
+
+
+<header class="header">
+
+<div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://fastly.jsdelivr.net/gh/cdn-x/placeholder@1.0.2/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="/images/avatar2.png" onerror="javascript:this.classList.add('error');this.src='https://fastly.jsdelivr.net/gh/cdn-x/placeholder@1.0.1/image/2659360.svg';"></a><a class="title" href="/"><div class="main">aJream</div><div class="sub cap">🔻依梦🔺</div></a></div>
+<nav class="menu dis-select"><a class="nav-item active" href="/">文章</a><a class="nav-item" href="/wiki/">专栏</a><a class="nav-item" href="/notes/">便笺</a><a class="nav-item" href="/about/">更多</a></nav></header>
+
+<div class="widgets">
+
+<div class="widget-wrap single" id="toc"><div class="widget-header cap dis-select"><span class="name">本文目录</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text"> 前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B0%86%E4%BB%A3%E7%A0%81%E4%B8%8B%E8%BD%BD%E5%88%B0%E6%9C%AC%E5%9C%B0"><span class="toc-text"> 将代码下载到本地</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2%E5%88%B0%E8%85%BE%E8%AE%AF%E4%BA%91"><span class="toc-text"> 部署到腾讯云</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%BA%91%E5%87%BD%E6%95%B0"><span class="toc-text"> 创建云函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%9B%E8%A1%8C%E6%B5%8B%E8%AF%95"><span class="toc-text"> 进行测试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E5%AE%9A%E5%AE%9A%E6%97%B6%E8%A7%A6%E5%8F%91"><span class="toc-text"> 设定定时触发</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8github-actions"><span class="toc-text"> 使用Github Actions</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81%E4%B8%AD%E7%9A%84bug%E4%BF%AE%E5%A4%8D"><span class="toc-text"> 代码中的bug修复</span></a></li></ol></div></div></div>
+
+
+</div>
+<footer class="footer dis-select"><div class="social-wrap"><a class="social" href="https://github.com/ajream" target="_blank" rel="external nofollow noopener noreferrer"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://fastly.jsdelivr.net/gh/cdn-x/placeholder@1.0.3/social/08a41b181ce68.svg"/></a><a class="social" href="https://music.163.com/#/user/home?id=3962513076" target="_blank" rel="external nofollow noopener noreferrer"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://fastly.jsdelivr.net/gh/cdn-x/placeholder@1.0.3/social/3845874.svg"/></a><a class="social" href="/about/#comments" rel="noopener noreferrer"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://fastly.jsdelivr.net/gh/cdn-x/placeholder@1.0.3/social/942ebbf1a4b91.svg"/></a></div></footer>
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+
+<div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/%E5%88%9B%E4%BD%9C%E7%AC%94%E8%AE%B0/">创作笔记</a></div><div id="post-meta">发布于&nbsp;<time datetime="2021-09-30T04:51:26.000Z">2021-09-30</time></div></div>
+
+<article class='content md post'>
+<h1 class="article-title"><span>疫情填报自动化</span></h1>
+<div class="tag-plugin note" color="red"><div class="title"><strong>注意</strong></div><div class="body"><p>最近已经用不了了，好好每天设定好闹钟吧，想学习的还可以看看。。。😥</p></div></div>
+<div class="tag-plugin note" color="cyan"><div class="title"><strong>注意</strong></div><div class="body"><p>本教程仅限于学习使用，希望看到这个教程的同学严格遵守学校要求，认真对待，出现任何问题后果自行承担！</p></div></div>
+<h2 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h2>
+<p>自从前几天有一次忘记疫情填报后，就想着能不能通过程序自动化来进行填写，网上找了找后终于找到一份详细教程，幸运的是教程作者还是本校学长，这里感谢<a target="_blank" rel="noopener" href="https://www.pm-z.tech/">学长</a>，代码已经写好了，还好之前也学过一点python，能看懂代码，因此很快就部署成功了。</p>
+<p>学长部署时用的是<wavy>阿里云</wavy>的，由于我之前已经注册过腾讯云，于是改用<wavy>腾讯云</wavy>来进行部署。</p>
+<h2 id="将代码下载到本地"><a class="markdownIt-Anchor" href="#将代码下载到本地"></a> 将代码下载到本地</h2>
+<p>点击去<a target="_blank" rel="noopener" href="https://gitee.com/ajream/yi-qing-tian-bao/tree/master">下载代码</a>，可以选择clone或者下载压缩包的方式</p>
+<p>将代码下载到本地后，用开发工具（推荐vscode，pycharm也行），修改<code>index.py</code>文件中内容：</p>
+<p>翱翔门户登录信息：</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/20211001140952_image-20211001140949171.png" alt="image-20211001140949171" /></p>
+<ol>
+<li>修改用户名和密码</li>
+<li>修改SCKEY</li>
+<li>邮箱（可选，如果不想把信息发到自己邮箱就不需要配置，如果想的话根据代码注释来配置）</li>
+<li>在本地运行测试</li>
+</ol>
+<details class="tag-plugin folding" color="green"><summary><span>SCKEY获取步骤</span></summary><div class="body"><ol><li><p>进入<a target="_blank" rel="noopener" href="https://sct.ftqq.com/donate">server酱官网</a>，<del>使用GitHub账号登录</del>。开始绑定微信。就是使用微信扫描之后（会叫你关注一个公众号），然后在这个界面点击&lt;检查结果并确认绑定&gt;</p></li><li><p>绑定成功即可获取SendKey（在发送消息页面）。</p></li><li><p>把这个SendKey填入SCKEY即可</p></li></ol><p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/20211001155632_image-20211001155629264.png" alt="image-20211001155629264" /></p></div></details>
+<h2 id="部署到腾讯云"><a class="markdownIt-Anchor" href="#部署到腾讯云"></a> 部署到腾讯云</h2>
+<p>为了能让代码定时运行，我们可以将代码部署到腾讯云，通过云服务来代替我们手动执行，当然你也可以配置为在本地电脑配置定时执行，但这样你的电脑就别想关机了。<psw>什么，你用树莓派，那你当我没说</psw></p>
+<h3 id="创建云函数"><a class="markdownIt-Anchor" href="#创建云函数"></a> 创建云函数</h3>
+<p>首先登录腾讯云（微信扫码通过即可），进入控制台，选择<code>云产品-&gt;云函数</code></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/20211001142045_image-20211001142044564.png" alt="image-20211001142044564" /></p>
+<p>或者在搜索框输入 “云函数”，在展开的页面选择控制台入口的 “云函数”</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/20211001142355_image-20211001142354717.png" alt="image-20211001142354717" /></p>
+<p>新建云函数</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/20211001142559_image-20211001142558049.png" alt="image-20211001142558049" /></p>
+<p>依次选择：</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/20211001142821_image-20211001142820237.png" alt="image-20211001142820237" /></p>
+<p>上传代码</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/20211001143233_image-20211001143232707.png" alt="image-20211001143232707" /></p>
+<blockquote>
+<p>上传成功后进入 <code>index.py</code>文件，将最后一行代码注释掉，因为云函数执行时是通过调用 入口函数<code>main_handler</code>来运行的</p>
+</blockquote>
+<h3 id="进行测试"><a class="markdownIt-Anchor" href="#进行测试"></a> 进行测试</h3>
+<p>先部署，后测试</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/20211001143820_image-20211001143819013.png" alt="image-20211001143819013" /></p>
+<p>等待测试结果，在执行日志看到如下结果表示部署成功</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/20211001144128_image-20211001144126831.png" alt="image-20211001144126831" /></p>
+<h3 id="设定定时触发"><a class="markdownIt-Anchor" href="#设定定时触发"></a> 设定定时触发</h3>
+<p>定时触发即定时执行程序</p>
+<p>选择左边面板的 <code>触发管理-&gt;创建触发器</code></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/20211001144519_image-20211001144518716.png" alt="image-20211001144518716" /></p>
+<p>触发方式选择定时触发，周期选择自定义触发周期</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/20211001144741_image-20211001144740277.png" alt="image-20211001144740277" /></p>
+<details class="tag-plugin folding" color="green"><summary><span>Cron表达式</span></summary><div class="body"><p>如何自定义触发周期，实际是通过配置cron表达式来定义的，其语法可以看<a target="_blank" rel="noopener" href="https://cloud.tencent.com/document/product/583/9708#.E5.AE.9A.E6.97.B6.E8.A7.A6.E5.8F.91.E5.99.A8.E5.85.A5.E5.8F.82.E8.AF.B4.E6.98.8E">官方文档</a></p><p><strong>Cron表达式语法</strong></p><p>Cron 表达式有七个必需字段（从左到右共1-7位），按空格分隔。</p><p>格式如：</p><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">* * * * * * *</span><br></pre></td></tr></table></figure><table><thead><tr><th style="text-align:left">第一位</th><th style="text-align:left">第二位</th><th style="text-align:left">第三位</th><th style="text-align:left">第四位</th><th style="text-align:left">第五位</th><th style="text-align:left">第六位</th><th style="text-align:left">第七位</th></tr></thead><tbody><tr><td style="text-align:left">秒(0-59的整数)</td><td style="text-align:left">分钟(0-59的整数)</td><td style="text-align:left">小时(0-23的整数)</td><td style="text-align:left">日(1-31的整数,需要考虑月的天数)</td><td style="text-align:left">月(1-12的整数或 JAN,FEB,MAR,APR,……)</td><td style="text-align:left">星期( 0-6的整数或SUN,MON,TUE,……其中0指星期日，1指星期一，以此类推)</td><td style="text-align:left">年( 1970-2099的整数)</td></tr></tbody></table><p>每一位可以添加通配符<code>, - * /</code>：</p><table><thead><tr><th style="text-align:left">通配符</th><th style="text-align:left">含义</th></tr></thead><tbody><tr><td style="text-align:left">,（逗号）</td><td style="text-align:left">代表取用逗号隔开的字符的并集。例如：在第三位“小时”字段中 <code>1,2,3</code>表示1点、2点和3点</td></tr><tr><td style="text-align:left">-（破折号）</td><td style="text-align:left">包含指定范围的所有值。例如：在第四位“日”字段中，<code>1-15</code>包含指定月份的1号到15号</td></tr><tr><td style="text-align:left">* （星号）</td><td style="text-align:left">表示所有值。在第三位“小时”字段中，<code>*</code> 表示每个小时</td></tr><tr><td style="text-align:left">/ （正斜杠）</td><td style="text-align:left">指定增量。在第二位“分钟”字段中，输入<code>1/10</code>以表示从第一分钟开始的每隔十分钟就执行一次；<code>*/10</code>则表示每隔10分钟执行一次（没有指定第一次什么时候开始）</td></tr></tbody></table><p>例子：</p><table><thead><tr><th style="text-align:left">表达式</th><th style="text-align:left">相关含义</th></tr></thead><tbody><tr><td style="text-align:left"><code>*/5 * * * * * *</code></td><td style="text-align:left">表示每5秒触发一次</td></tr><tr><td style="text-align:left"><code>0 15 10 1 * * *</code></td><td style="text-align:left">表示在每月的1日的上午10:15触发</td></tr><tr><td style="text-align:left"><code>0 15 10 * * MON-FRI *</code></td><td style="text-align:left">表示在周一到周五每天上午10:15触发</td></tr><tr><td style="text-align:left"><code>0 0 10,14,16 * * * *</code></td><td style="text-align:left">表示在每天上午10点，下午2点，4点触发</td></tr><tr><td style="text-align:left"><code>0 */30 9-17 * * * *</code></td><td style="text-align:left">表示在每天上午9点到下午5点每半小时触发</td></tr><tr><td style="text-align:left"><code>0 0 12 * * WED *</code></td><td style="text-align:left">表示在每个星期三中午12点触发</td></tr></tbody></table></div></details>
+<p>例如我的配置</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/20211002102305_image-20211002102256427.png" alt="image-20211002102256427" /></p>
+<p>到此完成了云函数配置</p>
+<h2 id="使用github-actions"><a class="markdownIt-Anchor" href="#使用github-actions"></a> 使用Github Actions</h2>
+<p>如果你没有腾讯云账户，也不想用腾讯云，这里提供另外一个方法，使用Github提供的Actions来实现;</p>
+<ol>
+<li>
+<p>首先你得有一个Github账号</p>
+<psw>如果没听说过GitHub就别想用自动化了，听说过但没有账号的强烈建议注册一个，为什么，百度去，说真的Github"真香"</psw>
+</li>
+<li>
+<p>然后在自己的GitHub账号下新建一个仓库（不会的去百度）</p>
+</li>
+<li>
+<p>在本地下载的代码文件夹中，创建 <code>.github</code>文件夹，再在这个文件夹创建文件夹<code>workflows</code>，再在<code>workflows</code>下创建文件<code>main.yml</code>(这个文件名随意)，然后在 <code>main.yml</code> 添加如下代码：</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/20211002210103_image-20211002210058967.png" alt="image-20211002210058967" /></p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">自动运行仓库的index脚本</span></span><br><span class="line"></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="attr">schedule:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">cron:</span> <span class="string">&#x27;17 22 * * *&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">build:</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line"></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">uses:</span> <span class="string">actions/checkout@v2</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Set</span> <span class="string">up</span> <span class="string">Python</span> <span class="number">3.9</span></span><br><span class="line">      <span class="attr">uses:</span> <span class="string">actions/setup-python@v2</span></span><br><span class="line">      <span class="attr">with:</span></span><br><span class="line">        <span class="attr">python-version:</span> <span class="number">3.9</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Install</span> <span class="string">dependencies</span></span><br><span class="line">      <span class="attr">run:</span> <span class="string">|</span></span><br><span class="line"><span class="string">        python -m pip install --upgrade pip</span></span><br><span class="line"><span class="string">        pip install requests==2.24.0 beautifulsoup4==4.9.1 pytz</span></span><br><span class="line"><span class="string">        # if [ -f requirements.txt ]; then pip install -r requirements.txt; fi</span></span><br><span class="line"><span class="string"></span>    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">Test</span></span><br><span class="line">      <span class="attr">run:</span> <span class="string">|</span></span><br><span class="line">        <span class="string">python</span> <span class="string">index.py</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>如果不想自己设定定时执行时间（这里设定每天早上6:17分执行），就直接将全部文件 <code>push</code>到刚新建的仓库中即可</p>
+<p>如果想自定义执行时间，则需修改第5行代码 <code>cron</code> 表达式的值（注意这个与在腾讯云部署时讲的不同，前面讲的那个是7位的，这个是5位）</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">name:</span> <span class="string">自动运行仓库的index脚本</span></span><br><span class="line"></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="attr">schedule:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">cron:</span> <span class="string">&#x27;17 22 * * *&#x27;</span>  <span class="comment"># 该时间为UTC时间，22:17PM + 8:00 = 6:17AM</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>cron表达式的5位从左到右分别表示 <code>分 时 日 月 星期</code> ，用法与7位那个差不多，四个通配符【<code>- , * /</code>】也都可以用，用法一样</p>
+<p>还不懂的可以去这个<a target="_blank" rel="noopener" href="https://crontab.guru/">网站</a>，自动生成cron表达式</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/20211002211733_image-20211002211732268.png" alt="image-20211002211732268" /></p>
+<div class="tag-plugin note" color="red"><div class="title"><strong>注意</strong></div><div class="body"><ol><li>这个时间是UTC标准时间，将北京时间换算成UTC时间要减去8小时，比如想要在北京时间9:12执行，则相应UTC时间为1:12</li><li>这个定时时间并不是代码执行的时间，只是排队时间，因为用Github Actions的人太多了，当你定时时间到了后会进行排队等待执行（时间为十几分钟到一个小时甚至更久一些），因此需要自己估计好执行时间，不过疫情填报设定为每天早上执行一次不就行了😅？</li></ol></div></div>
+<h2 id="代码中的bug修复"><a class="markdownIt-Anchor" href="#代码中的bug修复"></a> 代码中的bug修复</h2>
+<p>有时程序在运行时会出错，如下</p>
+<img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/20211002103907_image-20211002101210323.png" alt="image-20211002101210323" style="zoom:80%;"/>
+<ol>
+<li>
+<p>把以下代码注释掉</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/20211002101330_image-20211002101326881.png" alt="image-20211002101326881" /></p>
+</li>
+<li>
+<p>还有第64行最后面的 <code>+ notice</code> 去掉</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/20211002212401_image-20211002212400561.png" alt="image-20211002212400561" /></p>
+</li>
+</ol>
+<blockquote>
+<p>在我<a target="_blank" rel="noopener" href="https://gitee.com/ajream/yi-qing-tian-bao">仓库中</a>下载的可以忽略这个bug，因为我已经修改好了</p>
+</blockquote>
+
+
+<div class="article-footer reveal fs14"><section id="license"><div class="header"><span>许可协议</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div></section><section id="share"><div class="header"><span>分享文章</span></div><div class="body"><div class="link"><input class="copy-area" readonly="true" id="copy-link" value="https://ajream-n.netlify.app/posts/a2b5a2ea/" /></div><div class="social-wrap dis-select"><a class="social share-item wechat" onclick="util.toggle(&quot;qrcode-wechat&quot)"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://fastly.jsdelivr.net/gh/cdn-x/placeholder@1.0.1/social/b32ef3da1162a.svg"/></a><a class="social share-item weibo" target="_blank" rel="external nofollow noopener noreferrer" href="https://service.weibo.com/share/share.php?url=https://ajream-n.netlify.app/posts/a2b5a2ea/&title=疫情填报自动化 - aJream&summary=西北某大学疫情填报实现信息自动填写、上传"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://fastly.jsdelivr.net/gh/cdn-x/placeholder@1.0.1/social/80c07e4dbb303.svg"/></a><a class="social share-item email" href="mailto:?subject=疫情填报自动化 - aJream&amp;body=https://ajream-n.netlify.app/posts/a2b5a2ea/"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://fastly.jsdelivr.net/gh/cdn-x/placeholder@1.0.1/social/a1b00e20f425d.svg"/></a><a class="social share-item link" onclick="util.copy(&quot;copy-link&quot;, &quot;复制成功&quot;)"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://fastly.jsdelivr.net/gh/cdn-x/placeholder@1.0.1/social/8411ed322ced6.svg"/></a></div><div class="qrcode" id="qrcode-wechat" style="visibility:hidden;height:0"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=https://ajream-n.netlify.app/posts/a2b5a2ea/index.html"/></div></div></section></div>
+
+</article>
+
+<div class="related-wrap reveal" id="read-next"><section class="header cap theme"><span>接下来阅读</span></section><section class="body fs14"><div class="line"></div><a id="prev" href="/posts/4b9291b6/">Github搜索技巧<span class="note">较新</span></a></section></div>
+
+
+
+
+
+
+  <div class='related-wrap md reveal' id="comments">
+    <div class='cmt-title cap theme'>
+      快来参与讨论吧
+    </div>
+    <div class='cmt-body valine'>
+      
+
+<div id="valine_container" class="valine_thread"><svg class="loading" style="vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2709"><path d="M832 512c0-176-144-320-320-320V128c211.2 0 384 172.8 384 384h-64zM192 512c0 176 144 320 320 320v64C300.8 896 128 723.2 128 512h64z" p-id="2710"></path></svg></div>
+
+    </div>
+  </div>
+
+
+
+      
+<footer class="page-footer reveal fs12"><hr><div class="sitemap"><div class="sitemap-group"><span class="fs14">博客</span><a href="/">近期</a><a href="/categories/">分类</a><a href="/tags/">标签</a><a href="/archievs/">归档</a></div><div class="sitemap-group"><span class="fs14">专栏</span><a href="/wiki/">全部</a><a href="/wiki/tags/Java/">Java</a><a href="/wiki/tags/%E5%8D%95%E7%89%87%E6%9C%BA/">嵌入式</a></div><div class="sitemap-group"><span class="fs14">社交</span><a href="/friends/">友链</a><a href="/about/#comments">留言板</a></div><div class="sitemap-group"><span class="fs14">更多</span><a href="/about/">关于本站</a><a target="_blank" rel="noopener" href="https://github.com/ajream">GitHub</a></div></div><div class="text"><p>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+<p>本站由 <a href="https://ajream-n.netlify.app/">@aJream</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.9.0" title="v1.9.0">Stellar</a> 主题创建。</p>
+</div></footer>
+
+      <div class='float-panel mobile-only blur' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15301"><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 2.3 26.8 24.6 47.5 51.6 47.6h416.5v4z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15302"></path><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 1.9 27.7 23.9 49.7 51.6 51.6h416.5z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15303"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.9.0';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://fastly.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js',
+    sitesjs: '/js/plugins/sites.js',
+    friendsjs: '/js/plugins/friends.js',
+  };
+
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://fastly.jsdelivr.net/npm/vanilla-lazyload@17.3.1/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper@6/swiper-bundle.min.css","js":"https://unpkg.com/swiper@6/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://fastly.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://fastly.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://fastly.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.fancybox = Object.assign({"enable":true,"js":"https://fastly.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js","css":"https://fastly.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css","selector":".swiper-slide img"});
+  }
+  if ('false' == 'true') {
+    stellar.plugins.heti = Object.assign({"enable":false,"css":"https://unpkg.com/heti/umd/heti.min.css","js":"https://unpkg.com/heti/umd/heti-addon.min.js"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+  <script>
+  function getEmojiMaps() {
+    function emoji(path, idx, ext) {
+      return path + "/" + path + "-" + idx + "." + ext;
+    }
+    var emojiMaps = {};
+    for (var i = 1; i <= 54; i++) {
+      emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+    }
+    for (var i = 1; i <= 101; i++) {
+      emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+    }
+    for (var i = 1; i <= 116; i++) {
+      emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+    }
+    for (var i = 1; i <= 125; i++) {
+      emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+    }
+    for (var i = 1; i <= 4; i++) {
+      emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+    }
+    return emojiMaps;
+  }
+  function load_comment(){
+    if(!document.getElementById("valine_container"))return;
+    stellar.loadScript('https://fastly.jsdelivr.net/gh/XuxuGood/simple-blog-cdn@main/js/Valine.min.js', {defer:true}).then(function () {
+      const el = document.getElementById("valine_container");
+      var path = el.getAttribute('comment_id');
+      const placeholder = "";
+      if (!path) {
+        path = decodeURI(window.location.pathname);
+      }
+      var valine = new Valine();
+      valine.init(Object.assign({"js":"https://fastly.jsdelivr.net/gh/XuxuGood/simple-blog-cdn@main/js/Valine.min.js","appId":"pzbFTXqhpBeDgCeiSD4IU3Uo-gzGzoHsz","appKey":"8t6hlt5VaX21ITVWzzNRGAWe","placeholder":null,"requiredFields":["nick","mail"],"enableQQ":true,"recordIP":false,"avatar":"robohash","pageSize":10,"lang":"zh-cn","highlight":true,"mathJax":false,"tagMeta":["博主","小伙伴","访客"],"metaPlaceholder":{"nick":"昵称/QQ号(必填)","mail":"邮箱（必填，完全保密）","link":"网址(https://)"},"master":["6783037F2DF30EAB99F9FC256157D875"],"friends":["6783037F2DF30EAB99F9FC256157D875"]}, {
+        el: '#valine_container',
+        path: path,
+        placeholder: placeholder,
+        emojiCDN: 'https://fastly.jsdelivr.net/gh/volantis-x/cdn-emoji/valine/',
+        emojiMaps: getEmojiMaps(),
+      }));
+    });
+  }
+  window.addEventListener('DOMContentLoaded', (event) => {
+    console.log('DOM fully loaded and parsed');
+    load_comment();
+  });
+
+</script>
+
+
+
+
+<!-- inject -->
+
+  
+    <script defer src="/live2d-widget/autoload.js"></script>
+  
+    <script defer src="/js/custom/custom.js"></script>
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.js"></script>
+  
+    <script defer src="/js/custom/code_unfold.js"></script>
+  
+
+
+  </div>
+
+</body>
+</html>
