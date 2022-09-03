@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+
+<head>
+  <meta name="generator" content="Hexo 5.4.2">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://fastly.jsdelivr.net'>
+  <link rel="preconnect" href="https://fastly.jsdelivr.net" crossorigin>
+  <link rel='dns-prefetch' href='//unpkg.com'>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" content="#f8f8f8">
+  <title>JavaSE：HTTP协议 - aJream</title>
+
+  
+    <meta name="description" content="介绍 超文本传输协议（Hyper Text Transfer Protocol，HTTP）是一个简单的请求-响应协议，它通常运行在TCP之上，如图  文本：html， 字符串… 超文本：图片、音乐…… http端口：80 https端口：443  Http请求与响应 HTTP协议永远都是客户端发起请求，服务器回送响应。见下图：  这样就限制了使用HTTP协议，无法实现在客户端没有发起请求的时候，">
+<meta property="og:type" content="website">
+<meta property="og:title" content="HTTP协议">
+<meta property="og:url" content="https://ajream-n.netlify.app/wiki/JavaSE/http.html">
+<meta property="og:site_name" content="aJream">
+<meta property="og:description" content="介绍 超文本传输协议（Hyper Text Transfer Protocol，HTTP）是一个简单的请求-响应协议，它通常运行在TCP之上，如图  文本：html， 字符串… 超文本：图片、音乐…… http端口：80 https端口：443  Http请求与响应 HTTP协议永远都是客户端发起请求，服务器回送响应。见下图：  这样就限制了使用HTTP协议，无法实现在客户端没有发起请求的时候，">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20210903214835_image-20210903214830491.png">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20210903214907_image-20210903214905388.png">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20210903214932_image-20210903214930366.png">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20210903214951_image-20210903214949259.png">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20210903215044_image-20210903215042801.png">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20210903215126_image-20210903215124843.png">
+<meta property="article:published_time" content="2022-09-03T11:33:47.294Z">
+<meta property="article:modified_time" content="2022-09-03T11:33:47.294Z">
+<meta property="article:author" content="aJream">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20210903214835_image-20210903214830491.png">
+  
+  
+
+  <!-- feed -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/main.css">
+
+  
+
+  
+
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"onload="renderMathInElement(document.body);"></script>
+  
+
+
+  
+    
+      <script defer src="https://fastly.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+    
+      <link rel="stylesheet" href="https://npm.elemecdn.com/font-awesome/css/font-awesome.min.css"/ media="defer" onload="this.media='all'">
+    
+      <link rel="shortcut icon" href="/images/favicon.png">
+    
+      <link rel="stylesheet" type="text/css" href="/css/custom/return_top_bilibili.css" />
+    
+      <link rel="stylesheet" type="text/css" href="/css/custom/code_copy.css" />
+    
+      <link rel="stylesheet" type="text/css" href="/css/custom/code_unfold.css" />
+    
+  
+</head>
+
+<body>
+  
+
+
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left' layout='wiki'>
+    
+
+
+<header class="header">
+
+<div class="logo-wrap wiki"><a style="filter: grayscale(100%)" class="wiki-home cap" href="/"><svg aria-hidden="true" viewBox="0 0 16 16" width="1rem" height="1rem" fill="currentColor"><path fill-rule="evenodd" d="M7.78 12.53a.75.75 0 01-1.06 0L2.47 8.28a.75.75 0 010-1.06l4.25-4.25a.75.75 0 011.06 1.06L4.81 7h7.44a.75.75 0 010 1.5H4.81l2.97 2.97a.75.75 0 010 1.06z"></path></svg>所有专栏</a><a class="title" href="/wiki/JavaSE/1-%E7%B1%BB%E4%B8%8E%E5%AF%B9%E8%B1%A1.html"><div class="main">☕JavaSE学习笔记</div><div class="sub cap">Java基础(含少量javaEE)</div></a></div>
+</header>
+
+<div class="widgets">
+
+<div class="widget-wrap multi" id="toc"><div class="widget-header cap dis-select"><span class="name">基础学习</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/1-%E7%B1%BB%E4%B8%8E%E5%AF%B9%E8%B1%A1.html"><span class="toc-text">Java(1) 类与对象</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/2.1-%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%B1%9E%E6%80%A7%E5%88%9D%E5%A7%8B%E5%8C%96.html"><span class="toc-text">Java(2.1) 类和对象的属性初始化</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/2.2-%E8%AE%BF%E9%97%AE%E4%BF%AE%E9%A5%B0%E7%AC%A6.html"><span class="toc-text">Java(2.2) 访问修饰符</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/3.1-%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B.html"><span class="toc-text">Java(3.1) 数据类型</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/3.2-%E6%95%B0%E7%BB%84.html"><span class="toc-text">Java(3.2) 数组</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/4-%E5%8F%98%E9%87%8F.html"><span class="toc-text">Java(4) 变量</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/5-%E6%93%8D%E4%BD%9C%E7%AC%A6.html"><span class="toc-text">Java(5) 操作符</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/6-%E8%BE%93%E5%85%A5%E8%AF%AD%E5%8F%A5.html"><span class="toc-text">Java(6) 输入语句</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/7-%E6%9D%A1%E4%BB%B6%E8%AF%AD%E5%8F%A5.html"><span class="toc-text">Java(7) 条件语句</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/8-%E5%BE%AA%E7%8E%AF%E8%AF%AD%E5%8F%A5.html"><span class="toc-text">Java(8) 循环语句</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/9-package%E5%8C%85.html"><span class="toc-text">Java(9) package包</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/10-%E8%A3%85%E7%AE%B1%E4%B8%8E%E6%8B%86%E7%AE%B1.html"><span class="toc-text">Java(10) 装箱与拆箱</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/11-%E6%95%B0%E5%AD%97%E4%B8%8E%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9B%B8%E4%BA%92%E8%BD%AC%E6%8D%A2.html"><span class="toc-text">Java(11) 数字与字符串相互转换</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/12-%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%93%8D%E4%BD%9C.html"><span class="toc-text">Java(12) 字符串操作</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/13-%E6%97%A5%E6%9C%9F.html"><span class="toc-text">Java(13) 日期与日历</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/14-%E6%8E%A5%E5%8F%A3%E4%B8%8E%E7%BB%A7%E6%89%BF.html"><span class="toc-text">Java(14) 接口与继承</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/15-%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86.html"><span class="toc-text">Java(15) 异常处理</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/16-%E6%96%87%E4%BB%B6IO.html"><span class="toc-text">Java(16) 文件IO</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/17-%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6.html"><span class="toc-text">Java(17) 集合框架</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/17-%E5%AE%B9%E5%99%A8.html"><span class="toc-text">Java(17) 容器</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/18-%E6%B3%9B%E5%9E%8B.html"><span class="toc-text">Java(18) 泛型</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/19-%E5%A4%9A%E7%BA%BF%E7%A8%8B%E7%B3%BB%E5%88%97.html"><span class="toc-text">Java(19) 多线程系列</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/20-%E5%8F%8D%E5%B0%84%E6%9C%BA%E5%88%B6.html"><span class="toc-text">Java(20) 反射机制</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/21-%E6%B3%A8%E8%A7%A3.html"><span class="toc-text">Java(21) 注解</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/22-lambda%E8%A1%A8%E8%BE%BE%E5%BC%8F.html"><span class="toc-text">Java(22) Lambda表达式</span></a></div></div><div class="widget-header cap dis-select"><span class="name">面试八股</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/java%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95.html"><span class="toc-text">java垃圾回收算法</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/java%E9%9D%A2%E8%AF%95%E9%A2%98.html"><span class="toc-text">Java面试基础题</span></a></div></div><div class="widget-header cap dis-select"><span class="name">GUI开发</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/awt.html"><span class="toc-text">AWT基本操作与使用</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/swing.html"><span class="toc-text">Swing基本操作与使用</span></a></div></div><div class="widget-header cap dis-select"><span class="name">其它</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/Servlet-1.html"><span class="toc-text">1-Servlet</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/Servlet%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F-2.html"><span class="toc-text">2-Servlet生命周期</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/ServletRequest%E5%AF%B9%E8%B1%A1-3.html"><span class="toc-text">3-ServletRequest对象</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/Servlet%E8%AF%B7%E6%B1%82%E8%BD%AC%E5%8F%91-4.html"><span class="toc-text">4-请求转发</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/Tomcat%E5%9F%BA%E7%A1%80.html"><span class="toc-text">Tomcat基础</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/IDEA%E9%85%8D%E7%BD%AETomcat.html"><span class="toc-text">IDEA配置Tomcat</span></a></div><div class="doc-tree active"><a class="doc-tree-link active" href="/wiki/JavaSE/http.html"><span class="toc-text">HTTP协议</span></a><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%8B%E7%BB%8D"><span class="toc-text"> 介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#http%E8%AF%B7%E6%B1%82%E4%B8%8E%E5%93%8D%E5%BA%94"><span class="toc-text"> Http请求与响应</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#http%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86"><span class="toc-text"> Http工作原理</span></a></li></ol></div></div></div>
+
+
+
+<div class="widget-wrap" id="related"><div class="widget-header cap dis-select"><span class="name">更多Java</span></div><div class="widget-body fs14"><a class="more-item wiki" href="/wiki/ssm/spring/1-spring%E6%A1%86%E6%9E%B6%E4%BB%8B%E7%BB%8D.html">🚀SSM学习笔记<div class="excerpt">SSM框架是Spring MVC ，Spring和Mybatis框架的整合，是标准的MVC模式，将整个系统划分为View层，Controller层，Service层，DAO层四层，使用Spring MVC负责请求的转发和视图管理，Spring实现业务对象管理，Mybatis作为数据对象的持久化引擎。</div></a><a class="more-item wiki" href="/wiki/mysql/1-%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%A4%E8%AF%86.html">🍬MySQL学习笔记<div class="excerpt">MySQL是一种关系型数据库管理系统，采用了双授权政策，分为社区版和商业版，由于其体积小、速度快、总体拥有成本低，尤其是开放源码这一特点，一般中小型和大型网站的开发都选择 MySQL 作为网站数据库。</div></a></div></div>
+</div>
+
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+  
+  
+<div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" id="home" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" id="menu" href="/wiki/">专栏</a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/wiki/JavaSE/1-%E7%B1%BB%E4%B8%8E%E5%AF%B9%E8%B1%A1.html">☕JavaSE学习笔记</a></div><div id="post-meta">更新于&nbsp;<time datetime="2022-09-03T11:33:47.294Z">2022-09-03</time></div></div>
+
+  <article class='content md wiki'>
+  <h1 class="article-title"><span>HTTP协议</span></h1>
+  <h2 id="介绍"><a class="markdownIt-Anchor" href="#介绍"></a> 介绍</h2>
+<p>超文本传输协议（Hyper Text Transfer Protocol，HTTP）是一个简单的请求-响应协议，它通常运行在<a target="_blank" rel="noopener" href="https://baike.baidu.com/item/TCP/33012">TCP</a>之上，如图</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/20210903214835_image-20210903214830491.png" alt="image-20210903214830491" /></p>
+<p>文本：html， 字符串…</p>
+<p>超文本：图片、音乐……</p>
+<p>http端口：80</p>
+<p>https端口：443</p>
+<h2 id="http请求与响应"><a class="markdownIt-Anchor" href="#http请求与响应"></a> Http请求与响应</h2>
+<p>HTTP协议永远都是客户端发起请求，服务器回送响应。见下图：</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/20210903214907_image-20210903214905388.png" alt="image-20210903214905388" /></p>
+<p>这样就限制了使用HTTP协议，无法实现在客户端没有发起请求的时候，服务器将消息推送给客户端</p>
+<p>请求报文：请求行 － 通用信息头 － 请求头 － 实体头 － 报文主体</p>
+<p>响应（应答）报文：状态行 － 通用信息头 － 响应头 － 实体头 － 报文主体</p>
+<p><strong>HTTP请求方式</strong></p>
+<p>GET：最常用的请求方式，使用GET方法应该只用在<u>获取数据</u></p>
+<p>POST：向指定资源<u>提交数据</u>，请求服务器进行处理（例如提交表单或者上传文件）。数据被包含在请求本文中。这个请求可能会创建新的资源或修改现有资源，或二者皆有</p>
+<p>除此以外还有<code>HEAD/PUT/DELETE/TRACE/OPTIONS/CONNECT</code> 这8种不常用的请求方式</p>
+<p><strong>URL</strong></p>
+<p>URL被称为：统一资源定位符</p>
+<p>其中通常包含信息：</p>
+<ul>
+<li>传送协议</li>
+<li>层级URL标记符号（为[//],固定不变）</li>
+<li>访问资源需要的凭证信息（可省略）</li>
+<li>服务器地址（通常为域名，有时为IP地址）</li>
+<li>端口号（可省略，默认使用http协议，端口为80）</li>
+<li>资源路径（以“/”字符区别路径中的每一个目录名称）</li>
+<li>查询（可省略，GET模式的窗体参数，以“?”字符为起点，每个参数以“&amp;”隔开，再以“=”分开参数名称与数据，通常以UTF8的URL编码，避开字符冲突的问题）</li>
+<li>片段。以“#”字符为起点（可省略）</li>
+</ul>
+<p>例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://www.luffycity.com:80/news/index.html?id=250&amp;page=1</span><br></pre></td></tr></table></figure>
+<p><strong>HTTP状态码</strong></p>
+<p>状态码元由3位数字组成，表示请求是否被理解或被满足。</p>
+<p>1XX: 信息——请求已被服务器接收，继续处理</p>
+<p>2XX: 连接成功</p>
+<ul>
+<li>200：请求成功（其后是对GET和POST请求的应答文档）</li>
+</ul>
+<p>3XX: 重定向</p>
+<ul>
+<li>
+<p>300：多重选择。链接列表。用户可以选择某链接到达目的地。最多允许五个地址</p>
+</li>
+<li>
+<p>301：所请求的页面已经转移至新的url</p>
+</li>
+<li>
+<p>302：所请求的页面已经临时转移至新的url</p>
+</li>
+<li>
+<p>303：所请求的页面可在别的url下被找到</p>
+</li>
+</ul>
+<p>4XX: 请求错误</p>
+<ul>
+<li>400：服务器不理解请求</li>
+<li>401：被请求的页面需要用户名和密码</li>
+<li>403：对被请求页面的访问被禁止</li>
+<li>404：服务器无法找到被请求的页面</li>
+</ul>
+<p>5XX: 服务器错误</p>
+<ul>
+<li>500：请求未完成，服务器遇到不可预知的情况。</li>
+<li>501：请求未完成。服务器不支持所请求的功能。</li>
+<li>503：请求未完成。服务器临时过载或宕机。</li>
+<li>504：网关超时</li>
+</ul>
+<p><strong>HTTP请求报文</strong></p>
+<img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/20210903214932_image-20210903214930366.png" alt="image-20210903214930366" style="zoom:80%;"/>
+<p>例如：</p>
+<img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/20210903214951_image-20210903214949259.png" alt="image-20210903214949259" style="zoom:58%;"/>
+<p><strong>HTTP响应报文</strong></p>
+<img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/20210903215044_image-20210903215042801.png" alt="image-20210903215042801" style="zoom:80%;"/>
+<p>例如：</p>
+<img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/20210903215126_image-20210903215124843.png" alt="image-20210903215124843" style="zoom:50%;"/>
+<h2 id="http工作原理"><a class="markdownIt-Anchor" href="#http工作原理"></a> Http工作原理</h2>
+<p>HTTP协议定义Web客户端如何从Web服务器请求Web页面，以及服务器如何把Web页面传送给客户端。</p>
+<p>HTTP协议采用了请求/响应模型:</p>
+<ul>
+<li>
+<p>客户端向服务器发送一个【请求报文】，请求报文包含请求的方法(get/post/…)、URL、协议版本、请求头部和请求数据。</p>
+</li>
+<li>
+<p>服务器以一个【状态行】作为响应，响应的内容包括协议的版本、成功或者错误代码、服务器信息、响应头部和响应数据。</p>
+</li>
+</ul>
+<p>典型的HTTP事务处理有如下的过程：</p>
+<p>（1）客户与服务器建立连接：</p>
+<p>一个HTTP客户端，通常是浏览器，与Web服务器的HTTP端口（默认为80）建立一个TCP套接字连接</p>
+<p>（2）客户向服务器提出请求：</p>
+<p>通过TCP套接字，客户端向Web服务器发送一个文本的请求报文，一个请求报文由请求行、请求头部、空行和请求数据4部分组成。</p>
+<p>（3）服务器接受请求，并根据请求返回相应的文件作为应答：</p>
+<p>Web服务器解析请求，定位请求资源。服务器将资源复本写到TCP套接字，由客户端读取。一个响应由状态行、响应头部、空行和响应数据4部分组成。</p>
+<p>（4）客户与服务器关闭连接：</p>
+<ul>
+<li>
+<p>若connection 模式为close，则服务器主动关闭TCP连接，客户端被动关闭连接，释放TCP连接;</p>
+</li>
+<li>
+<p>若connection 模式为keepalive，则该连接会保持一段时间，在该时间内可以继续接收请求;</p>
+</li>
+</ul>
+<p>（5）客户端浏览器解析HTML内容：</p>
+<ul>
+<li>
+<p>客户端浏览器首先解析状态行，查看表明请求是否成功的状态代码。</p>
+</li>
+<li>
+<p>然后解析每一个响应头，响应头告知以下为若干字节的HTML文档和文档的字符集。</p>
+</li>
+<li>
+<p>客户端浏览器读取响应数据HTML，根据HTML的语法对其进行格式化，并在浏览器窗口中显示。</p>
+</li>
+</ul>
+
+  
+
+
+  </article>
+  
+<br>
+
+  
+
+  <div class='related-wrap md reveal' id="comments">
+    <div class='cmt-title cap theme'>
+      快来参与讨论吧
+    </div>
+    <div class='cmt-body valine'>
+      
+
+<div id="valine_container" class="valine_thread"><svg class="loading" style="vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2709"><path d="M832 512c0-176-144-320-320-320V128c211.2 0 384 172.8 384 384h-64zM192 512c0 176 144 320 320 320v64C300.8 896 128 723.2 128 512h64z" p-id="2710"></path></svg></div>
+
+    </div>
+  </div>
+
+
+
+
+      
+<footer class="page-footer reveal fs12"><hr><div class="sitemap"><div class="sitemap-group"><span class="fs14">博客</span><a href="/">近期</a><a href="/categories/">分类</a><a href="/tags/">标签</a><a href="/archievs/">归档</a></div><div class="sitemap-group"><span class="fs14">专栏</span><a href="/wiki/">全部</a><a href="/wiki/tags/Java/">Java</a><a href="/wiki/tags/%E5%8D%95%E7%89%87%E6%9C%BA/">单片机</a></div><div class="sitemap-group"><span class="fs14">社交</span><a href="/friends/">友链</a><a href="/about/#comments">留言板</a></div><div class="sitemap-group"><span class="fs14">更多</span><a href="/about/">关于本站</a><a target="_blank" rel="noopener" href="https://github.com/ajream">GitHub</a></div></div><div class="text"><p>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+<p>本站由 <a href="https://ajream-n.netlify.app/">@aJream</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.9.0" title="v1.9.0">Stellar</a> 主题创建。</p>
+</div></footer>
+
+      <div class='float-panel mobile-only blur' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15301"><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 2.3 26.8 24.6 47.5 51.6 47.6h416.5v4z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15302"></path><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 1.9 27.7 23.9 49.7 51.6 51.6h416.5z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15303"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.9.0';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://fastly.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js',
+    sitesjs: '/js/plugins/sites.js',
+    friendsjs: '/js/plugins/friends.js',
+  };
+
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://fastly.jsdelivr.net/npm/vanilla-lazyload@17.3.1/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper@6/swiper-bundle.min.css","js":"https://unpkg.com/swiper@6/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://fastly.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://fastly.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://fastly.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.fancybox = Object.assign({"enable":true,"js":"https://fastly.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js","css":"https://fastly.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css","selector":".swiper-slide img"});
+  }
+  if ('false' == 'true') {
+    stellar.plugins.heti = Object.assign({"enable":false,"css":"https://unpkg.com/heti/umd/heti.min.css","js":"https://unpkg.com/heti/umd/heti-addon.min.js"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+  <script>
+  function getEmojiMaps() {
+    function emoji(path, idx, ext) {
+      return path + "/" + path + "-" + idx + "." + ext;
+    }
+    var emojiMaps = {};
+    for (var i = 1; i <= 54; i++) {
+      emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+    }
+    for (var i = 1; i <= 101; i++) {
+      emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+    }
+    for (var i = 1; i <= 116; i++) {
+      emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+    }
+    for (var i = 1; i <= 125; i++) {
+      emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+    }
+    for (var i = 1; i <= 4; i++) {
+      emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+    }
+    return emojiMaps;
+  }
+  function load_comment(){
+    if(!document.getElementById("valine_container"))return;
+    stellar.loadScript('https://fastly.jsdelivr.net/gh/XuxuGood/simple-blog-cdn@main/js/Valine.min.js', {defer:true}).then(function () {
+      const el = document.getElementById("valine_container");
+      var path = el.getAttribute('comment_id');
+      const placeholder = "";
+      if (!path) {
+        path = decodeURI(window.location.pathname);
+      }
+      var valine = new Valine();
+      valine.init(Object.assign({"js":"https://fastly.jsdelivr.net/gh/XuxuGood/simple-blog-cdn@main/js/Valine.min.js","appId":"pzbFTXqhpBeDgCeiSD4IU3Uo-gzGzoHsz","appKey":"8t6hlt5VaX21ITVWzzNRGAWe","placeholder":null,"requiredFields":["nick","mail"],"enableQQ":true,"recordIP":false,"avatar":"robohash","pageSize":10,"lang":"zh-cn","highlight":true,"mathJax":false,"tagMeta":["博主","小伙伴","访客"],"metaPlaceholder":{"nick":"昵称/QQ号(必填)","mail":"邮箱（必填，完全保密）","link":"网址(https://)"},"master":["6783037F2DF30EAB99F9FC256157D875"],"friends":["6783037F2DF30EAB99F9FC256157D875"]}, {
+        el: '#valine_container',
+        path: path,
+        placeholder: placeholder,
+        emojiCDN: 'https://fastly.jsdelivr.net/gh/volantis-x/cdn-emoji/valine/',
+        emojiMaps: getEmojiMaps(),
+      }));
+    });
+  }
+  window.addEventListener('DOMContentLoaded', (event) => {
+    console.log('DOM fully loaded and parsed');
+    load_comment();
+  });
+
+</script>
+
+
+
+
+<!-- inject -->
+
+  
+    <script defer src="/live2d-widget/autoload.js"></script>
+  
+    <script defer src="/js/custom/custom.js"></script>
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.js"></script>
+  
+    <script defer src="/js/custom/code_unfold.js"></script>
+  
+
+
+  </div>
+
+</body>
+</html>
