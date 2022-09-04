@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+
+<head>
+  <meta name="generator" content="Hexo 5.4.2">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://fastly.jsdelivr.net'>
+  <link rel="preconnect" href="https://fastly.jsdelivr.net" crossorigin>
+  <link rel='dns-prefetch' href='//unpkg.com'>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" content="#f8f8f8">
+  <title>MySQL：MySQL(2)-MySQL基础 - aJream</title>
+
+  
+    <meta name="description" content="MySQL基础  mysql语法 注释：   单行注释：--这是注释   多行注释： 123456&#x2F;*这是注释这是注释这是注释这是注释*&#x2F;   mysql语句不区分大小写,建议小写  数据库基本操作 操作数据库-&gt;操作数据库的表-&gt;操作数据库的表中的数据 连接数据库 1mysql -uroot -p密码          #-p和密码之间没有空格 查看全部数据库 1show data">
+<meta property="og:type" content="website">
+<meta property="og:title" content="MySQL(2)-MySQL基础">
+<meta property="og:url" content="https://ajream-n.netlify.app/wiki/mysql/mysql_2/">
+<meta property="og:site_name" content="aJream">
+<meta property="og:description" content="MySQL基础  mysql语法 注释：   单行注释：--这是注释   多行注释： 123456&#x2F;*这是注释这是注释这是注释这是注释*&#x2F;   mysql语句不区分大小写,建议小写  数据库基本操作 操作数据库-&gt;操作数据库的表-&gt;操作数据库的表中的数据 连接数据库 1mysql -uroot -p密码          #-p和密码之间没有空格 查看全部数据库 1show data">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-09-04T16:42:41.662Z">
+<meta property="article:modified_time" content="2022-09-04T16:42:41.662Z">
+<meta property="article:author" content="aJream">
+<meta name="twitter:card" content="summary">
+  
+  
+
+  <!-- feed -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/main.css">
+
+  
+
+  
+
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"onload="renderMathInElement(document.body);"></script>
+  
+
+
+  
+    
+      <script defer src="https://fastly.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+    
+      <link rel="stylesheet" href="https://npm.elemecdn.com/font-awesome/css/font-awesome.min.css"/ media="defer" onload="this.media='all'">
+    
+      <link rel="shortcut icon" href="/images/favicon.png">
+    
+      <link rel="stylesheet" type="text/css" href="/css/custom/return_top_bilibili.css" />
+    
+      <link rel="stylesheet" type="text/css" href="/css/custom/code_copy.css" />
+    
+      <link rel="stylesheet" type="text/css" href="/css/custom/code_unfold.css" />
+    
+      <link rel="stylesheet" type="text/css" href="/css/custom/light_dark_mode.css" />
+    
+  
+</head>
+
+<body>
+  
+
+
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left' layout='wiki'>
+    
+
+
+<header class="header">
+
+<div class="logo-wrap wiki"><a style="filter: grayscale(100%)" class="wiki-home cap" href="/wiki"><svg aria-hidden="true" viewBox="0 0 16 16" width="1rem" height="1rem" fill="currentColor"><path fill-rule="evenodd" d="M7.78 12.53a.75.75 0 01-1.06 0L2.47 8.28a.75.75 0 010-1.06l4.25-4.25a.75.75 0 011.06 1.06L4.81 7h7.44a.75.75 0 010 1.5H4.81l2.97 2.97a.75.75 0 010 1.06z"></path></svg>所有专栏</a><a class="title" href="/wiki/mysql/mysql_1/"><div class="main">🍬MySQL学习笔记</div><div class="sub cap">MySQL</div></a></div>
+</header>
+
+<div class="widgets">
+
+<div class="widget-wrap multi" id="toc"><div class="widget-header cap dis-select"><span class="name">本文目录</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/mysql/mysql_1/"><span class="toc-text">MySQL(1)-数据库认识</span></a></div><div class="doc-tree active"><a class="doc-tree-link active" href="/wiki/mysql/mysql_2/"><span class="toc-text">MySQL(2)-MySQL基础</span></a><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#mysql%E8%AF%AD%E6%B3%95"><span class="toc-text"> mysql语法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C"><span class="toc-text"> 数据库基本操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%88%97%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-text"> 数据库的（列）数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E5%80%BC"><span class="toc-text"> 数值</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-text"> 字符串</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%97%B6%E9%97%B4%E6%97%A5%E6%9C%9F"><span class="toc-text"> 时间日期</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#null"><span class="toc-text"> NULL</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%97%E6%AE%B5%E5%B1%9E%E6%80%A7%E9%87%8D%E8%A6%81"><span class="toc-text"> 字段属性（重要）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E5%BC%95%E6%93%8E"><span class="toc-text"> 数据库引擎</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E5%AD%97%E7%AC%A6%E9%9B%86%E7%BC%96%E7%A0%81"><span class="toc-text"> 设置字符集编码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9-%E5%88%A0%E9%99%A4%E8%A1%A8"><span class="toc-text"> 修改、删除表</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BF%AE%E6%94%B9%E8%A1%A8%E7%9A%84%E7%BB%93%E6%9E%84alter-table"><span class="toc-text"> 修改表的结构：ALTER TABLE</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A0%E9%99%A4%E8%A1%A8-drop-table"><span class="toc-text"> 删除表 DROP TABLE</span></a></li></ol></li></ol></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/mysql/mysql_3/"><span class="toc-text">MySQL(3)-数据管理</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/mysql/mysql_4/"><span class="toc-text">MySQL(4)-MySQL事务</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/mysql/mysql_5/"><span class="toc-text">MySQL(5)-索引</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/mysql/mysql_6/"><span class="toc-text">MySQL(6)-权限-备份</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/mysql/mysql_7/"><span class="toc-text">MySQL(7)-JDBC</span></a></div></div></div>
+
+
+
+<div class="widget-wrap" id="related"><div class="widget-header cap dis-select"><span class="name">更多Java</span></div><div class="widget-body fs14"><a class="more-item wiki" href="/wiki/JavaSE/javase_1/">☕JavaSE学习笔记<div class="excerpt">Java SE（Java Standard Edition，Java 标准版）是Java技术的核心和基础，是Java ME和Java EE编程的基础。Java SE是由Sun Microsystems公司于1995年5月推出的Java程序设计语言和Java平台的总称。【百度百科】</div></a><a class="more-item wiki" href="/wiki/ssm/spring/spring_1/">🚀SSM学习笔记<div class="excerpt">SSM框架是Spring MVC ，Spring和Mybatis框架的整合，是标准的MVC模式，将整个系统划分为View层，Controller层，Service层，DAO层四层，使用Spring MVC负责请求的转发和视图管理，Spring实现业务对象管理，Mybatis作为数据对象的持久化引擎。</div></a></div></div>
+</div>
+
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+  
+  
+<div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" id="home" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" id="menu" href="/wiki/">专栏</a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/wiki/mysql/mysql_1/">🍬MySQL学习笔记</a></div><div id="post-meta">更新于&nbsp;<time datetime="2022-09-04T16:42:41.662Z">2022-09-04</time></div></div>
+
+  <article class='content md wiki'>
+  <h1 class="article-title"><span>MySQL(2)-MySQL基础</span></h1>
+  <h1 id="mysql基础"><a class="markdownIt-Anchor" href="#mysql基础"></a> MySQL基础</h1>
+<h2 id="mysql语法"><a class="markdownIt-Anchor" href="#mysql语法"></a> mysql语法</h2>
+<p>注释：</p>
+<ul>
+<li>
+<p>单行注释：<code>--这是注释</code></p>
+</li>
+<li>
+<p>多行注释：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">/*</span><br><span class="line">这是注释</span><br><span class="line">这是注释</span><br><span class="line">这是注释</span><br><span class="line">这是注释</span><br><span class="line">*/</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>mysql语句不区分大小写,建议小写</p>
+<h2 id="数据库基本操作"><a class="markdownIt-Anchor" href="#数据库基本操作"></a> 数据库基本操作</h2>
+<p>操作数据库-&gt;操作数据库的表-&gt;操作数据库的表中的数据</p>
+<p>连接数据库</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -uroot -p密码          #-p和密码之间没有空格</span><br></pre></td></tr></table></figure>
+<p>查看全部数据库</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show databases;</span><br></pre></td></tr></table></figure>
+<p>使用某个数据库(假设有个数据库为：school)</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use school;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>如果名称是sql中的一些关键字，要加反引号</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">use `user`;</span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>查看该数据库所有的表</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show tables;</span><br></pre></td></tr></table></figure>
+<p>查看某个表信息(假设在该数据库中有个表为：student)：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">describe student;</span><br><span class="line">或</span><br><span class="line">desc student;</span><br></pre></td></tr></table></figure>
+<p>创建数据库school;  （中括号 <code>[]</code> 表示可选）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">create database [if not exist] school;</span><br></pre></td></tr></table></figure>
+<p>删除数据库：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">drop database [if exist] school;</span><br></pre></td></tr></table></figure>
+<h2 id="数据库的列数据类型"><a class="markdownIt-Anchor" href="#数据库的列数据类型"></a> 数据库的（列）数据类型</h2>
+<h3 id="数值"><a class="markdownIt-Anchor" href="#数值"></a> 数值</h3>
+<ol>
+<li>tinyint: 1个字节（-127~128）</li>
+<li>smallint: 2个字节</li>
+<li>mediumint： 3个字节</li>
+<li><strong>int：4个字节</strong></li>
+<li>bigint：8个字节</li>
+<li>float：4个字节</li>
+<li>double：8个字节</li>
+<li>decimal：字符串形式的浮点数（金融计算常用）</li>
+</ol>
+<h3 id="字符串"><a class="markdownIt-Anchor" href="#字符串"></a> 字符串</h3>
+<ol>
+<li>char：1个字节（0~255）</li>
+<li><strong>varchar:可变字符串 0~65535</strong></li>
+<li>tinytext: 微型文本 2^8-1</li>
+<li><strong>text:文本串 2^16-1</strong></li>
+</ol>
+<h3 id="时间日期"><a class="markdownIt-Anchor" href="#时间日期"></a> 时间日期</h3>
+<ol>
+<li>
+<p>date		YYYY-MM-DD, 日期格式</p>
+</li>
+<li>
+<p>time        HH:mm:ss  时间格式</p>
+</li>
+<li>
+<p><strong>datetime</strong>    YYYY-MM-DD HH:mm:ss  （最常用）</p>
+</li>
+<li>
+<p><strong>timestamp</strong>    1970.1.1到现在的毫秒数（较常用）</p>
+</li>
+<li>
+<p>year：年份</p>
+</li>
+</ol>
+<h3 id="null"><a class="markdownIt-Anchor" href="#null"></a> NULL</h3>
+<p>没有值，未知</p>
+<p>注意，不要使用NULL进行运算，结果为NULL</p>
+<h2 id="字段属性重要"><a class="markdownIt-Anchor" href="#字段属性重要"></a> 字段属性（重要）</h2>
+<p>每一列（称为字段）都有多个属性，用于描述该列的特征</p>
+<ul>
+<li>
+<p>unsigned</p>
+<p>无符号整数，表示该列不能为负数</p>
+</li>
+<li>
+<p>zerofill</p>
+<ul>
+<li>0填充的</li>
+<li>不足的位数用0填充，如：int(3);  --输入数字5，自动转为 <code>005</code></li>
+</ul>
+</li>
+<li>
+<p>自增 auto_increment</p>
+<p>自动在一条记录的基础上（默认） <code>+1</code></p>
+<p>必须是整数类型</p>
+</li>
+<li>
+<p>非空 NOT NULL</p>
+<ul>
+<li>假设为 not null: 如果不给他赋值，会报错</li>
+</ul>
+</li>
+</ul>
+<p>例子：创建一个表</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE</span><br><span class="line">IF</span><br><span class="line">	NOT EXISTS `student` (</span><br><span class="line">	`id` INT ( 4 ) NOT NULL AUTO_INCREMENT COMMENT &#x27;学号&#x27;,</span><br><span class="line">	`name` VARCHAR ( 30 ) NOT NULL DEFAULT &#x27;匿名&#x27; COMMENT &#x27;姓名&#x27;,</span><br><span class="line">	`password` VARCHAR ( 30 ) NOT NULL DEFAULT &#x27;123456&#x27; COMMENT &#x27;密码&#x27;,</span><br><span class="line">	`sex` VARCHAR ( 2 ) NOT NULL DEFAULT &#x27;保密&#x27; COMMENT &#x27;性别&#x27;,</span><br><span class="line">	`age` INT ( 3 ) NOT NULL DEFAULT 18 COMMENT &#x27;年龄&#x27;,</span><br><span class="line">	PRIMARY KEY ( `id` ) -- 主键</span><br><span class="line">	</span><br><span class="line">	) ENGINE = INNODB DEFAULT CHARSET = utf8;</span><br></pre></td></tr></table></figure>
+<p>创建表格式（ <code>[]</code>里面的内容表示可有可无 ）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE [IF NOT EXISTS] `表名`(</span><br><span class="line">	`字段名` 列类型 [属性] [索引] [注释],</span><br><span class="line">    `字段名` 列类型 [属性] [索引] [注释],</span><br><span class="line">    `字段名` 列类型 [属性] [索引] [注释],</span><br><span class="line">    `字段名` 列类型 [属性] [索引] [注释],</span><br><span class="line">    ...</span><br><span class="line">    `字段名` 列类型 [属性] [索引] [注释]</span><br><span class="line">)[表类型] [字符集设置] [注释]</span><br></pre></td></tr></table></figure>
+<p>在创建完一个数据库或者表后，可以用以下语句：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SHOW CREATE DATABASE school; -- 查看创建数据库的语句</span><br><span class="line">SHOW CREATE TABLE student; 	-- 查看创建表的语句</span><br><span class="line">DESC student;   -- 显示表的结构</span><br></pre></td></tr></table></figure>
+<h2 id="数据库引擎"><a class="markdownIt-Anchor" href="#数据库引擎"></a> 数据库引擎</h2>
+<ol>
+<li>INNODB（默认使用）</li>
+<li>MYISAM</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>MYISAM</th>
+<th>INNODB</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>事务支持</td>
+<td>不支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>数据行锁定</td>
+<td>不支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>外键约束</td>
+<td>不支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>全文索引</td>
+<td>支持</td>
+<td>不支持</td>
+</tr>
+<tr>
+<td>表的空间大小</td>
+<td>较小</td>
+<td>较大，为MYISAM的2倍</td>
+</tr>
+</tbody>
+</table>
+<p>事务</p>
+<ul>
+<li>是一种高级的处理方式，如在一些列增删改中只要哪个出错还可以回滚还原，而MyISAM就不可以</li>
+</ul>
+<p>占用空间：</p>
+<ul>
+<li>
+<p>InnoDB的B+树主键索引的叶子节点就是数据文件，辅助索引的叶子节点是主键的值；</p>
+</li>
+<li>
+<p>而MyISAM的B+树主键索引和辅助索引的叶子节点都是数据文件的地址指针。</p>
+</li>
+</ul>
+<p>常用操作：</p>
+<ul>
+<li>MYISAM: 节约空间，速度快</li>
+<li>INNODB：安全性高，事务处理，多表多用户操作</li>
+</ul>
+<p>物理空间存在位置：</p>
+<p>所有数据文件都在data目录下，本质还是文件存储</p>
+<ul>
+<li>MYISAM对应文件：
+<ul>
+<li>*.frm 表结构定义</li>
+<li>*.MYD 数据文件</li>
+<li>*.MYI 索引文件</li>
+</ul>
+</li>
+<li>INNODB：只有 *.frm 文件，以及上级目录下ibdata1文件</li>
+</ul>
+<h2 id="设置字符集编码"><a class="markdownIt-Anchor" href="#设置字符集编码"></a> 设置字符集编码</h2>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CHARSET=utf8</span><br></pre></td></tr></table></figure>
+<p>MySQL默认字符集 Latin1， 不支持中文</p>
+<p>可以在 my.ini文件配置，但发到别人电脑时可能会出错，最好在创建表时也写上</p>
+<h2 id="修改-删除表"><a class="markdownIt-Anchor" href="#修改-删除表"></a> 修改、删除表</h2>
+<h3 id="修改表的结构alter-table"><a class="markdownIt-Anchor" href="#修改表的结构alter-table"></a> 修改表的结构：ALTER TABLE</h3>
+<p>修改表名</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE teacher RENAME AS teacher1;</span><br></pre></td></tr></table></figure>
+<p>增加表的字段</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE teacher1 ADD age INT(11)</span><br></pre></td></tr></table></figure>
+<p>修改表的字段（字段名，字段类型）</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE teacher1 MODIFY age VARCHAR(11)  -- 修改类型</span><br><span class="line">ALTER TABLE teacher1 CHANGE age age1 int(11) -- 字段重命名</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>删除表的字段</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ALTER TABLE teacher1 DROP age1; </span><br></pre></td></tr></table></figure>
+<h3 id="删除表-drop-table"><a class="markdownIt-Anchor" href="#删除表-drop-table"></a> 删除表 DROP TABLE</h3>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">drop table [if exists] teacher;   -- 一般加上判断，避免出错</span><br></pre></td></tr></table></figure>
+
+  
+
+
+  </article>
+  
+<div class="related-wrap reveal" id="read-next"><section class="header cap theme"><span>接下来阅读</span></section><section class="body fs14"><a id="next" href="/wiki/mysql/mysql_3/">MySQL(3)-数据管理<span class="note">下一篇</span></a><div class="line"></div><a id="prev" href="/wiki/mysql/mysql_1/">MySQL(1)-数据库认识<span class="note">上一篇</span></a></section></div>
+
+  
+
+  <div class='related-wrap md reveal' id="comments">
+    <div class='cmt-title cap theme'>
+      快来参与讨论吧
+    </div>
+    <div class='cmt-body valine'>
+      
+
+<div id="valine_container" class="valine_thread"><svg class="loading" style="vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2709"><path d="M832 512c0-176-144-320-320-320V128c211.2 0 384 172.8 384 384h-64zM192 512c0 176 144 320 320 320v64C300.8 896 128 723.2 128 512h64z" p-id="2710"></path></svg></div>
+
+    </div>
+  </div>
+
+
+
+
+      
+<footer class="page-footer reveal fs12"><hr><div class="sitemap"><div class="sitemap-group"><span class="fs14">博客</span><a href="/">近期</a><a href="/categories/">分类</a><a href="/tags/">标签</a><a href="/archievs/">归档</a></div><div class="sitemap-group"><span class="fs14">专栏</span><a href="/wiki/">全部</a><a href="/wiki/tags/Java/">Java</a><a href="/wiki/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/">嵌入式</a></div><div class="sitemap-group"><span class="fs14">社交</span><a href="/friends/">友链</a><a href="/about/#comments">留言板</a></div><div class="sitemap-group"><span class="fs14">更多</span><a href="/about/">关于本站</a><a target="_blank" rel="noopener" href="https://github.com/ajream">GitHub</a></div></div><div class="text"><p>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+<p>本站由 <a href="https://ajream-n.netlify.app/">@aJream</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.9.0" title="v1.9.0">Stellar</a> 主题创建。</p>
+</div></footer>
+
+      <div class='float-panel mobile-only blur' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15301"><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 2.3 26.8 24.6 47.5 51.6 47.6h416.5v4z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15302"></path><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 1.9 27.7 23.9 49.7 51.6 51.6h416.5z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15303"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.9.0';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://fastly.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js',
+    sitesjs: '/js/plugins/sites.js',
+    friendsjs: '/js/plugins/friends.js',
+  };
+
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://fastly.jsdelivr.net/npm/vanilla-lazyload@17.3.1/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper@6/swiper-bundle.min.css","js":"https://unpkg.com/swiper@6/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://fastly.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://fastly.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://fastly.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.fancybox = Object.assign({"enable":true,"js":"https://fastly.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js","css":"https://fastly.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css","selector":".swiper-slide img"});
+  }
+  if ('false' == 'true') {
+    stellar.plugins.heti = Object.assign({"enable":false,"css":"https://unpkg.com/heti/umd/heti.min.css","js":"https://unpkg.com/heti/umd/heti-addon.min.js"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+  <script>
+  function getEmojiMaps() {
+    function emoji(path, idx, ext) {
+      return path + "/" + path + "-" + idx + "." + ext;
+    }
+    var emojiMaps = {};
+    for (var i = 1; i <= 54; i++) {
+      emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+    }
+    for (var i = 1; i <= 101; i++) {
+      emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+    }
+    for (var i = 1; i <= 116; i++) {
+      emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+    }
+    for (var i = 1; i <= 125; i++) {
+      emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+    }
+    for (var i = 1; i <= 4; i++) {
+      emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+    }
+    return emojiMaps;
+  }
+  function load_comment(){
+    if(!document.getElementById("valine_container"))return;
+    stellar.loadScript('https://fastly.jsdelivr.net/gh/XuxuGood/simple-blog-cdn@main/js/Valine.min.js', {defer:true}).then(function () {
+      const el = document.getElementById("valine_container");
+      var path = el.getAttribute('comment_id');
+      const placeholder = "";
+      if (!path) {
+        path = decodeURI(window.location.pathname);
+      }
+      var valine = new Valine();
+      valine.init(Object.assign({"js":"https://fastly.jsdelivr.net/gh/XuxuGood/simple-blog-cdn@main/js/Valine.min.js","appId":"pzbFTXqhpBeDgCeiSD4IU3Uo-gzGzoHsz","appKey":"8t6hlt5VaX21ITVWzzNRGAWe","placeholder":null,"requiredFields":["nick","mail"],"enableQQ":true,"recordIP":false,"avatar":"robohash","pageSize":10,"lang":"zh-cn","highlight":true,"mathJax":false,"tagMeta":["博主","小伙伴","访客"],"metaPlaceholder":{"nick":"昵称/QQ号(必填)","mail":"邮箱（必填，完全保密）","link":"网址(https://)"},"master":["6783037F2DF30EAB99F9FC256157D875"],"friends":["6783037F2DF30EAB99F9FC256157D875"]}, {
+        el: '#valine_container',
+        path: path,
+        placeholder: placeholder,
+        emojiCDN: 'https://fastly.jsdelivr.net/gh/volantis-x/cdn-emoji/valine/',
+        emojiMaps: getEmojiMaps(),
+      }));
+    });
+  }
+  window.addEventListener('DOMContentLoaded', (event) => {
+    console.log('DOM fully loaded and parsed');
+    load_comment();
+  });
+
+</script>
+
+
+
+
+<!-- inject -->
+
+  
+    <script defer src="/live2d-widget/autoload.js"></script>
+  
+    <script defer src="/js/custom/custom.js"></script>
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.js"></script>
+  
+    <script defer src="/js/custom/code_unfold.js"></script>
+  
+
+
+  </div>
+
+</body>
+</html>

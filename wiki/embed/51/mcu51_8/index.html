@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+
+<head>
+  <meta name="generator" content="Hexo 5.4.2">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://fastly.jsdelivr.net'>
+  <link rel="preconnect" href="https://fastly.jsdelivr.net" crossorigin>
+  <link rel='dns-prefetch' href='//unpkg.com'>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" content="#f8f8f8">
+  <title>51chip：51单片机学习笔记(八) - aJream</title>
+
+  
+    <meta name="description" content="DS1302  芯片功能 DS1302是美国DALLAS推出的一款高性能、低功耗的日历时钟芯片。 DS1302是一种串行接口的实时时钟，芯片内部具有可编程的日历时钟和31个字节的静态RAM，日历时钟可以自动进行闰年补偿，计时准确，接口简单，使用方便 工作电压范围2.5~5.5V，芯片自身还具有对备用电池进行涓流充电功能，可有效延长备用电池的使用寿命。 DS1302用于数据记录，能实现数据与该数据">
+<meta property="og:type" content="website">
+<meta property="og:title" content="51单片机学习笔记(八)">
+<meta property="og:url" content="https://ajream-n.netlify.app/wiki/embed/51/mcu51_8/">
+<meta property="og:site_name" content="aJream">
+<meta property="og:description" content="DS1302  芯片功能 DS1302是美国DALLAS推出的一款高性能、低功耗的日历时钟芯片。 DS1302是一种串行接口的实时时钟，芯片内部具有可编程的日历时钟和31个字节的静态RAM，日历时钟可以自动进行闰年补偿，计时准确，接口简单，使用方便 工作电压范围2.5~5.5V，芯片自身还具有对备用电池进行涓流充电功能，可有效延长备用电池的使用寿命。 DS1302用于数据记录，能实现数据与该数据">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20210824170630_image-20210824170629438.png">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20210824170856_image-20210824170855223.png">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20210824174040_image-20210824174037791.png">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20210824174701_image-20210824174700324.png">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20210824175338_image-20210824175336808.png">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20210824175359_image-20210824175358215.png">
+<meta property="article:published_time" content="2022-09-04T16:42:41.658Z">
+<meta property="article:modified_time" content="2022-09-04T16:42:41.658Z">
+<meta property="article:author" content="aJream">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20210824170630_image-20210824170629438.png">
+  
+  
+
+  <!-- feed -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/main.css">
+
+  
+
+  
+
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"onload="renderMathInElement(document.body);"></script>
+  
+
+
+  
+    
+      <script defer src="https://fastly.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+    
+      <link rel="stylesheet" href="https://npm.elemecdn.com/font-awesome/css/font-awesome.min.css"/ media="defer" onload="this.media='all'">
+    
+      <link rel="shortcut icon" href="/images/favicon.png">
+    
+      <link rel="stylesheet" type="text/css" href="/css/custom/return_top_bilibili.css" />
+    
+      <link rel="stylesheet" type="text/css" href="/css/custom/code_copy.css" />
+    
+      <link rel="stylesheet" type="text/css" href="/css/custom/code_unfold.css" />
+    
+      <link rel="stylesheet" type="text/css" href="/css/custom/light_dark_mode.css" />
+    
+  
+</head>
+
+<body>
+  
+
+
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left' layout='wiki'>
+    
+
+
+<header class="header">
+
+<div class="logo-wrap wiki"><a style="filter: grayscale(100%)" class="wiki-home cap" href="/wiki"><svg aria-hidden="true" viewBox="0 0 16 16" width="1rem" height="1rem" fill="currentColor"><path fill-rule="evenodd" d="M7.78 12.53a.75.75 0 01-1.06 0L2.47 8.28a.75.75 0 010-1.06l4.25-4.25a.75.75 0 011.06 1.06L4.81 7h7.44a.75.75 0 010 1.5H4.81l2.97 2.97a.75.75 0 010 1.06z"></path></svg>所有专栏</a><a class="title" href="/wiki/embed/51/mcu51_1/"><div class="main">🎮51单片机学习笔记</div><div class="sub cap">C51</div></a></div>
+</header>
+
+<div class="widgets">
+
+<div class="widget-wrap multi" id="toc"><div class="widget-header cap dis-select"><span class="name">本文目录</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/embed/51/mcu51_1/"><span class="toc-text">51单片机学习笔记（一）</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/embed/51/mcu51_2/"><span class="toc-text">51单片机学习笔记(二)</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/embed/51/mcu51_3/"><span class="toc-text">51单片机学习笔记(三)</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/embed/51/mcu51_4/"><span class="toc-text">51单片机学习笔记(四)</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/embed/51/mcu51_5/"><span class="toc-text">51单片机学习笔记(五)</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/embed/51/mcu51_6/"><span class="toc-text">51单片机学习笔记(六)</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/embed/51/mcu51_7/"><span class="toc-text">51单片机学习笔记(七)</span></a></div><div class="doc-tree active"><a class="doc-tree-link active" href="/wiki/embed/51/mcu51_8/"><span class="toc-text">51单片机学习笔记(八)</span></a><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#ds1302"><span class="toc-text"> DS1302</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8A%AF%E7%89%87%E5%8A%9F%E8%83%BD"><span class="toc-text"> 芯片功能</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%95%E8%84%9A"><span class="toc-text"> 引脚</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BA%94%E7%94%A8%E7%94%B5%E8%B7%AF"><span class="toc-text"> 应用电路</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ds1302%E7%9A%84%E5%AF%84%E5%AD%98%E5%99%A8"><span class="toc-text"> DS1302的寄存器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ds1302%E6%97%B6%E5%BA%8F"><span class="toc-text"> DS1302时序</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BE%8B%E5%AD%90"><span class="toc-text"> 例子</span></a></li></ol></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/embed/51/mcu51_9/"><span class="toc-text">51单片机学习笔记(九)</span></a></div></div></div>
+
+
+
+<div class="widget-wrap" id="related"><div class="widget-header cap dis-select"><span class="name">更多嵌入式</span></div><div class="widget-body fs14"><a class="more-item wiki" href="/wiki/embed/stm32/stm32_1/">🔗STM32单片机学习笔记<div class="excerpt">ST公司即意法半导体公司，STM32单片机即是ST（意法半导体）公司使用ARM公司的cortex-M3为核心生产的32bit系列的单片机。</div></a><a class="more-item wiki" href="/wiki/embed/esp8266/esp8266_env/">🎬ESPxx系列笔记<div class="excerpt">ESP8266是由乐鑫公司出品的一款物联网的芯片，可以进行二次开发，开发有两种SDK，一种是基于RTOS和NO-RTOS</div></a></div></div>
+</div>
+
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+  
+  
+<div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" id="home" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" id="menu" href="/wiki/">专栏</a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/wiki/embed/51/mcu51_1/">🎮51单片机学习笔记</a></div><div id="post-meta">更新于&nbsp;<time datetime="2022-09-04T16:42:41.658Z">2022-09-04</time></div></div>
+
+  <article class='content md wiki'>
+  <h1 class="article-title"><span>51单片机学习笔记(八)</span></h1>
+  <h2 id="ds1302"><a class="markdownIt-Anchor" href="#ds1302"></a> DS1302</h2>
+<h3 id="芯片功能"><a class="markdownIt-Anchor" href="#芯片功能"></a> 芯片功能</h3>
+<p>DS1302是美国DALLAS推出的一款高性能、低功耗的日历时钟芯片。</p>
+<p>DS1302是一种串行接口的实时时钟，芯片内部具有可编程的日历时钟和31个字节的静态RAM，日历时钟可以自动进行闰年补偿，计时准确，接口简单，使用方便</p>
+<p>工作电压范围2.5~5.5V，芯片自身还具有对备用电池进行涓流充电功能，可有效延长备用电池的使用寿命。</p>
+<p>DS1302用于数据记录，能实现数据与该数据出现的时间同时记录，广泛应用于测量系统中。</p>
+<h3 id="引脚"><a class="markdownIt-Anchor" href="#引脚"></a> 引脚</h3>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/20210824170630_image-20210824170629438.png" alt="image-20210824170629438" /></p>
+<ul>
+<li>
+<p>VCC1：主电源</p>
+</li>
+<li>
+<p>VCC2：备用电源</p>
+<p>当VCC2大于VCC1+0.2V时，由VCC2向DS1302供电否则由VCC1向DS1302供电</p>
+</li>
+<li>
+<p>SCLK：串行时钟输入端，控制数据输入与输出</p>
+</li>
+<li>
+<p>I/O ：双向输入线</p>
+</li>
+<li>
+<p>CE：使能端，CE为高时允许读写DS1302数据，为低时禁止读写</p>
+</li>
+</ul>
+<h3 id="应用电路"><a class="markdownIt-Anchor" href="#应用电路"></a> 应用电路</h3>
+<p>开发板实际电路如下：</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/20210824170856_image-20210824170855223.png" alt="image-20210824170855223" /></p>
+<p>说明：</p>
+<p>DS1302和单片机的IO连接只需3条线：</p>
+<ul>
+<li>
+<p>CE数据传输使能端、SCLK串行时钟输入端、I/O串行数据端</p>
+<p>(开发板上把这3个引脚分别接到了j5排针上同时通过4.7K电阻上拉到VCC，我们实际使用DS1302芯片时需要用杜邦线把j5和相应的单片机IO链接上)</p>
+</li>
+</ul>
+<p>此外</p>
+<ul>
+<li>
+<p>X1、X2晶振引脚外接32.768KHZ圆形晶振，给时钟芯片提供工作频率</p>
+</li>
+<li>
+<p>VCC2接的开发上的系统电源，VCC1接的预留电池座</p>
+</li>
+<li>
+<p>DS1302第4脚接的系统GND</p>
+</li>
+</ul>
+<h3 id="ds1302的寄存器"><a class="markdownIt-Anchor" href="#ds1302的寄存器"></a> DS1302的寄存器</h3>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/20210824174040_image-20210824174037791.png" alt="image-20210824174037791" /></p>
+<p>如图所示，时钟日历包含在 7 个读/写寄存器内，读/写寄存器中的数据是 BCD 码。（4位BCD码最大表示9，不是15， 例如用BCD码表示10为 <code>0001 0000</code>）</p>
+<ul>
+<li>
+<p>秒寄存器（81h、80h）的BIT7定义为时钟暂停标志（CH）。当该位置为1时，时钟振荡器停止，DS1302处于低功耗状态；当该位置为0时，时钟开始运行。</p>
+</li>
+<li>
+<p>小时寄存器（85h、84h）的BIT7用于定义DS1302是运行于12小时模式还是24小时模式，当为1时，选择12小时模式，此时BIT5为AM/PM位，在24小时模式时此位为小时数据位。</p>
+</li>
+<li>
+<p>写保护寄存器（8Fh、8Eh）的BIT7是写保护位（WP），其它7位均为0。在任何对时钟或RAM读写操作之前，WP位必须为0。当WP位为1时，不能对任何时钟日历寄存器或RAM进行写操作。</p>
+</li>
+</ul>
+<p>使用对应指令即可读取或写入数据到相应寄存器，比如读取秒，用指令<code>81h</code>，读取分，用 <code>83h</code>, …</p>
+<p>突发模式：</p>
+<p>突发模式可以指定任 何的时钟/日历或者 RAM 寄存器为突发模式，和以前一样，第 6 位指定时钟或 RAM 而 0 位指定读或写。</p>
+<p>突发模式的实质是指一次传送多个字节的时钟信号和 RAM 数据。如下图所示：</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/20210824174701_image-20210824174700324.png" alt="image-20210824174700324" /></p>
+<p>也就是说，如果发送<code>BFh</code>指令，DS1302会一次性把年月周日、时分秒发送过来,不需要像前面一个个指令来获取时间</p>
+<h3 id="ds1302时序"><a class="markdownIt-Anchor" href="#ds1302时序"></a> DS1302时序</h3>
+<p>DS1302读写数据时序，数据的传输是从最低位开始（BIT0）。</p>
+<p>数据是以位（BIT）为单位依次写入或读出，读写数据操作中SCLK上升沿时执行写入数据，下降沿时执行读出数据。</p>
+<p>**读数据：**CE端从低到高的一个上升沿开始允许开始读数据，拉低CE端则禁止读写数据；开始的8个SCLK周期，写命令字节，数据的后8个SCLK 周期读出数据。</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/20210824175338_image-20210824175336808.png" alt="image-20210824175336808" /></p>
+<p>**写数据：**CE端从低到高的一个上升沿开始允许开始写数据，拉低CE端则禁止读写数据；开始的8个SCLK周期，写命令字节，数据的后8个SCLK 周期写入数据。</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/20210824175359_image-20210824175358215.png" alt="image-20210824175358215" /></p>
+<h2 id="例子"><a class="markdownIt-Anchor" href="#例子"></a> 例子</h2>
+<p>数码管显示DS1302时钟</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;reg52.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;intrins.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> MAIN_Fosc		11059200UL	<span class="comment">//宏定义主时钟HZ</span></span></span><br><span class="line"><span class="comment">/*====================================</span></span><br><span class="line"><span class="comment"> 自定义类型名</span></span><br><span class="line"><span class="comment">====================================*/</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">unsigned</span> <span class="type">char</span> INT8U;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">unsigned</span> <span class="type">char</span> uchar;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">unsigned</span> <span class="type">int</span> INT16U;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">unsigned</span> <span class="type">int</span> uint;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*====================================</span></span><br><span class="line"><span class="comment"> 硬件接口位声明</span></span><br><span class="line"><span class="comment">====================================*/</span></span><br><span class="line">sbit TSCLK = P1^<span class="number">0</span>;<span class="comment">//时钟线 接到P10上用杜邦线</span></span><br><span class="line">sbit TIO   = P1^<span class="number">1</span>;<span class="comment">//数据线，接到P11上</span></span><br><span class="line">sbit TRST  = P1^<span class="number">2</span>;<span class="comment">//使能端，接到P12上</span></span><br><span class="line">sbit DU  = P2^<span class="number">6</span>;   <span class="comment">//数码管段选</span></span><br><span class="line">sbit WE  = P2^<span class="number">7</span>;   <span class="comment">//数码管位选</span></span><br><span class="line"><span class="comment">/*====================================</span></span><br><span class="line"><span class="comment">共阴极数码管段选码</span></span><br><span class="line"><span class="comment">====================================*/</span></span><br><span class="line">uchar code table[]=&#123; </span><br><span class="line"><span class="comment">//0		1	 2     3     4     5     6     7     8</span></span><br><span class="line"><span class="number">0x3F</span>, <span class="number">0x06</span>, <span class="number">0x5B</span>, <span class="number">0x4F</span>, <span class="number">0x66</span>, <span class="number">0x6D</span>, <span class="number">0x7D</span>, <span class="number">0x07</span>, <span class="number">0x7F</span>,</span><br><span class="line"><span class="comment">//9     A     B	   C	 D	   E	 F		-	 .	  关显示</span></span><br><span class="line"><span class="number">0x6F</span>, <span class="number">0x77</span>, <span class="number">0x7C</span>, <span class="number">0x39</span>, <span class="number">0x5E</span>, <span class="number">0x79</span>, <span class="number">0x71</span>, <span class="number">0x40</span>, <span class="number">0x80</span>, <span class="number">0x00</span></span><br><span class="line">                   &#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*====================================</span></span><br><span class="line"><span class="comment">数码管位选码</span></span><br><span class="line"><span class="comment">====================================*/</span></span><br><span class="line">				  <span class="comment">//第1位	2位	  3位	 4位   5位	6位	  7位	8位</span></span><br><span class="line">uchar code T_COM[] = &#123;<span class="number">0xfe</span>, <span class="number">0xfd</span>, <span class="number">0xfb</span>, <span class="number">0xf7</span>, <span class="number">0xef</span>, <span class="number">0xdf</span>, <span class="number">0xbf</span>, <span class="number">0x7f</span>&#125;;<span class="comment">//数码管位码</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*====================================</span></span><br><span class="line"><span class="comment">函数：void Delay_Ms(INT16U ms)</span></span><br><span class="line"><span class="comment">参数：ms，毫秒延时形参</span></span><br><span class="line"><span class="comment">描述：12T 51单片机自适应主时钟毫秒级延时函数</span></span><br><span class="line"><span class="comment">====================================*/</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">Delay_Ms</span><span class="params">(INT16U ms)</span></span><br><span class="line">&#123;</span><br><span class="line">     INT16U i;</span><br><span class="line">	 <span class="keyword">do</span>&#123;</span><br><span class="line">	      i = MAIN_Fosc / <span class="number">96000</span>; </span><br><span class="line">		  <span class="keyword">while</span>(--i);   <span class="comment">//96T per loop</span></span><br><span class="line">     &#125;<span class="keyword">while</span>(--ms);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">Display</span><span class="params">(uchar Hour, Min, Sec)</span></span><br><span class="line">&#123;		</span><br><span class="line"><span class="comment">//------------------------------</span></span><br><span class="line">	DU = <span class="number">0</span>;							</span><br><span class="line">	P0 = table[Hour/<span class="number">10</span>];		</span><br><span class="line">	DU = <span class="number">1</span>;						</span><br><span class="line">	DU = <span class="number">0</span>;							</span><br><span class="line"></span><br><span class="line">	WE = <span class="number">0</span>;						</span><br><span class="line">	P0 = T_COM[<span class="number">0</span>];				   </span><br><span class="line">	WE = <span class="number">1</span>;						</span><br><span class="line">	WE = <span class="number">0</span>;						</span><br><span class="line">	Delay_Ms(<span class="number">3</span>);</span><br><span class="line"><span class="comment">//-------------------------------</span></span><br><span class="line">	DU = <span class="number">0</span>;</span><br><span class="line">	P0 = table[Hour%<span class="number">10</span>]|<span class="number">0x80</span>; </span><br><span class="line">	DU = <span class="number">1</span>;</span><br><span class="line">	DU = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	WE = <span class="number">0</span>;</span><br><span class="line">	P0 = T_COM[<span class="number">1</span>];			  </span><br><span class="line">	WE = <span class="number">1</span>;</span><br><span class="line">	WE = <span class="number">0</span>;</span><br><span class="line">	Delay_Ms(<span class="number">3</span>);</span><br><span class="line"><span class="comment">//------------------------------</span></span><br><span class="line">	DU = <span class="number">0</span>;							</span><br><span class="line">	P0 = table[Min/<span class="number">10</span>];		</span><br><span class="line">	DU = <span class="number">1</span>;						</span><br><span class="line">	DU = <span class="number">0</span>;							</span><br><span class="line"></span><br><span class="line">	WE = <span class="number">0</span>;						</span><br><span class="line">	P0 = T_COM[<span class="number">2</span>];				   </span><br><span class="line">	WE = <span class="number">1</span>;						</span><br><span class="line">	WE = <span class="number">0</span>;						</span><br><span class="line">	Delay_Ms(<span class="number">3</span>);</span><br><span class="line"><span class="comment">//-------------------------------</span></span><br><span class="line">	DU = <span class="number">0</span>;</span><br><span class="line">	P0 = table[Min%<span class="number">10</span>]|<span class="number">0x80</span>; </span><br><span class="line">	DU = <span class="number">1</span>;</span><br><span class="line">	DU = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	WE = <span class="number">0</span>;</span><br><span class="line">	P0 = T_COM[<span class="number">3</span>];			 </span><br><span class="line">	WE = <span class="number">1</span>;</span><br><span class="line">	WE = <span class="number">0</span>;</span><br><span class="line">	Delay_Ms(<span class="number">3</span>);</span><br><span class="line"><span class="comment">//------------------------------</span></span><br><span class="line">	DU = <span class="number">0</span>;							</span><br><span class="line">	P0 = table[Sec/<span class="number">10</span>];		</span><br><span class="line">	DU = <span class="number">1</span>;						</span><br><span class="line">	DU = <span class="number">0</span>;							</span><br><span class="line"></span><br><span class="line">	WE = <span class="number">0</span>;						</span><br><span class="line">	P0 = T_COM[<span class="number">4</span>];				   </span><br><span class="line">	WE = <span class="number">1</span>;						</span><br><span class="line">	WE = <span class="number">0</span>;						</span><br><span class="line">	Delay_Ms(<span class="number">3</span>);</span><br><span class="line"><span class="comment">//-------------------------------</span></span><br><span class="line">	DU = <span class="number">0</span>;</span><br><span class="line">	P0 = table[Sec%<span class="number">10</span>]; </span><br><span class="line">	DU = <span class="number">1</span>;</span><br><span class="line">	DU = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	WE = <span class="number">0</span>;</span><br><span class="line">	P0 = T_COM[<span class="number">5</span>];			  </span><br><span class="line">	WE = <span class="number">1</span>;</span><br><span class="line">	WE = <span class="number">0</span>;</span><br><span class="line">	Delay_Ms(<span class="number">3</span>);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//写DS1302数据</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">Write_DS1302_DAT</span><span class="params">(uchar cmd, uchar dat)</span></span><br><span class="line">&#123;</span><br><span class="line">	uchar i;</span><br><span class="line">	TRST = <span class="number">0</span>; <span class="comment">//拉低使能端</span></span><br><span class="line">	TSCLK = <span class="number">0</span>;<span class="comment">//拉低数据总线</span></span><br><span class="line">	TRST = <span class="number">1</span>; <span class="comment">//拉高使能端，产生上升沿开始写数据</span></span><br><span class="line">	<span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; <span class="number">8</span>; i++)<span class="comment">//每次写1位，写8次</span></span><br><span class="line">	&#123;</span><br><span class="line">		TSCLK = <span class="number">0</span>;		  <span class="comment">//拉低时钟总线</span></span><br><span class="line">		TIO = cmd &amp; <span class="number">0x01</span>; <span class="comment">//写1位数据，从最低位开始写</span></span><br><span class="line">		TSCLK = <span class="number">1</span>;		  <span class="comment">//拉高时钟总线，产生上升沿数据被DS1302读走</span></span><br><span class="line">		cmd &gt;&gt;=<span class="number">1</span>;		  <span class="comment">//右移一位</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; <span class="number">8</span>; i++)<span class="comment">//每次写1位，写8次</span></span><br><span class="line">	&#123;</span><br><span class="line">		TSCLK = <span class="number">0</span>;		  <span class="comment">//拉低时钟总线</span></span><br><span class="line">		TIO = dat &amp; <span class="number">0x01</span>; <span class="comment">//写1位数据，从最低位开始写</span></span><br><span class="line">		TSCLK = <span class="number">1</span>;		  <span class="comment">//拉高时钟总线，产生上升沿数据被DS1302读走</span></span><br><span class="line">		dat &gt;&gt;= <span class="number">1</span>;		  <span class="comment">//右移一位</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//读DS1302数据</span></span><br><span class="line">uchar <span class="title function_">Read_DS1302_DAT</span><span class="params">(uchar cmd)</span></span><br><span class="line">&#123;</span><br><span class="line">	uchar i, dat;</span><br><span class="line">	TRST = <span class="number">0</span>;  <span class="comment">//拉低使能端</span></span><br><span class="line">	TSCLK = <span class="number">0</span>; <span class="comment">//拉低数据总线</span></span><br><span class="line">	TRST = <span class="number">1</span>;  <span class="comment">//拉高使能端，产生上升沿开始写数据</span></span><br><span class="line">	<span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; <span class="number">8</span>; i++)<span class="comment">//每次写1位，写8次</span></span><br><span class="line">	&#123;</span><br><span class="line">		TSCLK = <span class="number">0</span>;		 <span class="comment">//拉低时钟总线</span></span><br><span class="line">		TIO = cmd &amp; <span class="number">0x01</span>;<span class="comment">//写1位数据，从最低位开始写</span></span><br><span class="line">		TSCLK = <span class="number">1</span>;		 <span class="comment">//拉高时钟总线，产生上升沿数据被DS1302读走</span></span><br><span class="line">		cmd &gt;&gt;=<span class="number">1</span>;		 <span class="comment">//右移一位</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; <span class="number">8</span>; i++)<span class="comment">//每次读1位，读8次</span></span><br><span class="line">	&#123;</span><br><span class="line">		TSCLK = <span class="number">0</span>;		  <span class="comment">//拉低时钟总线,产生下降沿，DS1302把数据放到TIO上</span></span><br><span class="line">		dat &gt;&gt;= <span class="number">1</span>;		  <span class="comment">//右移一位</span></span><br><span class="line">		<span class="keyword">if</span>(TIO)	dat |= <span class="number">0x80</span>;<span class="comment">//读取数据，从最低位开始</span></span><br><span class="line">		TSCLK = <span class="number">1</span>;			<span class="comment">//拉高时钟总线，以备下一次产生下降沿</span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> dat;	<span class="comment">//返回读出数据</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//数据转BCD码</span></span><br><span class="line">uchar <span class="title function_">Dat_Chg_BCD</span><span class="params">(uchar dat)</span></span><br><span class="line">&#123;</span><br><span class="line">	uchar dat1, dat2;</span><br><span class="line">	dat1 = dat / <span class="number">10</span>;</span><br><span class="line">	dat2 = dat % <span class="number">10</span>;</span><br><span class="line">	dat2 = dat2 + dat1 * <span class="number">16</span>;</span><br><span class="line">	<span class="keyword">return</span> dat2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//BCD码转换为数据</span></span><br><span class="line">uchar <span class="title function_">BCD_Chg_Dat</span><span class="params">(uchar dat)</span></span><br><span class="line">&#123;</span><br><span class="line">	uchar dat1, dat2;</span><br><span class="line">	dat1 = dat / <span class="number">16</span>;</span><br><span class="line">	dat2 = dat % <span class="number">16</span>;</span><br><span class="line">	dat2 = dat2 + dat1 * <span class="number">10</span>;</span><br><span class="line">	<span class="keyword">return</span> dat2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">	uchar i;</span><br><span class="line">	uchar Sec, Min, Hour;</span><br><span class="line">	Write_DS1302_DAT(<span class="number">0x8e</span>, <span class="number">0</span>);<span class="comment">//清除写保护</span></span><br><span class="line">	Write_DS1302_DAT(<span class="number">0x80</span>, Dat_Chg_BCD(<span class="number">30</span>));<span class="comment">//30秒（并且进行BCD码转换）</span></span><br><span class="line">	Write_DS1302_DAT(<span class="number">0x82</span>, Dat_Chg_BCD(<span class="number">15</span>));<span class="comment">//15分</span></span><br><span class="line">	Write_DS1302_DAT(<span class="number">0x84</span>, Dat_Chg_BCD(<span class="number">19</span>));<span class="comment">//19时</span></span><br><span class="line">	Write_DS1302_DAT(<span class="number">0x8e</span>, <span class="number">0x80</span>);<span class="comment">//开写保护</span></span><br><span class="line">	<span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		Write_DS1302_DAT(<span class="number">0x8e</span>, <span class="number">0</span>); <span class="comment">//清除写保护</span></span><br><span class="line">		Sec = BCD_Chg_Dat(Read_DS1302_DAT(<span class="number">0x81</span>));<span class="comment">//读秒寄存器（并且进行BCD码转换）</span></span><br><span class="line">		Min	= BCD_Chg_Dat(Read_DS1302_DAT(<span class="number">0x83</span>));<span class="comment">//读分寄存器</span></span><br><span class="line">		Hour = BCD_Chg_Dat(Read_DS1302_DAT(<span class="number">0x85</span>));<span class="comment">//读时寄存器</span></span><br><span class="line">		Write_DS1302_DAT(<span class="number">0x8e</span>, <span class="number">0x80</span>);<span class="comment">//开写保护</span></span><br><span class="line">		<span class="keyword">for</span>(i = <span class="number">0</span>; i &lt; <span class="number">50</span>; i++)	<span class="comment">//循环显示时钟</span></span><br><span class="line">			Display(Hour, Min, Sec);</span><br><span class="line"></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+  
+
+
+  </article>
+  
+<div class="related-wrap reveal" id="read-next"><section class="header cap theme"><span>接下来阅读</span></section><section class="body fs14"><a id="next" href="/wiki/embed/51/mcu51_9/">51单片机学习笔记(九)<span class="note">下一篇</span></a><div class="line"></div><a id="prev" href="/wiki/embed/51/mcu51_7/">51单片机学习笔记(七)<span class="note">上一篇</span></a></section></div>
+
+  
+
+  <div class='related-wrap md reveal' id="comments">
+    <div class='cmt-title cap theme'>
+      快来参与讨论吧
+    </div>
+    <div class='cmt-body valine'>
+      
+
+<div id="valine_container" class="valine_thread"><svg class="loading" style="vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2709"><path d="M832 512c0-176-144-320-320-320V128c211.2 0 384 172.8 384 384h-64zM192 512c0 176 144 320 320 320v64C300.8 896 128 723.2 128 512h64z" p-id="2710"></path></svg></div>
+
+    </div>
+  </div>
+
+
+
+
+      
+<footer class="page-footer reveal fs12"><hr><div class="sitemap"><div class="sitemap-group"><span class="fs14">博客</span><a href="/">近期</a><a href="/categories/">分类</a><a href="/tags/">标签</a><a href="/archievs/">归档</a></div><div class="sitemap-group"><span class="fs14">专栏</span><a href="/wiki/">全部</a><a href="/wiki/tags/Java/">Java</a><a href="/wiki/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/">嵌入式</a></div><div class="sitemap-group"><span class="fs14">社交</span><a href="/friends/">友链</a><a href="/about/#comments">留言板</a></div><div class="sitemap-group"><span class="fs14">更多</span><a href="/about/">关于本站</a><a target="_blank" rel="noopener" href="https://github.com/ajream">GitHub</a></div></div><div class="text"><p>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+<p>本站由 <a href="https://ajream-n.netlify.app/">@aJream</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.9.0" title="v1.9.0">Stellar</a> 主题创建。</p>
+</div></footer>
+
+      <div class='float-panel mobile-only blur' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15301"><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 2.3 26.8 24.6 47.5 51.6 47.6h416.5v4z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15302"></path><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 1.9 27.7 23.9 49.7 51.6 51.6h416.5z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15303"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.9.0';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://fastly.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js',
+    sitesjs: '/js/plugins/sites.js',
+    friendsjs: '/js/plugins/friends.js',
+  };
+
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://fastly.jsdelivr.net/npm/vanilla-lazyload@17.3.1/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper@6/swiper-bundle.min.css","js":"https://unpkg.com/swiper@6/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://fastly.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://fastly.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://fastly.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.fancybox = Object.assign({"enable":true,"js":"https://fastly.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js","css":"https://fastly.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css","selector":".swiper-slide img"});
+  }
+  if ('false' == 'true') {
+    stellar.plugins.heti = Object.assign({"enable":false,"css":"https://unpkg.com/heti/umd/heti.min.css","js":"https://unpkg.com/heti/umd/heti-addon.min.js"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+  <script>
+  function getEmojiMaps() {
+    function emoji(path, idx, ext) {
+      return path + "/" + path + "-" + idx + "." + ext;
+    }
+    var emojiMaps = {};
+    for (var i = 1; i <= 54; i++) {
+      emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+    }
+    for (var i = 1; i <= 101; i++) {
+      emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+    }
+    for (var i = 1; i <= 116; i++) {
+      emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+    }
+    for (var i = 1; i <= 125; i++) {
+      emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+    }
+    for (var i = 1; i <= 4; i++) {
+      emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+    }
+    return emojiMaps;
+  }
+  function load_comment(){
+    if(!document.getElementById("valine_container"))return;
+    stellar.loadScript('https://fastly.jsdelivr.net/gh/XuxuGood/simple-blog-cdn@main/js/Valine.min.js', {defer:true}).then(function () {
+      const el = document.getElementById("valine_container");
+      var path = el.getAttribute('comment_id');
+      const placeholder = "";
+      if (!path) {
+        path = decodeURI(window.location.pathname);
+      }
+      var valine = new Valine();
+      valine.init(Object.assign({"js":"https://fastly.jsdelivr.net/gh/XuxuGood/simple-blog-cdn@main/js/Valine.min.js","appId":"pzbFTXqhpBeDgCeiSD4IU3Uo-gzGzoHsz","appKey":"8t6hlt5VaX21ITVWzzNRGAWe","placeholder":null,"requiredFields":["nick","mail"],"enableQQ":true,"recordIP":false,"avatar":"robohash","pageSize":10,"lang":"zh-cn","highlight":true,"mathJax":false,"tagMeta":["博主","小伙伴","访客"],"metaPlaceholder":{"nick":"昵称/QQ号(必填)","mail":"邮箱（必填，完全保密）","link":"网址(https://)"},"master":["6783037F2DF30EAB99F9FC256157D875"],"friends":["6783037F2DF30EAB99F9FC256157D875"]}, {
+        el: '#valine_container',
+        path: path,
+        placeholder: placeholder,
+        emojiCDN: 'https://fastly.jsdelivr.net/gh/volantis-x/cdn-emoji/valine/',
+        emojiMaps: getEmojiMaps(),
+      }));
+    });
+  }
+  window.addEventListener('DOMContentLoaded', (event) => {
+    console.log('DOM fully loaded and parsed');
+    load_comment();
+  });
+
+</script>
+
+
+
+
+<!-- inject -->
+
+  
+    <script defer src="/live2d-widget/autoload.js"></script>
+  
+    <script defer src="/js/custom/custom.js"></script>
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.js"></script>
+  
+    <script defer src="/js/custom/code_unfold.js"></script>
+  
+
+
+  </div>
+
+</body>
+</html>

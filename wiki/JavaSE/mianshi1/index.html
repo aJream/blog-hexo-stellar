@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+
+<head>
+  <meta name="generator" content="Hexo 5.4.2">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://fastly.jsdelivr.net'>
+  <link rel="preconnect" href="https://fastly.jsdelivr.net" crossorigin>
+  <link rel='dns-prefetch' href='//unpkg.com'>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" content="#f8f8f8">
+  <title>JavaSE：java垃圾回收算法 - aJream</title>
+
+  
+    <meta name="description" content="Java垃圾回收算法 咱们从头到尾说一次 Java 垃圾回收 - 知乎 (zhihu.com)  什么是垃圾（定义） 有两种算法来定义  引用计数算法 引用计数算法是通过在对象头中分配一个空间来存储该对象被引用的次数，如果该对象被其他对象引用，则它的引用计数+1，删除一个该对象的引用，则其引用计数-1，当其引用计数为0时，该对象就是垃圾，会被回收。  **缺点：**循环引用（其计数永远不会为0）">
+<meta property="og:type" content="website">
+<meta property="og:title" content="java垃圾回收算法">
+<meta property="og:url" content="https://ajream-n.netlify.app/wiki/JavaSE/mianshi1/">
+<meta property="og:site_name" content="aJream">
+<meta property="og:description" content="Java垃圾回收算法 咱们从头到尾说一次 Java 垃圾回收 - 知乎 (zhihu.com)  什么是垃圾（定义） 有两种算法来定义  引用计数算法 引用计数算法是通过在对象头中分配一个空间来存储该对象被引用的次数，如果该对象被其他对象引用，则它的引用计数+1，删除一个该对象的引用，则其引用计数-1，当其引用计数为0时，该对象就是垃圾，会被回收。  **缺点：**循环引用（其计数永远不会为0）">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/2021-04-2319-06-16_image-20210423190611076.png">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/2021-04-2422-56-51_image-20210424225646255.png">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/2021-04-2423-15-19_image-20210424231518421.png">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/2021-04-2423-18-37_image-20210424231836708.png">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/2021-04-2423-19-46_v2-49f3e16de8d552ef585862062abe3f18_720w.jpg">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/2021-04-2423-25-51_v2-2dcba4d81807c67df8309aa181bb00c3_720w.jpg">
+<meta property="article:published_time" content="2022-09-04T16:42:41.654Z">
+<meta property="article:modified_time" content="2022-09-04T16:42:41.654Z">
+<meta property="article:author" content="aJream">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/2021-04-2319-06-16_image-20210423190611076.png">
+  
+  
+
+  <!-- feed -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/main.css">
+
+  
+
+  
+
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"onload="renderMathInElement(document.body);"></script>
+  
+
+
+  
+    
+      <script defer src="https://fastly.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+    
+      <link rel="stylesheet" href="https://npm.elemecdn.com/font-awesome/css/font-awesome.min.css"/ media="defer" onload="this.media='all'">
+    
+      <link rel="shortcut icon" href="/images/favicon.png">
+    
+      <link rel="stylesheet" type="text/css" href="/css/custom/return_top_bilibili.css" />
+    
+      <link rel="stylesheet" type="text/css" href="/css/custom/code_copy.css" />
+    
+      <link rel="stylesheet" type="text/css" href="/css/custom/code_unfold.css" />
+    
+      <link rel="stylesheet" type="text/css" href="/css/custom/light_dark_mode.css" />
+    
+  
+</head>
+
+<body>
+  
+
+
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left' layout='wiki'>
+    
+
+
+<header class="header">
+
+<div class="logo-wrap wiki"><a style="filter: grayscale(100%)" class="wiki-home cap" href="/wiki"><svg aria-hidden="true" viewBox="0 0 16 16" width="1rem" height="1rem" fill="currentColor"><path fill-rule="evenodd" d="M7.78 12.53a.75.75 0 01-1.06 0L2.47 8.28a.75.75 0 010-1.06l4.25-4.25a.75.75 0 011.06 1.06L4.81 7h7.44a.75.75 0 010 1.5H4.81l2.97 2.97a.75.75 0 010 1.06z"></path></svg>所有专栏</a><a class="title" href="/wiki/JavaSE/javase_1/"><div class="main">☕JavaSE学习笔记</div><div class="sub cap">Java基础(含少量javaEE)</div></a></div>
+</header>
+
+<div class="widgets">
+
+<div class="widget-wrap multi" id="toc"><div class="widget-header cap dis-select"><span class="name">基础学习</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/javase_1/"><span class="toc-text">Java(1) 类与对象</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/javase_2/"><span class="toc-text">Java(2.1) 类和对象的属性初始化</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/javase_3/"><span class="toc-text">Java(2.2) 访问修饰符</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/javase_4/"><span class="toc-text">Java(3.1) 数据类型</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/javase_5/"><span class="toc-text">Java(3.2) 数组</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/javase_6/"><span class="toc-text">Java(4) 变量</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/javase_7/"><span class="toc-text">Java(5) 操作符</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/javase_8/"><span class="toc-text">Java(6) 输入语句</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/javase_9/"><span class="toc-text">Java(7) 条件语句</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/javase_10/"><span class="toc-text">Java(8) 循环语句</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/javase_11/"><span class="toc-text">Java(9) package包</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/javase_12/"><span class="toc-text">Java(10) 装箱与拆箱</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/javase_13/"><span class="toc-text">Java(11) 数字与字符串相互转换</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/javase_14/"><span class="toc-text">Java(12) 字符串操作</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/javase_15/"><span class="toc-text">Java(13) 日期与日历</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/javase_16/"><span class="toc-text">Java(14) 接口与继承</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/javase_17/"><span class="toc-text">Java(15) 异常处理</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/javase_18/"><span class="toc-text">Java(16) 文件IO</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/javase_19/"><span class="toc-text">Java(17) 集合框架</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/javase_20/"><span class="toc-text">Java(17) 容器</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/javase_21/"><span class="toc-text">Java(18) 泛型</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/javase_22/"><span class="toc-text">Java(19) 多线程系列</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/javase_23/"><span class="toc-text">Java(20) 反射机制</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/javase_24/"><span class="toc-text">Java(21) 注解</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/javase_25/"><span class="toc-text">Java(22) Lambda表达式</span></a></div></div><div class="widget-header cap dis-select"><span class="name">面试八股</span></div><div class="widget-body fs14"><div class="doc-tree active"><a class="doc-tree-link active" href="/wiki/JavaSE/mianshi1/"><span class="toc-text">java垃圾回收算法</span></a><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E5%9E%83%E5%9C%BE%E5%AE%9A%E4%B9%89"><span class="toc-text"> 什么是垃圾（定义）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%95%E7%94%A8%E8%AE%A1%E6%95%B0%E7%AE%97%E6%B3%95"><span class="toc-text"> 引用计数算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%AF%E8%BE%BE%E6%80%A7%E5%88%86%E6%9E%90%E7%AE%97%E6%B3%95"><span class="toc-text"> 可达性分析算法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%8E%E4%B9%88%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95"><span class="toc-text"> 怎么回收（算法）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%87%E8%AE%B0-%E6%B8%85%E9%99%A4%E7%AE%97%E6%B3%95"><span class="toc-text"> 标记-清除算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%8D%E5%88%B6%E7%AE%97%E6%B3%95"><span class="toc-text"> 复制算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%A0%87%E8%AE%B0-%E6%95%B4%E7%90%86%E7%AE%97%E6%B3%95"><span class="toc-text"> 标记-整理算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E4%BB%A3%E6%94%B6%E9%9B%86%E7%AE%97%E6%B3%95"><span class="toc-text"> 分代收集算法</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B%E4%B8%8E%E5%9B%9E%E6%94%B6%E7%AD%96%E7%95%A5"><span class="toc-text"> 内存模型与回收策略</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#eden%E5%8C%BA"><span class="toc-text"> Eden区</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#survivor%E5%8C%BA"><span class="toc-text"> Survivor区</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#old-%E5%8C%BA"><span class="toc-text"> Old 区</span></a></li></ol></li></ol></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/mianshi2/"><span class="toc-text">Java面试基础题</span></a></div></div><div class="widget-header cap dis-select"><span class="name">GUI开发</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/awt/"><span class="toc-text">AWT基本操作与使用</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/swing/"><span class="toc-text">Swing基本操作与使用</span></a></div></div><div class="widget-header cap dis-select"><span class="name">其它</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/servlet1/"><span class="toc-text">1-Servlet</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/servlet2/"><span class="toc-text">2-Servlet生命周期</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/servlet3/"><span class="toc-text">3-ServletRequest对象</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/servlet4/"><span class="toc-text">4-请求转发</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/tomcat1/"><span class="toc-text">Tomcat基础</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/tomcat2/"><span class="toc-text">IDEA配置Tomcat</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/http/"><span class="toc-text">HTTP协议</span></a></div></div></div>
+
+
+
+<div class="widget-wrap" id="related"><div class="widget-header cap dis-select"><span class="name">更多Java</span></div><div class="widget-body fs14"><a class="more-item wiki" href="/wiki/ssm/spring/spring_1/">🚀SSM学习笔记<div class="excerpt">SSM框架是Spring MVC ，Spring和Mybatis框架的整合，是标准的MVC模式，将整个系统划分为View层，Controller层，Service层，DAO层四层，使用Spring MVC负责请求的转发和视图管理，Spring实现业务对象管理，Mybatis作为数据对象的持久化引擎。</div></a><a class="more-item wiki" href="/wiki/mysql/mysql_1/">🍬MySQL学习笔记<div class="excerpt">MySQL是一种关系型数据库管理系统，采用了双授权政策，分为社区版和商业版，由于其体积小、速度快、总体拥有成本低，尤其是开放源码这一特点，一般中小型和大型网站的开发都选择 MySQL 作为网站数据库。</div></a></div></div>
+</div>
+
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+  
+  
+<div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" id="home" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" id="menu" href="/wiki/">专栏</a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/wiki/JavaSE/javase_1/">☕JavaSE学习笔记</a></div><div id="post-meta">更新于&nbsp;<time datetime="2022-09-04T16:42:41.654Z">2022-09-04</time></div></div>
+
+  <article class='content md wiki'>
+  <h1 class="article-title"><span>java垃圾回收算法</span></h1>
+  <h1 id="java垃圾回收算法"><a class="markdownIt-Anchor" href="#java垃圾回收算法"></a> Java垃圾回收算法</h1>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/73628158">咱们从头到尾说一次 Java 垃圾回收 - 知乎 (zhihu.com)</a></p>
+<h2 id="什么是垃圾定义"><a class="markdownIt-Anchor" href="#什么是垃圾定义"></a> 什么是垃圾（定义）</h2>
+<p>有两种算法来定义</p>
+<h3 id="引用计数算法"><a class="markdownIt-Anchor" href="#引用计数算法"></a> 引用计数算法</h3>
+<p>引用计数算法是通过在对象头中分配一个空间来存储该对象被引用的次数，如果该对象被其他对象引用，则它的引用计数+1，删除一个该对象的引用，则其引用计数-1，当其引用计数为0时，该对象就是垃圾，会被回收。</p>
+<blockquote>
+<p>**缺点：**循环引用（其计数永远不会为0）</p>
+</blockquote>
+<h3 id="可达性分析算法"><a class="markdownIt-Anchor" href="#可达性分析算法"></a> 可达性分析算法</h3>
+<p>可达性分析算法（Reachability Analysis）：基本思路是，通过一些被称为引用链（GC Roots）的对象作为起点，从这些节点开始向下搜索，搜索走过的路径被称为（Reference Chain)，当一个对象到 GC Roots 没有任何引用链相连时（即从 GC Roots 节点到该节点不可达），则证明该对象是不可用的。</p>
+<img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/2021-04-2319-06-16_image-20210423190611076.png" alt="image-20210423190611076" style="zoom:50%;"/>
+<blockquote>
+<p>可达性算法，解决了引用计数所无法解决的问题-“循环依赖”</p>
+</blockquote>
+<h2 id="怎么回收算法"><a class="markdownIt-Anchor" href="#怎么回收算法"></a> 怎么回收（算法）</h2>
+<h3 id="标记-清除算法"><a class="markdownIt-Anchor" href="#标记-清除算法"></a> 标记-清除算法</h3>
+<img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/2021-04-2422-56-51_image-20210424225646255.png" alt="image-20210424225646255" style="zoom:67%;"/>
+<p>标记清除算法原理就是，把要回收的内存进行标记，再清除掉这些内存中的无用数据；</p>
+<p>缺点：会导致大量碎片化的内存出现，但开辟内存时需要的是整块内存</p>
+<h3 id="复制算法"><a class="markdownIt-Anchor" href="#复制算法"></a> 复制算法</h3>
+<p><strong>回收前：</strong></p>
+<img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/2021-04-2423-15-19_image-20210424231518421.png" alt="image-20210424231518421" style="zoom:50%;"/>
+<p><strong>回收后：</strong></p>
+<img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/2021-04-2423-18-37_image-20210424231836708.png" alt="image-20210424231836708" style="zoom:50%;"/>
+<p>原理：把整块内存平均分为两部分，分配内存时，只使用其中一部分。而这一部分内存满即将满时，jvm进行垃圾回收：</p>
+<ol>
+<li>首先把存活的对象都复制到另一块空内存上</li>
+<li>再把剩下的可回收的内存一次性进行垃圾回收，得到一块（占总的1/2）内存区域。</li>
+</ol>
+<p>优点：解决了标记-清除算法的问题</p>
+<p>缺点：同一时间只能使用其中一半的内存</p>
+<h3 id="标记-整理算法"><a class="markdownIt-Anchor" href="#标记-整理算法"></a> 标记-整理算法</h3>
+<img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/2021-04-2423-19-46_v2-49f3e16de8d552ef585862062abe3f18_720w.jpg" alt="img" style="zoom:80%;"/>
+<p>标记整理算法（Mark-Compact）标记过程仍然与标记-清除算法一样，但后续步骤不是直接对可回收对象进行清理，而是让所有存活的对象都向一端移动，再清理掉端边界以外的内存区域。</p>
+<p>优点：标记整理算法一方面在标记-清除算法上做了升级，解决了内存碎片的问题，也规避了复制算法只能利用一半内存区域的弊端。</p>
+<p>缺点：标记-整理算法对内存变动频繁，需要整理所有存活对象的引用地址，在效率上比复制算法要差很多。</p>
+<h3 id="分代收集算法"><a class="markdownIt-Anchor" href="#分代收集算法"></a> 分代收集算法</h3>
+<p>分代收集算法融合了上述3种基础的算法思想，而产生的针对不同情况所采用不同算法的一套组合拳。</p>
+<p>对象存活周期的不同将内存划分为几块。一般是把 Java 堆分为新生代和老年代，这样就可以根据各个年代的特点采用最适当的收集算法。</p>
+<ol>
+<li>在新生代中，每次垃圾收集时都发现有大批对象死去，只有少量存活，那就选用<u>复制算法</u>，只需要付出少量存活对象的复制成本就可以完成收集。</li>
+<li>老年代中因为对象存活率高、没有额外空间对它进行分配担保，就必须使用<u>标记-清理</u>或者<u>标记-整理算法</u>来进行回收。</li>
+</ol>
+<h2 id="内存模型与回收策略"><a class="markdownIt-Anchor" href="#内存模型与回收策略"></a> 内存模型与回收策略</h2>
+<p>内存模型:</p>
+<img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/2021-04-2423-25-51_v2-2dcba4d81807c67df8309aa181bb00c3_720w.jpg" alt="img" style="zoom:80%;"/>
+<p>可以看到，内存模型分为 :</p>
+<ul>
+<li>
+<p>Eden</p>
+</li>
+<li>
+<p>Survior</p>
+</li>
+<li>
+<p>Old</p>
+<p>这3个区，而Survior又分为 From、to两个区</p>
+</li>
+</ul>
+<h3 id="eden区"><a class="markdownIt-Anchor" href="#eden区"></a> Eden区</h3>
+<p>IBM 公司的专业研究表明，有将近98%的对象是朝生夕死，所以针对这一现状，大多数情况下，对象会在新生代 Eden 区中进行分配，当 Eden 区没有足够空间进行分配时，虚拟机会发起一次 Minor GC，Minor GC 相比 Major GC <strong>更频繁，回收速度也更快</strong>。</p>
+<blockquote>
+<p>通过 Minor GC 之后，Eden 会被清空，Eden 区中绝大部分对象会被回收，而那些无需回收的存活对象，将会进到 Survivor 的 From 区（若 From 区不够，则直接进入 Old 区）。</p>
+</blockquote>
+<h3 id="survivor区"><a class="markdownIt-Anchor" href="#survivor区"></a> Survivor区</h3>
+<p>Survivor 区相当于是 Eden 区和 Old 区的一个缓冲，类似于我们交通灯中的黄灯。Survivor 又分为2个区，一个是 From 区，一个是 To 区。每次执行 Minor GC，会将 Eden 区和 From 存活的对象放到 Survivor 的 To 区（如果 To 区不够，则直接进入 Old 区）。</p>
+<p>1、为啥需要Survivor区？</p>
+<p>不就是新生代到老年代么，直接 Eden 到 Old 不好了吗，为啥要这么复杂。想想如果没有 Survivor 区，Eden 区每进行一次 Minor GC，存活的对象就会被送到老年代，老年代很快就会被填满。而有很多对象虽然一次 Minor GC 没有消灭，但其实也并不会蹦跶多久，或许第二次，第三次就需要被清除。这时候移入老年区，很明显不是一个明智的决定。</p>
+<blockquote>
+<p>所以，Survivor 的存在意义就是减少被送到老年代的对象，进而减少 Major GC 的发生。Survivor 的预筛选保证，只有经历16次 Minor GC 还能在新生代中存活的对象，才会被送到老年代。</p>
+</blockquote>
+<p>2、为啥需要俩？</p>
+<p>设置两个 Survivor 区最大的好处就是解决内存碎片化。</p>
+<p>我们先假设一下，Survivor 如果只有一个区域会怎样。Minor GC 执行后，Eden 区被清空了，存活的对象放到了 Survivor 区，而之前 Survivor 区中的对象，可能也有一些是需要被清除的。问题来了，这时候我们怎么清除它们？在这种场景下，我们<strong>只能标记清除</strong>，而我们知道标记清除最大的问题就是内存碎片，在新生代这种经常会消亡的区域，采用标记清除必然会让内存产生严重的碎片化。因为 Survivor 有2个区域，所以每次 Minor GC，会将之前 Eden 区和 From 区中的存活对象复制到 To 区域。第二次 Minor GC 时，From 与 To 职责兑换，这时候会将 Eden 区和 To 区中的存活对象再复制到 From 区域，以此反复。</p>
+<p>这种机制最大的好处就是，整个过程中，永远有一个 Survivor space 是空的，另一个非空的 Survivor space 是无碎片的。那么，Survivor 为什么不分更多块呢？比方说分成三个、四个、五个?显然，如果 Survivor 区再细分下去，每一块的空间就会比较小，容易导致 Survivor 区满，两块 Survivor 区可能是经过权衡之后的最佳方案。</p>
+<h3 id="old-区"><a class="markdownIt-Anchor" href="#old-区"></a> Old 区</h3>
+<p>老年代占据着2/3的堆内存空间，只有在 Major GC 的时候才会进行清理，每次 GC 都会触发“Stop-The-World”。内存越大，STW 的时间也越长，所以内存也不仅仅是越大就越好。由于复制算法在对象存活率较高的老年代会进行很多次的复制操作，效率很低，所以老年代这里采用的是标记 — 整理算法。</p>
+<p>除了上述所说，在内存担保机制下，无法安置的对象会直接进到老年代，以下几种情况也会进入老年代。</p>
+<p>1、大对象</p>
+<p>大对象指需要大量连续内存空间的对象，这部分对象不管是不是“朝生夕死”，都会直接进到老年代。这样做主要是为了避免在 Eden 区及2个 Survivor 区之间发生大量的内存复制。当你的系统有非常多“朝生夕死”的大对象时，得注意了。</p>
+<p>2、长期存活对象</p>
+<p>虚拟机给每个对象定义了一个对象年龄（Age）计数器。正常情况下对象会不断的在 Survivor 的 From 区与 To 区之间移动，对象在 Survivor 区中没经历一次 Minor GC，年龄就增加1岁。当年龄增加到15岁时，这时候就会被转移到老年代。当然，这里的15，JVM 也支持进行特殊设置。</p>
+<p>3、动态对象年龄</p>
+<p>虚拟机并不重视要求对象年龄必须到15岁，才会放入老年区，如果 Survivor 空间中相同年龄所有对象大小的综合大于 Survivor 空间的一般，年龄大于等于该年龄的对象就可以直接进去老年区，无需等你“成年”。</p>
+<p>这其实有点类似于负载均衡，轮询是负载均衡的一种，保证每台机器都分得同样的请求。看似很均衡，但每台机的硬件不通，健康状况不同，我们还可以基于每台机接受的请求数，或每台机的响应时间等，来调整我们的负载均衡算法。</p>
+
+  
+
+
+  </article>
+  
+<div class="related-wrap reveal" id="read-next"><section class="header cap theme"><span>接下来阅读</span></section><section class="body fs14"><a id="next" href="/wiki/JavaSE/mianshi2/">Java面试基础题<span class="note">下一篇</span></a><div class="line"></div><a id="prev" href="/wiki/JavaSE/javase_25/">Java(22) Lambda表达式<span class="note">上一篇</span></a></section></div>
+
+  
+
+  <div class='related-wrap md reveal' id="comments">
+    <div class='cmt-title cap theme'>
+      快来参与讨论吧
+    </div>
+    <div class='cmt-body valine'>
+      
+
+<div id="valine_container" class="valine_thread"><svg class="loading" style="vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2709"><path d="M832 512c0-176-144-320-320-320V128c211.2 0 384 172.8 384 384h-64zM192 512c0 176 144 320 320 320v64C300.8 896 128 723.2 128 512h64z" p-id="2710"></path></svg></div>
+
+    </div>
+  </div>
+
+
+
+
+      
+<footer class="page-footer reveal fs12"><hr><div class="sitemap"><div class="sitemap-group"><span class="fs14">博客</span><a href="/">近期</a><a href="/categories/">分类</a><a href="/tags/">标签</a><a href="/archievs/">归档</a></div><div class="sitemap-group"><span class="fs14">专栏</span><a href="/wiki/">全部</a><a href="/wiki/tags/Java/">Java</a><a href="/wiki/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/">嵌入式</a></div><div class="sitemap-group"><span class="fs14">社交</span><a href="/friends/">友链</a><a href="/about/#comments">留言板</a></div><div class="sitemap-group"><span class="fs14">更多</span><a href="/about/">关于本站</a><a target="_blank" rel="noopener" href="https://github.com/ajream">GitHub</a></div></div><div class="text"><p>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+<p>本站由 <a href="https://ajream-n.netlify.app/">@aJream</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.9.0" title="v1.9.0">Stellar</a> 主题创建。</p>
+</div></footer>
+
+      <div class='float-panel mobile-only blur' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15301"><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 2.3 26.8 24.6 47.5 51.6 47.6h416.5v4z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15302"></path><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 1.9 27.7 23.9 49.7 51.6 51.6h416.5z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15303"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.9.0';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://fastly.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js',
+    sitesjs: '/js/plugins/sites.js',
+    friendsjs: '/js/plugins/friends.js',
+  };
+
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://fastly.jsdelivr.net/npm/vanilla-lazyload@17.3.1/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper@6/swiper-bundle.min.css","js":"https://unpkg.com/swiper@6/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://fastly.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://fastly.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://fastly.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.fancybox = Object.assign({"enable":true,"js":"https://fastly.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js","css":"https://fastly.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css","selector":".swiper-slide img"});
+  }
+  if ('false' == 'true') {
+    stellar.plugins.heti = Object.assign({"enable":false,"css":"https://unpkg.com/heti/umd/heti.min.css","js":"https://unpkg.com/heti/umd/heti-addon.min.js"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+  <script>
+  function getEmojiMaps() {
+    function emoji(path, idx, ext) {
+      return path + "/" + path + "-" + idx + "." + ext;
+    }
+    var emojiMaps = {};
+    for (var i = 1; i <= 54; i++) {
+      emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+    }
+    for (var i = 1; i <= 101; i++) {
+      emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+    }
+    for (var i = 1; i <= 116; i++) {
+      emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+    }
+    for (var i = 1; i <= 125; i++) {
+      emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+    }
+    for (var i = 1; i <= 4; i++) {
+      emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+    }
+    return emojiMaps;
+  }
+  function load_comment(){
+    if(!document.getElementById("valine_container"))return;
+    stellar.loadScript('https://fastly.jsdelivr.net/gh/XuxuGood/simple-blog-cdn@main/js/Valine.min.js', {defer:true}).then(function () {
+      const el = document.getElementById("valine_container");
+      var path = el.getAttribute('comment_id');
+      const placeholder = "";
+      if (!path) {
+        path = decodeURI(window.location.pathname);
+      }
+      var valine = new Valine();
+      valine.init(Object.assign({"js":"https://fastly.jsdelivr.net/gh/XuxuGood/simple-blog-cdn@main/js/Valine.min.js","appId":"pzbFTXqhpBeDgCeiSD4IU3Uo-gzGzoHsz","appKey":"8t6hlt5VaX21ITVWzzNRGAWe","placeholder":null,"requiredFields":["nick","mail"],"enableQQ":true,"recordIP":false,"avatar":"robohash","pageSize":10,"lang":"zh-cn","highlight":true,"mathJax":false,"tagMeta":["博主","小伙伴","访客"],"metaPlaceholder":{"nick":"昵称/QQ号(必填)","mail":"邮箱（必填，完全保密）","link":"网址(https://)"},"master":["6783037F2DF30EAB99F9FC256157D875"],"friends":["6783037F2DF30EAB99F9FC256157D875"]}, {
+        el: '#valine_container',
+        path: path,
+        placeholder: placeholder,
+        emojiCDN: 'https://fastly.jsdelivr.net/gh/volantis-x/cdn-emoji/valine/',
+        emojiMaps: getEmojiMaps(),
+      }));
+    });
+  }
+  window.addEventListener('DOMContentLoaded', (event) => {
+    console.log('DOM fully loaded and parsed');
+    load_comment();
+  });
+
+</script>
+
+
+
+
+<!-- inject -->
+
+  
+    <script defer src="/live2d-widget/autoload.js"></script>
+  
+    <script defer src="/js/custom/custom.js"></script>
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.js"></script>
+  
+    <script defer src="/js/custom/code_unfold.js"></script>
+  
+
+
+  </div>
+
+</body>
+</html>

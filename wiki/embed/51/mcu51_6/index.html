@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+
+<head>
+  <meta name="generator" content="Hexo 5.4.2">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://fastly.jsdelivr.net'>
+  <link rel="preconnect" href="https://fastly.jsdelivr.net" crossorigin>
+  <link rel='dns-prefetch' href='//unpkg.com'>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" content="#f8f8f8">
+  <title>51chip：51单片机学习笔记(六) - aJream</title>
+
+  
+    <meta name="description" content="DS18B20介绍 DS18B20数字温度传感器是DALLAS公司生产的单总线器件，用它来组成一个测温系统具有线路简单，体积小，在一根通信线上可以挂很多这样的数字温度传感器，十分方便。  特点  通信采用1-Wire接口 n每个DS18B20都有唯一的64位序列码储存在板载ROM中 无需外部元件 可从数据线供电，电源范围为3.0V ~ 5.5V。 可测量的温度范围在-55℃ ~ +125℃ 在－">
+<meta property="og:type" content="website">
+<meta property="og:title" content="51单片机学习笔记(六)">
+<meta property="og:url" content="https://ajream-n.netlify.app/wiki/embed/51/mcu51_6/">
+<meta property="og:site_name" content="aJream">
+<meta property="og:description" content="DS18B20介绍 DS18B20数字温度传感器是DALLAS公司生产的单总线器件，用它来组成一个测温系统具有线路简单，体积小，在一根通信线上可以挂很多这样的数字温度传感器，十分方便。  特点  通信采用1-Wire接口 n每个DS18B20都有唯一的64位序列码储存在板载ROM中 无需外部元件 可从数据线供电，电源范围为3.0V ~ 5.5V。 可测量的温度范围在-55℃ ~ +125℃ 在－">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20210824153232_image-20210824153229536.png">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20210824154326_image-20210824154325250.png">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20210824160216_image-20210824160214829.png">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20210824161255_image-20210824161252256.png">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20210824162107_image-20210824162105674.png">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20210824162320_image-20210824162319244.png">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20210824163431_image-20210824163430400.png">
+<meta property="article:published_time" content="2022-09-04T16:42:41.658Z">
+<meta property="article:modified_time" content="2022-09-04T16:42:41.658Z">
+<meta property="article:author" content="aJream">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20210824153232_image-20210824153229536.png">
+  
+  
+
+  <!-- feed -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/main.css">
+
+  
+
+  
+
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"onload="renderMathInElement(document.body);"></script>
+  
+
+
+  
+    
+      <script defer src="https://fastly.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+    
+      <link rel="stylesheet" href="https://npm.elemecdn.com/font-awesome/css/font-awesome.min.css"/ media="defer" onload="this.media='all'">
+    
+      <link rel="shortcut icon" href="/images/favicon.png">
+    
+      <link rel="stylesheet" type="text/css" href="/css/custom/return_top_bilibili.css" />
+    
+      <link rel="stylesheet" type="text/css" href="/css/custom/code_copy.css" />
+    
+      <link rel="stylesheet" type="text/css" href="/css/custom/code_unfold.css" />
+    
+      <link rel="stylesheet" type="text/css" href="/css/custom/light_dark_mode.css" />
+    
+  
+</head>
+
+<body>
+  
+
+
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left' layout='wiki'>
+    
+
+
+<header class="header">
+
+<div class="logo-wrap wiki"><a style="filter: grayscale(100%)" class="wiki-home cap" href="/wiki"><svg aria-hidden="true" viewBox="0 0 16 16" width="1rem" height="1rem" fill="currentColor"><path fill-rule="evenodd" d="M7.78 12.53a.75.75 0 01-1.06 0L2.47 8.28a.75.75 0 010-1.06l4.25-4.25a.75.75 0 011.06 1.06L4.81 7h7.44a.75.75 0 010 1.5H4.81l2.97 2.97a.75.75 0 010 1.06z"></path></svg>所有专栏</a><a class="title" href="/wiki/embed/51/mcu51_1/"><div class="main">🎮51单片机学习笔记</div><div class="sub cap">C51</div></a></div>
+</header>
+
+<div class="widgets">
+
+<div class="widget-wrap multi" id="toc"><div class="widget-header cap dis-select"><span class="name">本文目录</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/embed/51/mcu51_1/"><span class="toc-text">51单片机学习笔记（一）</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/embed/51/mcu51_2/"><span class="toc-text">51单片机学习笔记(二)</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/embed/51/mcu51_3/"><span class="toc-text">51单片机学习笔记(三)</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/embed/51/mcu51_4/"><span class="toc-text">51单片机学习笔记(四)</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/embed/51/mcu51_5/"><span class="toc-text">51单片机学习笔记(五)</span></a></div><div class="doc-tree active"><a class="doc-tree-link active" href="/wiki/embed/51/mcu51_6/"><span class="toc-text">51单片机学习笔记(六)</span></a><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#ds18b20%E4%BB%8B%E7%BB%8D"><span class="toc-text"> DS18B20介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%89%B9%E7%82%B9"><span class="toc-text"> 特点</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%95%E6%80%BB%E7%BA%BF"><span class="toc-text"> 单总线</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E6%97%B6%E5%BA%8F"><span class="toc-text"> 初始化时序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%99%E6%97%B6%E5%BA%8F"><span class="toc-text"> 写时序</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%BB%E6%97%B6%E5%BA%8F"><span class="toc-text"> 读时序</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E8%8E%B7%E5%8F%96"><span class="toc-text"> 数据获取</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BE%8B%E5%AD%90"><span class="toc-text"> 例子</span></a></li></ol></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/embed/51/mcu51_7/"><span class="toc-text">51单片机学习笔记(七)</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/embed/51/mcu51_8/"><span class="toc-text">51单片机学习笔记(八)</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/embed/51/mcu51_9/"><span class="toc-text">51单片机学习笔记(九)</span></a></div></div></div>
+
+
+
+<div class="widget-wrap" id="related"><div class="widget-header cap dis-select"><span class="name">更多嵌入式</span></div><div class="widget-body fs14"><a class="more-item wiki" href="/wiki/embed/stm32/stm32_1/">🔗STM32单片机学习笔记<div class="excerpt">ST公司即意法半导体公司，STM32单片机即是ST（意法半导体）公司使用ARM公司的cortex-M3为核心生产的32bit系列的单片机。</div></a><a class="more-item wiki" href="/wiki/embed/esp8266/esp8266_env/">🎬ESPxx系列笔记<div class="excerpt">ESP8266是由乐鑫公司出品的一款物联网的芯片，可以进行二次开发，开发有两种SDK，一种是基于RTOS和NO-RTOS</div></a></div></div>
+</div>
+
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+  
+  
+<div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" id="home" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" id="menu" href="/wiki/">专栏</a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/wiki/embed/51/mcu51_1/">🎮51单片机学习笔记</a></div><div id="post-meta">更新于&nbsp;<time datetime="2022-09-04T16:42:41.658Z">2022-09-04</time></div></div>
+
+  <article class='content md wiki'>
+  <h1 class="article-title"><span>51单片机学习笔记(六)</span></h1>
+  <h2 id="ds18b20介绍"><a class="markdownIt-Anchor" href="#ds18b20介绍"></a> DS18B20介绍</h2>
+<p>DS18B20数字温度传感器是DALLAS公司生产的<u>单总线器件</u>，用它来组成一个测温系统具有线路简单，体积小，在一根通信线上可以挂很多这样的数字温度传感器，十分方便。</p>
+<h3 id="特点"><a class="markdownIt-Anchor" href="#特点"></a> 特点</h3>
+<ol>
+<li>通信采用1-Wire接口</li>
+<li>n每个DS18B20都有唯一的64位序列码储存在板载ROM中</li>
+<li>无需外部元件</li>
+<li>可从数据线供电，电源范围为3.0V ~ 5.5V。</li>
+<li>可测量的温度范围在-55℃ ~ +125℃</li>
+<li>在－10～＋85℃范围内精确度为±0.5℃</li>
+<li>温度计分辨率可设置为9~12位，12位时分辨率对应为0.0625℃</li>
+</ol>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/20210824153232_image-20210824153229536.png" alt="image-20210824153229536" /></p>
+<h2 id="单总线"><a class="markdownIt-Anchor" href="#单总线"></a> 单总线</h2>
+<p>DS18B20采用<code>1-wire Bus</code>传输数据，所有数据都在一条线上传输，因此单总线协议对时序要求非常严格以确保数据的完整性。</p>
+<p>单总线信号类型: 复位脉冲、存在脉冲、写0、写1、读0、读1。</p>
+<p>所有这些信号除存在脉冲由DS18B20发出的以外，其他信号都由总线控制器发出。并且，数据传输总是从最低有效位开始。</p>
+<h3 id="初始化时序"><a class="markdownIt-Anchor" href="#初始化时序"></a> 初始化时序</h3>
+<p>初始化时序里面包含了复位DS18B20和接收DS18B20返回的存在信号。</p>
+<p>主机和DS18B20做任何通讯前都需要对其初始化。</p>
+<p>初始化期间：</p>
+<ol>
+<li>
+<p>总线控制器拉低总线并保持480us以上，挂在总线上的器件将被复位</p>
+</li>
+<li>
+<p>释放总线，等到15-60us，此时18B20将返回一个60~240us之间的低电平存在信号</p>
+</li>
+</ol>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/20210824154326_image-20210824154325250.png" alt="image-20210824154325250" /></p>
+<h3 id="写时序"><a class="markdownIt-Anchor" href="#写时序"></a> 写时序</h3>
+<p>写时序有2种写法：写0时序和写1时序。总线控制器通过写 1 时序写逻辑 1 到 DS18B20，写 0 时序写逻辑 0 到 DS18B20。</p>
+<p>所有写时序必须持续 &gt;=60us，包括：两个写周期之间至少 1us 的恢复时间。当总线控制器把数据线从逻辑高电平拉到低电平的时候，写时序开始。</p>
+<p>初始化写时序：</p>
+<p>总线控制器要生产一个写时序，必须把数据线拉到低电平然后释放，在写时序开始后的 15us 释放总线。</p>
+<p>当总线被释放的时候，5K 的上拉电阻将拉高总线。因此，如果总控制器要生成一个写 0 时序，必须把数据线拉到低电平并持续保持（至少 60us）。</p>
+<p>进行写时序：</p>
+<p>总线控制器初始化写时序后，DS18B20 在一个 15us 到 60us 的窗口内对 I/O 线采 样。如果线上是高电平，就是写1。如果线上是低电平，就是写0</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/20210824160216_image-20210824160214829.png" alt="image-20210824160214829" /></p>
+<h3 id="读时序"><a class="markdownIt-Anchor" href="#读时序"></a> 读时序</h3>
+<ol>
+<li>先把总线拉低至少1us</li>
+<li>在15us内选取1us进行读数据</li>
+<li>在拉低的15us（包括上面2点所说的1us）内传输的数据是有效的</li>
+<li>然后总线被释放</li>
+<li>总时间必须&gt;=60us</li>
+</ol>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/20210824161255_image-20210824161252256.png" alt="image-20210824161252256" /></p>
+<p>读1的详细时序：</p>
+<p>TINIT,TRC 和 TSAMPLE 之和必须小于 15us</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/20210824162107_image-20210824162105674.png" alt="image-20210824162105674" /></p>
+<p>推荐的读1时序：</p>
+<p>系统时间可以用下面办法达到最大：</p>
+<p>TINIT 和 TRC 保持时间尽可能小；把控制器采样时间放 到 15us 周期的最后。</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/20210824162320_image-20210824162319244.png" alt="image-20210824162319244" /></p>
+<h2 id="数据获取"><a class="markdownIt-Anchor" href="#数据获取"></a> 数据获取</h2>
+<p>通过单线总线端口访问DS18B20的协议如下：</p>
+<ol>
+<li>
+<p>初始化</p>
+</li>
+<li>
+<p>ROM操作指令</p>
+</li>
+<li>
+<p>DS18B20功能指令、温度转换命令、读取暂存器命令</p>
+</li>
+</ol>
+<p>部分常用ROM指令如下：</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/20210824163431_image-20210824163430400.png" alt="image-20210824163430400" /></p>
+<h2 id="例子"><a class="markdownIt-Anchor" href="#例子"></a> 例子</h2>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;reg52.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;intrins.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> MAIN_Fosc		11059200UL	<span class="comment">//宏定义主时钟HZ</span></span></span><br><span class="line"><span class="comment">/*====================================</span></span><br><span class="line"><span class="comment"> 自定义类型名</span></span><br><span class="line"><span class="comment">====================================*/</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">unsigned</span> <span class="type">char</span> INT8U;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">unsigned</span> <span class="type">char</span> uchar;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="type">unsigned</span> <span class="type">int</span> INT16U;</span><br><span class="line"><span class="keyword">typedef</span> <span class="type">unsigned</span> <span class="type">int</span> uint;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*====================================</span></span><br><span class="line"><span class="comment"> 硬件接口位声明</span></span><br><span class="line"><span class="comment">====================================*/</span></span><br><span class="line">sbit DS  = P2^<span class="number">2</span>;   <span class="comment">//DS18B20单总线</span></span><br><span class="line">sbit DU  = P2^<span class="number">6</span>;   <span class="comment">//数码管段选</span></span><br><span class="line">sbit WE  = P2^<span class="number">7</span>;   <span class="comment">//数码管位选</span></span><br><span class="line"><span class="comment">/*====================================</span></span><br><span class="line"><span class="comment">共阴极数码管段选码</span></span><br><span class="line"><span class="comment">====================================*/</span></span><br><span class="line">uchar code table[]=&#123; </span><br><span class="line"><span class="comment">//0		1	 2     3     4     5     6     7     8</span></span><br><span class="line"><span class="number">0x3F</span>, <span class="number">0x06</span>, <span class="number">0x5B</span>, <span class="number">0x4F</span>, <span class="number">0x66</span>, <span class="number">0x6D</span>, <span class="number">0x7D</span>, <span class="number">0x07</span>, <span class="number">0x7F</span>,</span><br><span class="line"><span class="comment">//9     A     B	   C	 D	   E	 F		-	 .	  关显示</span></span><br><span class="line"><span class="number">0x6F</span>, <span class="number">0x77</span>, <span class="number">0x7C</span>, <span class="number">0x39</span>, <span class="number">0x5E</span>, <span class="number">0x79</span>, <span class="number">0x71</span>, <span class="number">0x40</span>, <span class="number">0x80</span>, <span class="number">0x00</span></span><br><span class="line">                   &#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*====================================</span></span><br><span class="line"><span class="comment">数码管位选码</span></span><br><span class="line"><span class="comment">====================================*/</span></span><br><span class="line">				  <span class="comment">//第1位	2位	  3位	 4位   5位	6位	  7位	8位</span></span><br><span class="line">uchar code T_COM[] = &#123;<span class="number">0xfe</span>, <span class="number">0xfd</span>, <span class="number">0xfb</span>, <span class="number">0xf7</span>, <span class="number">0xef</span>, <span class="number">0xdf</span>, <span class="number">0xbf</span>, <span class="number">0x7f</span>&#125;;<span class="comment">//数码管位码</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/*====================================</span></span><br><span class="line"><span class="comment">函数：void Delay_Ms(INT16U ms)</span></span><br><span class="line"><span class="comment">参数：ms，毫秒延时形参</span></span><br><span class="line"><span class="comment">描述：12T 51单片机自适应主时钟毫秒级延时函数</span></span><br><span class="line"><span class="comment">====================================*/</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">Delay_Ms</span><span class="params">(INT16U ms)</span></span><br><span class="line">&#123;</span><br><span class="line">     INT16U i;</span><br><span class="line">	 <span class="keyword">do</span>&#123;</span><br><span class="line">	      i = MAIN_Fosc / <span class="number">96000</span>; </span><br><span class="line">		  <span class="keyword">while</span>(--i);   <span class="comment">//96T per loop</span></span><br><span class="line">     &#125;<span class="keyword">while</span>(--ms);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*us延时函数，执行一次US--所需6.5us进入一次函数需要11.95us*/</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">Delay_us</span><span class="params">(uchar us)</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="keyword">while</span>(us--);	</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*====================================</span></span><br><span class="line"><span class="comment">函数：void Display(INT16U Value)</span></span><br><span class="line"><span class="comment">参数：Value,显示值 取值0-65535</span></span><br><span class="line"><span class="comment">描述：共阴极数码管显示函数可显示一个字节的数</span></span><br><span class="line"><span class="comment">====================================*/</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">Display</span><span class="params">(INT16U Value)</span>			<span class="comment">//注意由于需要显示的数大于一个字节所有形参需为int型</span></span><br><span class="line">&#123;	</span><br><span class="line"><span class="comment">//------------------------------</span></span><br><span class="line">	DU = <span class="number">0</span>;							<span class="comment">//关闭段选</span></span><br><span class="line">	P0 = table[Value/<span class="number">100</span>];		<span class="comment">//数码管显示百位</span></span><br><span class="line">	DU = <span class="number">1</span>;							<span class="comment">//打开段选</span></span><br><span class="line">	DU = <span class="number">0</span>;							<span class="comment">//关闭段选</span></span><br><span class="line"></span><br><span class="line">	WE = <span class="number">0</span>;						<span class="comment">//关闭位选</span></span><br><span class="line">	P0 = T_COM[<span class="number">0</span>];				   <span class="comment">//第一位数码管</span></span><br><span class="line">	WE = <span class="number">1</span>;						<span class="comment">//打开位选</span></span><br><span class="line">	WE = <span class="number">0</span>;						<span class="comment">//关闭位选</span></span><br><span class="line">	Delay_Ms(<span class="number">3</span>);</span><br><span class="line"><span class="comment">//-------------------------------</span></span><br><span class="line">	DU = <span class="number">0</span>;</span><br><span class="line">	P0 = table[Value%<span class="number">100</span>/<span class="number">10</span>]|<span class="number">0x80</span>; <span class="comment">//显示十位</span></span><br><span class="line">	DU = <span class="number">1</span>;</span><br><span class="line">	DU = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	WE = <span class="number">0</span>;</span><br><span class="line">	P0 = T_COM[<span class="number">1</span>];			  <span class="comment">//第二位数码管</span></span><br><span class="line">	WE = <span class="number">1</span>;</span><br><span class="line">	WE = <span class="number">0</span>;</span><br><span class="line">	Delay_Ms(<span class="number">3</span>);</span><br><span class="line"><span class="comment">//-------------------------------</span></span><br><span class="line">	DU = <span class="number">0</span>;</span><br><span class="line">	P0 = table[Value%<span class="number">10</span>];		<span class="comment">//显示个位</span></span><br><span class="line">	DU = <span class="number">1</span>;</span><br><span class="line">	DU = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">	WE = <span class="number">0</span>;</span><br><span class="line">	P0 = T_COM[<span class="number">2</span>];				<span class="comment">//第三位数码管</span></span><br><span class="line">	WE = <span class="number">1</span>;</span><br><span class="line">	WE = <span class="number">0</span>;</span><br><span class="line">	Delay_Ms(<span class="number">3</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*单总线初始化时序*/</span></span><br><span class="line">bit <span class="title function_">ds_init</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">	bit i;</span><br><span class="line">	DS = <span class="number">1</span>;</span><br><span class="line">	_nop_();</span><br><span class="line">	DS = <span class="number">0</span>;</span><br><span class="line">	Delay_us(<span class="number">75</span>); <span class="comment">//拉低总线499.45us 挂接在总线上的18B20将会全部被复位</span></span><br><span class="line">	DS = <span class="number">1</span>; <span class="comment">//释放总线</span></span><br><span class="line">	Delay_us(<span class="number">4</span>); <span class="comment">//延时37.95us 等待18B20发回存在信号</span></span><br><span class="line">	i = DS;</span><br><span class="line">	Delay_us(<span class="number">20</span>); <span class="comment">//141.95us</span></span><br><span class="line">	DS = <span class="number">1</span>;</span><br><span class="line">	_nop_();</span><br><span class="line">	<span class="keyword">return</span> (i);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*写一个字节*/</span></span><br><span class="line"><span class="type">void</span> <span class="title function_">write_byte</span><span class="params">(uchar dat)</span></span><br><span class="line">&#123;</span><br><span class="line">	uchar i;</span><br><span class="line">	<span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;<span class="number">8</span>;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		DS = <span class="number">0</span>;</span><br><span class="line">		_nop_();<span class="comment">//产生些时序</span></span><br><span class="line">		DS = dat &amp; <span class="number">0x01</span>;</span><br><span class="line">		Delay_us(<span class="number">10</span>);<span class="comment">//76.95us</span></span><br><span class="line">		DS = <span class="number">1</span>; <span class="comment">//释放总线准备下一次数据写入</span></span><br><span class="line">		_nop_();</span><br><span class="line">		dat &gt;&gt;= <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">uchar <span class="title function_">read_byte</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">	uchar i, j, dat;</span><br><span class="line">	<span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;<span class="number">8</span>;i++)</span><br><span class="line">	&#123;</span><br><span class="line">		DS = <span class="number">0</span>;</span><br><span class="line">		_nop_();<span class="comment">//产生读时序</span></span><br><span class="line">		DS = <span class="number">1</span>;</span><br><span class="line">		_nop_();<span class="comment">//释放总线</span></span><br><span class="line">		j = DS;</span><br><span class="line">		Delay_us(<span class="number">10</span>);<span class="comment">//76.95us</span></span><br><span class="line">		DS = <span class="number">1</span>;</span><br><span class="line">		_nop_();</span><br><span class="line">		dat = (j&lt;&lt;<span class="number">7</span>)|(dat&gt;&gt;<span class="number">1</span>);	</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> (dat);</span><br><span class="line">&#125;</span><br><span class="line"><span class="type">void</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">	uint i;</span><br><span class="line">	uchar L, M;</span><br><span class="line"><span class="comment">/*	ds_init();//初始化DS18B20</span></span><br><span class="line"><span class="comment">	write_byte(0xcc);//发送跳跃ROM指令</span></span><br><span class="line"><span class="comment">	write_byte(0x4e);//写暂存器指令</span></span><br><span class="line"><span class="comment">	write_byte(0x7f);</span></span><br><span class="line"><span class="comment">	write_byte(0xf7);</span></span><br><span class="line"><span class="comment">	write_byte(0x1f);//配置工作在9位模式下</span></span><br><span class="line"><span class="comment">	ds_init();//初始化DS18B20</span></span><br><span class="line"><span class="comment">	write_byte(0xcc);//发送跳跃ROM指令 </span></span><br><span class="line"><span class="comment">	write_byte(0x48);*/</span></span><br><span class="line">	<span class="keyword">while</span>(<span class="number">1</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		ds_init();<span class="comment">//初始化DS18B20</span></span><br><span class="line">		write_byte(<span class="number">0xcc</span>);<span class="comment">//发送跳跃ROM指令</span></span><br><span class="line">		write_byte(<span class="number">0x44</span>);<span class="comment">//发送温度转换指令</span></span><br><span class="line">		ds_init();<span class="comment">//初始化DS18B20</span></span><br><span class="line">		write_byte(<span class="number">0xcc</span>);<span class="comment">//发送跳跃ROM指令</span></span><br><span class="line">		write_byte(<span class="number">0xbe</span>);<span class="comment">//读取DS18B20暂存器值</span></span><br><span class="line">		L = read_byte();</span><br><span class="line">		M = read_byte();</span><br><span class="line">		i = M;</span><br><span class="line">		i &lt;&lt;= <span class="number">8</span>;</span><br><span class="line">		i |= L;						</span><br><span class="line">		i = i * <span class="number">0.0625</span> * <span class="number">10</span> + <span class="number">0.5</span>;</span><br><span class="line">		Display(i);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+  
+
+
+  </article>
+  
+<div class="related-wrap reveal" id="read-next"><section class="header cap theme"><span>接下来阅读</span></section><section class="body fs14"><a id="next" href="/wiki/embed/51/mcu51_7/">51单片机学习笔记(七)<span class="note">下一篇</span></a><div class="line"></div><a id="prev" href="/wiki/embed/51/mcu51_5/">51单片机学习笔记(五)<span class="note">上一篇</span></a></section></div>
+
+  
+
+  <div class='related-wrap md reveal' id="comments">
+    <div class='cmt-title cap theme'>
+      快来参与讨论吧
+    </div>
+    <div class='cmt-body valine'>
+      
+
+<div id="valine_container" class="valine_thread"><svg class="loading" style="vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2709"><path d="M832 512c0-176-144-320-320-320V128c211.2 0 384 172.8 384 384h-64zM192 512c0 176 144 320 320 320v64C300.8 896 128 723.2 128 512h64z" p-id="2710"></path></svg></div>
+
+    </div>
+  </div>
+
+
+
+
+      
+<footer class="page-footer reveal fs12"><hr><div class="sitemap"><div class="sitemap-group"><span class="fs14">博客</span><a href="/">近期</a><a href="/categories/">分类</a><a href="/tags/">标签</a><a href="/archievs/">归档</a></div><div class="sitemap-group"><span class="fs14">专栏</span><a href="/wiki/">全部</a><a href="/wiki/tags/Java/">Java</a><a href="/wiki/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/">嵌入式</a></div><div class="sitemap-group"><span class="fs14">社交</span><a href="/friends/">友链</a><a href="/about/#comments">留言板</a></div><div class="sitemap-group"><span class="fs14">更多</span><a href="/about/">关于本站</a><a target="_blank" rel="noopener" href="https://github.com/ajream">GitHub</a></div></div><div class="text"><p>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+<p>本站由 <a href="https://ajream-n.netlify.app/">@aJream</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.9.0" title="v1.9.0">Stellar</a> 主题创建。</p>
+</div></footer>
+
+      <div class='float-panel mobile-only blur' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15301"><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 2.3 26.8 24.6 47.5 51.6 47.6h416.5v4z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15302"></path><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 1.9 27.7 23.9 49.7 51.6 51.6h416.5z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15303"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.9.0';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://fastly.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js',
+    sitesjs: '/js/plugins/sites.js',
+    friendsjs: '/js/plugins/friends.js',
+  };
+
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://fastly.jsdelivr.net/npm/vanilla-lazyload@17.3.1/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper@6/swiper-bundle.min.css","js":"https://unpkg.com/swiper@6/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://fastly.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://fastly.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://fastly.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.fancybox = Object.assign({"enable":true,"js":"https://fastly.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js","css":"https://fastly.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css","selector":".swiper-slide img"});
+  }
+  if ('false' == 'true') {
+    stellar.plugins.heti = Object.assign({"enable":false,"css":"https://unpkg.com/heti/umd/heti.min.css","js":"https://unpkg.com/heti/umd/heti-addon.min.js"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+  <script>
+  function getEmojiMaps() {
+    function emoji(path, idx, ext) {
+      return path + "/" + path + "-" + idx + "." + ext;
+    }
+    var emojiMaps = {};
+    for (var i = 1; i <= 54; i++) {
+      emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+    }
+    for (var i = 1; i <= 101; i++) {
+      emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+    }
+    for (var i = 1; i <= 116; i++) {
+      emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+    }
+    for (var i = 1; i <= 125; i++) {
+      emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+    }
+    for (var i = 1; i <= 4; i++) {
+      emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+    }
+    return emojiMaps;
+  }
+  function load_comment(){
+    if(!document.getElementById("valine_container"))return;
+    stellar.loadScript('https://fastly.jsdelivr.net/gh/XuxuGood/simple-blog-cdn@main/js/Valine.min.js', {defer:true}).then(function () {
+      const el = document.getElementById("valine_container");
+      var path = el.getAttribute('comment_id');
+      const placeholder = "";
+      if (!path) {
+        path = decodeURI(window.location.pathname);
+      }
+      var valine = new Valine();
+      valine.init(Object.assign({"js":"https://fastly.jsdelivr.net/gh/XuxuGood/simple-blog-cdn@main/js/Valine.min.js","appId":"pzbFTXqhpBeDgCeiSD4IU3Uo-gzGzoHsz","appKey":"8t6hlt5VaX21ITVWzzNRGAWe","placeholder":null,"requiredFields":["nick","mail"],"enableQQ":true,"recordIP":false,"avatar":"robohash","pageSize":10,"lang":"zh-cn","highlight":true,"mathJax":false,"tagMeta":["博主","小伙伴","访客"],"metaPlaceholder":{"nick":"昵称/QQ号(必填)","mail":"邮箱（必填，完全保密）","link":"网址(https://)"},"master":["6783037F2DF30EAB99F9FC256157D875"],"friends":["6783037F2DF30EAB99F9FC256157D875"]}, {
+        el: '#valine_container',
+        path: path,
+        placeholder: placeholder,
+        emojiCDN: 'https://fastly.jsdelivr.net/gh/volantis-x/cdn-emoji/valine/',
+        emojiMaps: getEmojiMaps(),
+      }));
+    });
+  }
+  window.addEventListener('DOMContentLoaded', (event) => {
+    console.log('DOM fully loaded and parsed');
+    load_comment();
+  });
+
+</script>
+
+
+
+
+<!-- inject -->
+
+  
+    <script defer src="/live2d-widget/autoload.js"></script>
+  
+    <script defer src="/js/custom/custom.js"></script>
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.js"></script>
+  
+    <script defer src="/js/custom/code_unfold.js"></script>
+  
+
+
+  </div>
+
+</body>
+</html>

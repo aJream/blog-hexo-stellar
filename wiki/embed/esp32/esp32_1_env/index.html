@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+
+<head>
+  <meta name="generator" content="Hexo 5.4.2">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://fastly.jsdelivr.net'>
+  <link rel="preconnect" href="https://fastly.jsdelivr.net" crossorigin>
+  <link rel='dns-prefetch' href='//unpkg.com'>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" content="#f8f8f8">
+  <title>esp：ArduinoIDE搭建ESP32开发环境 - aJream</title>
+
+  
+    <meta name="description" content="IDE内部下载(不推荐) 网上看到有些通过在IDE内部直接下载开发板的，首先打开【文件】-&gt;【首选项】：  然后添加开发板管理器网址(第三条是esp8266的，因为之前使用过，我这里没有删除，这里不用管)  123https:&#x2F;&#x2F;git.oschina.net&#x2F;dfrobot&#x2F;FireBeetle-ESP32&#x2F;raw&#x2F;master&#x2F;package_esp32_index.jsonhttp">
+<meta property="og:type" content="website">
+<meta property="og:title" content="ArduinoIDE搭建ESP32开发环境">
+<meta property="og:url" content="https://ajream-n.netlify.app/wiki/embed/esp32/esp32_1_env/">
+<meta property="og:site_name" content="aJream">
+<meta property="og:description" content="IDE内部下载(不推荐) 网上看到有些通过在IDE内部直接下载开发板的，首先打开【文件】-&gt;【首选项】：  然后添加开发板管理器网址(第三条是esp8266的，因为之前使用过，我这里没有删除，这里不用管)  123https:&#x2F;&#x2F;git.oschina.net&#x2F;dfrobot&#x2F;FireBeetle-ESP32&#x2F;raw&#x2F;master&#x2F;package_esp32_index.jsonhttp">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/pictures/2022/09/4_10_24_48_8fd5fc66f872c9ad959f8e000d49c40cefa93ce0.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/1a83874a11f2d68fb93173bddd84d8f1.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/5369c18272aa1cd5d04591707bef544d.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/6fab561442d1ad8160543636a3e41471.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/cb8ade5590dbb27d00416fc496a75ffc.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/d498713802ac52e009ed7d4fa75679f3.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/443ee8dcd75852215e402f3038460350.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/8da32a6a694b668bce73b54555404fab.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/007f4bb87969f5cca8875789bf988466.png">
+<meta property="og:image" content="https://docs.espressif.com/projects/esp-idf/zh_CN/latest/esp32/_images/esp32-devkitC-v4-pinout.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/d91f3d828d6d0c2347fe305bff869b93.png">
+<meta property="og:image" content="https://img-blog.csdnimg.cn/907a367f58514952be5c222d3aa482b5.png">
+<meta property="article:published_time" content="2022-06-23T00:12:20.000Z">
+<meta property="article:modified_time" content="2022-06-23T10:21:13.000Z">
+<meta property="article:author" content="aJream">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitcode.net/ajream/myimages/-/raw/master/pictures/2022/09/4_10_24_48_8fd5fc66f872c9ad959f8e000d49c40cefa93ce0.png">
+  
+  
+
+  <!-- feed -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/main.css">
+
+  
+
+  
+
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"onload="renderMathInElement(document.body);"></script>
+  
+
+
+  
+    
+      <script defer src="https://fastly.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+    
+      <link rel="stylesheet" href="https://npm.elemecdn.com/font-awesome/css/font-awesome.min.css"/ media="defer" onload="this.media='all'">
+    
+      <link rel="shortcut icon" href="/images/favicon.png">
+    
+      <link rel="stylesheet" type="text/css" href="/css/custom/return_top_bilibili.css" />
+    
+      <link rel="stylesheet" type="text/css" href="/css/custom/code_copy.css" />
+    
+      <link rel="stylesheet" type="text/css" href="/css/custom/code_unfold.css" />
+    
+      <link rel="stylesheet" type="text/css" href="/css/custom/light_dark_mode.css" />
+    
+  
+</head>
+
+<body>
+  
+
+
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left' layout='wiki'>
+    
+
+
+<header class="header">
+
+<div class="logo-wrap wiki"><a style="filter: grayscale(100%)" class="wiki-home cap" href="/wiki"><svg aria-hidden="true" viewBox="0 0 16 16" width="1rem" height="1rem" fill="currentColor"><path fill-rule="evenodd" d="M7.78 12.53a.75.75 0 01-1.06 0L2.47 8.28a.75.75 0 010-1.06l4.25-4.25a.75.75 0 011.06 1.06L4.81 7h7.44a.75.75 0 010 1.5H4.81l2.97 2.97a.75.75 0 010 1.06z"></path></svg>所有专栏</a><a class="title" href="/wiki/embed/esp8266/esp8266_env/"><div class="main">🎬ESPxx系列笔记</div><div class="sub cap">ESP8266-ESP32</div></a></div>
+</header>
+
+<div class="widgets">
+
+<div class="widget-wrap multi" id="toc"><div class="widget-header cap dis-select"><span class="name">ESP8266</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/embed/esp8266/esp8266_env/"><span class="toc-text">ESP8266(0)-Arduino配置esp8266开发环境</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/embed/esp8266/esp8266_1/"><span class="toc-text">ESP8266(1)-接入点模式-无线终端模式</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/embed/esp8266/esp8266_2/"><span class="toc-text">ESP8266(2)-网络服务器</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/embed/esp8266/esp8266_3/"><span class="toc-text">ESP8266(3)-闪存文件系统</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/embed/esp8266/esp8266_4/"><span class="toc-text">ESP8266(4)-NodeMCU作为客户端使用</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/embed/esp8266/esp8266_5/"><span class="toc-text">ESP8266(5)-Stream数据流</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/embed/esp8266/esp8266_6/"><span class="toc-text">ESP8266(6)-WiFi配网</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/embed/esp8266/esp8266_7/"><span class="toc-text">ESP8266(7)-多任务执行</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/embed/esp8266/esp8266_8/"><span class="toc-text">ESP8266(8)-OTA上传代码</span></a></div></div><div class="widget-header cap dis-select"><span class="name">MQTT协议</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/embed/esp8266/esp8266_9/"><span class="toc-text">MQTT篇（一）MQTT的认识及原理和操作</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/embed/esp8266/esp8266_10/"><span class="toc-text">MQTT篇（二）消息的发布、订阅与取消订阅</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/embed/esp8266/esp8266_11/"><span class="toc-text">MQTT篇（三）关于MQTT的主题</span></a></div></div><div class="widget-header cap dis-select"><span class="name">智能家居项目</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/embed/esp8266/smarthome_1/"><span class="toc-text">智能家居项目-STM32端设计</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/embed/esp8266/smarthome_2/"><span class="toc-text">智能家居项目-ESP8266端设计</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/embed/esp8266/smarthome_3/"><span class="toc-text">智能家居项目-Android端设计</span></a></div></div><div class="widget-header cap dis-select"><span class="name">ESP32</span></div><div class="widget-body fs14"><div class="doc-tree active"><a class="doc-tree-link active" href="/wiki/embed/esp32/esp32_1_env/"><span class="toc-text">ArduinoIDE搭建ESP32开发环境</span></a><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#ide%E5%86%85%E9%83%A8%E4%B8%8B%E8%BD%BD%E4%B8%8D%E6%8E%A8%E8%8D%90"><span class="toc-text"> IDE内部下载(不推荐)</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%96%E9%83%A8%E4%B8%8B%E8%BD%BD%E6%8E%A8%E8%8D%90"><span class="toc-text"> 外部下载(推荐)</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E7%9B%AE%E5%BD%95%E5%88%9B%E5%BB%BA"><span class="toc-text"> 文件目录创建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85esp32%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E5%8C%85"><span class="toc-text"> 安装ESP32开发工具包</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD%E6%B5%8B%E8%AF%95"><span class="toc-text"> 下载测试</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%95%E8%84%9A%E5%9B%BE"><span class="toc-text"> 引脚图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%98%E6%96%B9%E6%96%87%E6%A1%A3"><span class="toc-text"> 官方文档</span></a></li></ol></div></div></div>
+
+
+
+<div class="widget-wrap" id="related"><div class="widget-header cap dis-select"><span class="name">更多嵌入式</span></div><div class="widget-body fs14"><a class="more-item wiki" href="/wiki/embed/51/mcu51_1/">🎮51单片机学习笔记<div class="excerpt">51单片机是对兼容英特尔8051指令系统的单片机的统称</div></a><a class="more-item wiki" href="/wiki/embed/stm32/stm32_1/">🔗STM32单片机学习笔记<div class="excerpt">ST公司即意法半导体公司，STM32单片机即是ST（意法半导体）公司使用ARM公司的cortex-M3为核心生产的32bit系列的单片机。</div></a></div></div>
+</div>
+
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+  
+  
+<div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" id="home" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" id="menu" href="/wiki/">专栏</a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/wiki/embed/esp8266/esp8266_env/">🎬ESPxx系列笔记</a></div><div id="post-meta">更新于&nbsp;<time datetime="2022-06-23T10:21:13.000Z">2022-06-23</time></div></div>
+
+  <article class='content md wiki'>
+  <h1 class="article-title"><span>ArduinoIDE搭建ESP32开发环境</span></h1>
+  <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/pictures/2022/09/4_10_24_48_8fd5fc66f872c9ad959f8e000d49c40cefa93ce0.png" alt="image-20220623101342429" /></p>
+<h2 id="ide内部下载不推荐"><a class="markdownIt-Anchor" href="#ide内部下载不推荐"></a> IDE内部下载(不推荐)</h2>
+<p>网上看到有些通过在IDE内部直接下载开发板的，首先打开【文件】-&gt;【首选项】：<br />
+<img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://img-blog.csdnimg.cn/img_convert/1a83874a11f2d68fb93173bddd84d8f1.png" alt="image" /></p>
+<p>然后添加开发板管理器网址(第三条是esp8266的，因为之前使用过，我这里没有删除，这里不用管)<br />
+<img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://img-blog.csdnimg.cn/img_convert/5369c18272aa1cd5d04591707bef544d.png" alt="image" /></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">https://git.oschina.net/dfrobot/FireBeetle-ESP32/raw/master/package_esp32_index.json</span><br><span class="line">https://dl.espressif.com/dl/package_esp32_index.json</span><br><span class="line">http://arduino.esp8266.com/stable/package_esp8266com_index.json</span><br></pre></td></tr></table></figure>
+<p>然后去【工具】-&gt;【开发板】-&gt;【开发板管理器】里下载对应的开发板即可<br />
+<img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://img-blog.csdnimg.cn/img_convert/6fab561442d1ad8160543636a3e41471.png" alt="image" /></p>
+<blockquote>
+<p>注意：这种方法虽然简单，但由于各种网络原因可能容易下载失败，所以不推荐，推荐下面这种外部下载的方式。</p>
+</blockquote>
+<h2 id="外部下载推荐"><a class="markdownIt-Anchor" href="#外部下载推荐"></a> 外部下载(推荐)</h2>
+<blockquote>
+<p>说明：以下基于win10平台进行esp32开发环境搭建</p>
+</blockquote>
+<h3 id="文件目录创建"><a class="markdownIt-Anchor" href="#文件目录创建"></a> 文件目录创建</h3>
+<p>创建文件夹用于存放开发板资料</p>
+<p>在<code>hardware</code>目录下创建目录：<code>espressif/esp32/</code>：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/../arduino-1.8.15/hardware/espressif/esp32/</span><br></pre></td></tr></table></figure>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://img-blog.csdnimg.cn/img_convert/cb8ade5590dbb27d00416fc496a75ffc.png" alt="image-20220623002104258" /></p>
+<h3 id="安装esp32开发工具包"><a class="markdownIt-Anchor" href="#安装esp32开发工具包"></a> 安装ESP32开发工具包</h3>
+<p>首先进入<a target="_blank" rel="noopener" href="https://github.com/espressif/arduino-esp32">仓库</a>，点击下载完整工程（直接下载zip或者git克隆），然后将工程里面的文件全部解压在 <code>esp32</code>文件夹下</p>
+<ul>
+<li>
+<p>git克隆：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/espressif/arduino-esp32.git</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>下载zip：</p>
+<p>下载的话慢可以去这个<a target="_blank" rel="noopener" href="https://gh.api.99988866.xyz/">网站</a>加速，把下面的链接粘贴在编辑框即可</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/espressif/arduino-esp32/archive/refs/heads/master.zip</span><br></pre></td></tr></table></figure>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://img-blog.csdnimg.cn/img_convert/d498713802ac52e009ed7d4fa75679f3.png" alt="image-20220623002545764" /></p>
+</li>
+</ul>
+<p>然后进入<code>tools/package</code>文件夹,打开文件 <code>package_esp32_index.template.json</code></p>
+<p>需要找到三个文件的链接进行下载：<code>xtensa-esp32-elf-gcc</code>, <code>esptool_py</code> 和 <code>mkspiffs</code>，<strong>根据文件中给出的【url】</strong> 直接去浏览器或者其他下载器(如迅雷)下载</p>
+<ul>
+<li>
+<p>xtensa-esp32-elf-gcc</p>
+<p>64位电脑选择下面 <code>x86_64-mingw32</code>这个，或者<a target="_blank" rel="noopener" href="https://github.com/espressif/crosstool-NG/releases/download/esp-2021r2-patch3/xtensa-esp32-elf-gcc8_4_0-esp-2021r2-patch3-win64.zip">直接点击下载</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;host&quot;: &quot;i686-mingw32&quot;,</span><br><span class="line">    &quot;url&quot;: &quot;https://github.com/espressif/crosstool-NG/releases/download/esp-2021r2-patch3/xtensa-esp32-elf-gcc8_4_0-esp-2021r2-patch3-win32.zip&quot;,</span><br><span class="line">	......</span><br><span class="line">&#125;,</span><br><span class="line"></span><br><span class="line">&#123;</span><br><span class="line">    &quot;host&quot;: &quot;x86_64-mingw32&quot;,</span><br><span class="line">    &quot;url&quot;: &quot;https://github.com/espressif/crosstool-NG/releases/download/esp-2021r2-patch3/xtensa-esp32-elf-gcc8_4_0-esp-2021r2-patch3-win64.zip&quot;,</span><br><span class="line">	......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>esptool_py</p>
+<p>64位电脑选第二个的链接，或者<a target="_blank" rel="noopener" href="https://github.com/espressif/arduino-esp32/releases/download/2.0.2/esptool-3.3-windows.zip">直接点击下载</a></p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;host&quot;</span><span class="punctuation">:</span> <span class="string">&quot;i686-mingw32&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;url&quot;</span><span class="punctuation">:</span> <span class="string">&quot;https://github.com/espressif/arduino-esp32/releases/download/2.0.2/esptool-3.3-windows.zip&quot;</span><span class="punctuation">,</span></span><br><span class="line">	......</span><br><span class="line"><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;host&quot;</span><span class="punctuation">:</span> <span class="string">&quot;x86_64-mingw32&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;url&quot;</span><span class="punctuation">:</span> <span class="string">&quot;https://github.com/espressif/arduino-esp32/releases/download/2.0.2/esptool-3.3-windows.zip&quot;</span><span class="punctuation">,</span></span><br><span class="line">     ......</span><br><span class="line"><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>mkspiffs</p>
+<p>windows只有一个可以下载，<a target="_blank" rel="noopener" href="https://github.com/igrr/mkspiffs/releases/download/0.2.3/mkspiffs-0.2.3-arduino-esp32-win32.zip">点击直接下载</a></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    &quot;host&quot;: &quot;i686-mingw32&quot;,</span><br><span class="line">    &quot;url&quot;: &quot;https://github.com/igrr/mkspiffs/releases/download/0.2.3/mkspiffs-0.2.3-arduino-esp32-win32.zip&quot;,</span><br><span class="line">	......</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://img-blog.csdnimg.cn/img_convert/443ee8dcd75852215e402f3038460350.png" alt="image-20220623003317865" /></p>
+</li>
+</ul>
+<p>下载完成后解压到tools文件夹：</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://img-blog.csdnimg.cn/img_convert/8da32a6a694b668bce73b54555404fab.png" alt="image-20220623005028014" /></p>
+<h2 id="下载测试"><a class="markdownIt-Anchor" href="#下载测试"></a> 下载测试</h2>
+<p>选择一个示例程序，在ArduinoIDE编译下载程序成功</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://img-blog.csdnimg.cn/img_convert/007f4bb87969f5cca8875789bf988466.png" alt="image-20220623005123695" /></p>
+<h2 id="引脚图"><a class="markdownIt-Anchor" href="#引脚图"></a> 引脚图</h2>
+<p>第一张为官方图片</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://docs.espressif.com/projects/esp-idf/zh_CN/latest/esp32/_images/esp32-devkitC-v4-pinout.png" alt="点击查看图片" /></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://img-blog.csdnimg.cn/img_convert/d91f3d828d6d0c2347fe305bff869b93.png" alt="右键复制链接打开源图" /></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://img-blog.csdnimg.cn/907a367f58514952be5c222d3aa482b5.png" alt="在这里插入图片描述" /></p>
+<h2 id="官方文档"><a class="markdownIt-Anchor" href="#官方文档"></a> 官方文档</h2>
+<p><a target="_blank" rel="noopener" href="https://docs.espressif.com/projects/esp-idf/zh_CN/latest/esp32/get-started/index.html">前往乐鑫</a></p>
+
+  
+
+
+  </article>
+  
+<br>
+
+  
+
+  <div class='related-wrap md reveal' id="comments">
+    <div class='cmt-title cap theme'>
+      快来参与讨论吧
+    </div>
+    <div class='cmt-body valine'>
+      
+
+<div id="valine_container" class="valine_thread"><svg class="loading" style="vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2709"><path d="M832 512c0-176-144-320-320-320V128c211.2 0 384 172.8 384 384h-64zM192 512c0 176 144 320 320 320v64C300.8 896 128 723.2 128 512h64z" p-id="2710"></path></svg></div>
+
+    </div>
+  </div>
+
+
+
+
+      
+<footer class="page-footer reveal fs12"><hr><div class="sitemap"><div class="sitemap-group"><span class="fs14">博客</span><a href="/">近期</a><a href="/categories/">分类</a><a href="/tags/">标签</a><a href="/archievs/">归档</a></div><div class="sitemap-group"><span class="fs14">专栏</span><a href="/wiki/">全部</a><a href="/wiki/tags/Java/">Java</a><a href="/wiki/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/">嵌入式</a></div><div class="sitemap-group"><span class="fs14">社交</span><a href="/friends/">友链</a><a href="/about/#comments">留言板</a></div><div class="sitemap-group"><span class="fs14">更多</span><a href="/about/">关于本站</a><a target="_blank" rel="noopener" href="https://github.com/ajream">GitHub</a></div></div><div class="text"><p>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+<p>本站由 <a href="https://ajream-n.netlify.app/">@aJream</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.9.0" title="v1.9.0">Stellar</a> 主题创建。</p>
+</div></footer>
+
+      <div class='float-panel mobile-only blur' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15301"><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 2.3 26.8 24.6 47.5 51.6 47.6h416.5v4z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15302"></path><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 1.9 27.7 23.9 49.7 51.6 51.6h416.5z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15303"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.9.0';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://fastly.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js',
+    sitesjs: '/js/plugins/sites.js',
+    friendsjs: '/js/plugins/friends.js',
+  };
+
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://fastly.jsdelivr.net/npm/vanilla-lazyload@17.3.1/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper@6/swiper-bundle.min.css","js":"https://unpkg.com/swiper@6/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://fastly.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://fastly.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://fastly.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.fancybox = Object.assign({"enable":true,"js":"https://fastly.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js","css":"https://fastly.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css","selector":".swiper-slide img"});
+  }
+  if ('false' == 'true') {
+    stellar.plugins.heti = Object.assign({"enable":false,"css":"https://unpkg.com/heti/umd/heti.min.css","js":"https://unpkg.com/heti/umd/heti-addon.min.js"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+  <script>
+  function getEmojiMaps() {
+    function emoji(path, idx, ext) {
+      return path + "/" + path + "-" + idx + "." + ext;
+    }
+    var emojiMaps = {};
+    for (var i = 1; i <= 54; i++) {
+      emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+    }
+    for (var i = 1; i <= 101; i++) {
+      emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+    }
+    for (var i = 1; i <= 116; i++) {
+      emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+    }
+    for (var i = 1; i <= 125; i++) {
+      emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+    }
+    for (var i = 1; i <= 4; i++) {
+      emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+    }
+    return emojiMaps;
+  }
+  function load_comment(){
+    if(!document.getElementById("valine_container"))return;
+    stellar.loadScript('https://fastly.jsdelivr.net/gh/XuxuGood/simple-blog-cdn@main/js/Valine.min.js', {defer:true}).then(function () {
+      const el = document.getElementById("valine_container");
+      var path = el.getAttribute('comment_id');
+      const placeholder = "";
+      if (!path) {
+        path = decodeURI(window.location.pathname);
+      }
+      var valine = new Valine();
+      valine.init(Object.assign({"js":"https://fastly.jsdelivr.net/gh/XuxuGood/simple-blog-cdn@main/js/Valine.min.js","appId":"pzbFTXqhpBeDgCeiSD4IU3Uo-gzGzoHsz","appKey":"8t6hlt5VaX21ITVWzzNRGAWe","placeholder":null,"requiredFields":["nick","mail"],"enableQQ":true,"recordIP":false,"avatar":"robohash","pageSize":10,"lang":"zh-cn","highlight":true,"mathJax":false,"tagMeta":["博主","小伙伴","访客"],"metaPlaceholder":{"nick":"昵称/QQ号(必填)","mail":"邮箱（必填，完全保密）","link":"网址(https://)"},"master":["6783037F2DF30EAB99F9FC256157D875"],"friends":["6783037F2DF30EAB99F9FC256157D875"]}, {
+        el: '#valine_container',
+        path: path,
+        placeholder: placeholder,
+        emojiCDN: 'https://fastly.jsdelivr.net/gh/volantis-x/cdn-emoji/valine/',
+        emojiMaps: getEmojiMaps(),
+      }));
+    });
+  }
+  window.addEventListener('DOMContentLoaded', (event) => {
+    console.log('DOM fully loaded and parsed');
+    load_comment();
+  });
+
+</script>
+
+
+
+
+<!-- inject -->
+
+  
+    <script defer src="/live2d-widget/autoload.js"></script>
+  
+    <script defer src="/js/custom/custom.js"></script>
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.js"></script>
+  
+    <script defer src="/js/custom/code_unfold.js"></script>
+  
+
+
+  </div>
+
+</body>
+</html>

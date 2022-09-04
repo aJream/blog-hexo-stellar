@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+
+<head>
+  <meta name="generator" content="Hexo 5.4.2">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://fastly.jsdelivr.net'>
+  <link rel="preconnect" href="https://fastly.jsdelivr.net" crossorigin>
+  <link rel='dns-prefetch' href='//unpkg.com'>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" content="#f8f8f8">
+  <title>stm32：MDK keil新建stm32工程 - aJream</title>
+
+  
+    <meta name="description" content="工程结构建立 点击跳转到工程查看  初始化工程目录结构 首先创建一个文件夹test, 用于存放该工程，然后在该文件夹下创建以下几个文件夹(目的是让工程管理起来更有条理)：  lib: 用于存放库文件（像Libraries、Lib等文件名字也是可以的，根据自己的风格，最好是能&quot;见名知义&quot;）  CMSIS: 存放内核核心库文件 STM32F10x_StdPeriph_Driver">
+<meta property="og:type" content="website">
+<meta property="og:title" content="MDK keil新建stm32工程">
+<meta property="og:url" content="https://ajream-n.netlify.app/wiki/embed/stm32/stm32_3/">
+<meta property="og:site_name" content="aJream">
+<meta property="og:description" content="工程结构建立 点击跳转到工程查看  初始化工程目录结构 首先创建一个文件夹test, 用于存放该工程，然后在该文件夹下创建以下几个文件夹(目的是让工程管理起来更有条理)：  lib: 用于存放库文件（像Libraries、Lib等文件名字也是可以的，根据自己的风格，最好是能&quot;见名知义&quot;）  CMSIS: 存放内核核心库文件 STM32F10x_StdPeriph_Driver">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20210910194652_image-20210910194646565.png">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20210910195026_image-20210910195021702.png">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20210910201440_image-20210910201435838.png">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20210910200521_image-20210910200517197.png">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20210910200802_image-20210910200757380.png">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20210910201256_image-20210910201253535.png">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20210910202001_image-20210910201957385.png">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20210910202446_image-20210910202442964.png">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20210910202708_image-20210910202705273.png">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20210910203042_image-20210910203037259.png">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20210910210853_image-20210910210845401.png">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20210910211318_image-20210910211314033.png">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20210910211421_image-20210910211418672.png">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20210910211512_image-20210910211508362.png">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20210910212322_image-20210910212307092.png">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20210910212706_image-20210910212703182.png">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20210910214215_image-20210910214210061.png">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20210910214416_image-20210910214412880.png">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20210910215324_image-20210910215321021.png">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20210910215248_image-20210910215245013.png">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20210910220004_image-20210910220000653.png">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20210910220059_image-20210910220055189.png">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20210910220629_image-20210910220625228.png">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20210910221523_image-20210910221520551.png">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20210910221917_image-20210910221912505.png">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20210910222420_image-20210910222416127.png">
+<meta property="article:published_time" content="2021-09-10T16:41:28.000Z">
+<meta property="article:modified_time" content="2022-09-04T16:42:41.658Z">
+<meta property="article:author" content="aJream">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20210910194652_image-20210910194646565.png">
+  
+  
+
+  <!-- feed -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/main.css">
+
+  
+
+  
+
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"onload="renderMathInElement(document.body);"></script>
+  
+
+
+  
+    
+      <script defer src="https://fastly.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+    
+      <link rel="stylesheet" href="https://npm.elemecdn.com/font-awesome/css/font-awesome.min.css"/ media="defer" onload="this.media='all'">
+    
+      <link rel="shortcut icon" href="/images/favicon.png">
+    
+      <link rel="stylesheet" type="text/css" href="/css/custom/return_top_bilibili.css" />
+    
+      <link rel="stylesheet" type="text/css" href="/css/custom/code_copy.css" />
+    
+      <link rel="stylesheet" type="text/css" href="/css/custom/code_unfold.css" />
+    
+      <link rel="stylesheet" type="text/css" href="/css/custom/light_dark_mode.css" />
+    
+  
+</head>
+
+<body>
+  
+
+
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left' layout='wiki'>
+    
+
+
+<header class="header">
+
+<div class="logo-wrap wiki"><a style="filter: grayscale(100%)" class="wiki-home cap" href="/wiki"><svg aria-hidden="true" viewBox="0 0 16 16" width="1rem" height="1rem" fill="currentColor"><path fill-rule="evenodd" d="M7.78 12.53a.75.75 0 01-1.06 0L2.47 8.28a.75.75 0 010-1.06l4.25-4.25a.75.75 0 011.06 1.06L4.81 7h7.44a.75.75 0 010 1.5H4.81l2.97 2.97a.75.75 0 010 1.06z"></path></svg>所有专栏</a><a class="title" href="/wiki/embed/stm32/stm32_1/"><div class="main">🔗STM32单片机学习笔记</div><div class="sub cap">stm32</div></a></div>
+</header>
+
+<div class="widgets">
+
+<div class="widget-wrap multi" id="toc"><div class="widget-header cap dis-select"><span class="name">本文目录</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/embed/stm32/stm32_1/"><span class="toc-text">MDK keil卸载芯片包packs</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/embed/stm32/stm32_2/"><span class="toc-text">stm32标准外设库介绍</span></a></div><div class="doc-tree active"><a class="doc-tree-link active" href="/wiki/embed/stm32/stm32_3/"><span class="toc-text">MDK keil新建stm32工程</span></a><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E7%A8%8B%E7%BB%93%E6%9E%84%E5%BB%BA%E7%AB%8B"><span class="toc-text"> 工程结构建立</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9D%E5%A7%8B%E5%8C%96%E5%B7%A5%E7%A8%8B%E7%9B%AE%E5%BD%95%E7%BB%93%E6%9E%84"><span class="toc-text"> 初始化工程目录结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E7%9B%B8%E5%85%B3%E6%96%87%E4%BB%B6"><span class="toc-text"> 添加相关文件</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9B%BA%E4%BB%B6%E5%BA%93%E8%AF%B4%E6%98%8E"><span class="toc-text"> 固件库说明</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E5%BA%93%E6%96%87%E4%BB%B6%E5%88%B0%E8%87%AA%E5%B7%B1%E7%9A%84%E6%A8%A1%E6%9D%BF"><span class="toc-text"> 添加库文件到自己的模板</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#lib%E7%9B%AE%E5%BD%95-1"><span class="toc-text"> lib目录-1</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#lib%E7%9B%AE%E5%BD%95-2"><span class="toc-text"> lib目录-2</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#user%E7%9B%AE%E5%BD%95"><span class="toc-text"> user目录</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%93%E5%BC%80mdk-keil%E6%96%B0%E5%BB%BAstm32%E5%B7%A5%E7%A8%8B"><span class="toc-text"> 打开mdk keil新建stm32工程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B0%E5%BB%BA%E5%B7%A5%E7%A8%8B"><span class="toc-text"> 新建工程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AE%8C%E5%96%84%E5%B7%A5%E7%A8%8B%E7%BB%93%E6%9E%84"><span class="toc-text"> 完善工程结构</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E8%AF%91%E9%85%8D%E7%BD%AE"><span class="toc-text"> 编译配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B5%8B%E8%AF%95"><span class="toc-text"> 测试</span></a></li></ol></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/embed/stm32/stm32_4/"><span class="toc-text">stm32第一个程序</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/embed/stm32/stm32_5/"><span class="toc-text">stm32呼吸灯</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/embed/stm32/stm32_6/"><span class="toc-text">stm32 RCC时钟</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/embed/stm32/stm32_7/"><span class="toc-text">stm32 SysTick滴答定时器</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/embed/stm32/stm32_8/"><span class="toc-text">stm32 定时器TIMx</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/embed/stm32/stm32_9/"><span class="toc-text">stm32中断系统</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/embed/stm32/stm32_10/"><span class="toc-text">stm32 GPIO 复用功能和外设的重映射功能</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/embed/stm32/stm32_11/"><span class="toc-text">stm32 UART通信</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/embed/stm32/stm32_12/"><span class="toc-text">stm32 ADC模数转换</span></a></div></div></div>
+
+
+
+<div class="widget-wrap" id="related"><div class="widget-header cap dis-select"><span class="name">更多嵌入式</span></div><div class="widget-body fs14"><a class="more-item wiki" href="/wiki/embed/51/mcu51_1/">🎮51单片机学习笔记<div class="excerpt">51单片机是对兼容英特尔8051指令系统的单片机的统称</div></a><a class="more-item wiki" href="/wiki/embed/esp8266/esp8266_env/">🎬ESPxx系列笔记<div class="excerpt">ESP8266是由乐鑫公司出品的一款物联网的芯片，可以进行二次开发，开发有两种SDK，一种是基于RTOS和NO-RTOS</div></a></div></div>
+</div>
+
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+  
+  
+<div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" id="home" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" id="menu" href="/wiki/">专栏</a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/wiki/embed/stm32/stm32_1/">🔗STM32单片机学习笔记</a></div><div id="post-meta">更新于&nbsp;<time datetime="2022-09-04T16:42:41.658Z">2022-09-04</time></div></div>
+
+  <article class='content md wiki'>
+  <h1 class="article-title"><span>MDK keil新建stm32工程</span></h1>
+  <h2 id="工程结构建立"><a class="markdownIt-Anchor" href="#工程结构建立"></a> 工程结构建立</h2>
+<p><a target="_blank" rel="noopener" href="https://codechina.csdn.net/m0_46079750/stm32_study/-/tree/master/test">点击跳转到工程查看</a></p>
+<h3 id="初始化工程目录结构"><a class="markdownIt-Anchor" href="#初始化工程目录结构"></a> 初始化工程目录结构</h3>
+<p>首先创建一个文件夹test, 用于存放该工程，然后在该文件夹下创建以下几个文件夹(目的是让工程管理起来更有条理)：</p>
+<ul>
+<li>lib: 用于存放库文件（像Libraries、Lib等文件名字也是可以的，根据自己的风格，最好是能&quot;见名知义&quot;）
+<ul>
+<li>CMSIS: 存放内核核心库文件</li>
+<li>STM32F10x_StdPeriph_Driver: 是STM32Fl0x标准外设驱动库函数目录，存放STM32F10x微控制器的外设驱动（这个文件夹可以不建立，等下直接把库的拷贝过来）</li>
+</ul>
+</li>
+<li>obj: 用于存放程序编译输出的各种文件</li>
+<li>user: 用于存放main.c等用户自己的文件</li>
+</ul>
+<h3 id="添加相关文件"><a class="markdownIt-Anchor" href="#添加相关文件"></a> 添加相关文件</h3>
+<h4 id="固件库说明"><a class="markdownIt-Anchor" href="#固件库说明"></a> 固件库说明</h4>
+<details class="tag-plugin folding" color="blue"><summary><span>展开</span></summary><div class="body"><p>首先要去官网或其他渠道下载STM32固件库，这个库包含了我们创建要用到的所有文件，其包含的文件如下</p><p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/20210910194652_image-20210910194646565.png" alt="image-20210910194646565" /></p><p>【Libraries】文件夹存放STM32F10x开发要用到的各种库函数和启动文件，包括<code>CMSIS</code>和<code>STM32F10x_StdPeriph_Driver</code>两个子文件夹:</p><ol><li><p>【CMSIS】文件夹是内核库核心文件夹，包括CoreSupport和DeviceSupport等两个文件夹</p><p>CoreSupport文件夹包括Cortcx-M3内核通用源文件<code>core_cm3.c</code>和头文件<code>core_cm3.h</code></p></li><li><p>【DeviceSupport】文件夹STM32F0x头文件<code>stm32f10x.h</code>和系统初始化文件<code>system_stm32f10x.c</code>【STM32F10x_StdPeriph_Driver】文件夹是STM32Fl0x标准外设驱动库函数目录，包括了所有STM32F10x微控制器的外设驱动</p></li></ol><p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/20210910195026_image-20210910195021702.png" alt="image-20210910195021702" /></p><p>【Project】文件夹对应STM32F10x标准外设库体系架构中的用户层，用来存放ST官方提供的STM32F10x工程模板和外设驱动示例</p><p>【Utilities】文件夹用于存放ST官方评估板的BSP(Board Support Package, 板级支持包)和额外的第三方固件</p></div></details>
+<h4 id="添加库文件到自己的模板"><a class="markdownIt-Anchor" href="#添加库文件到自己的模板"></a> 添加库文件到自己的模板</h4>
+<h5 id="lib目录-1"><a class="markdownIt-Anchor" href="#lib目录-1"></a> lib目录-1</h5>
+<p>在库文件找到<u>下面的文件</u>拷贝到自己刚建立的<code>lib/CMSIS</code>目录</p>
+<p>添加完成后 <code>lib/CMSIS</code>目录是这样：</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/20210910201440_image-20210910201435838.png" alt="image-20210910201435838" /></p>
+<p>这些文件去哪里找：在库文件的 【Libraries】目录下</p>
+<p>内核通用源文件</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/20210910200521_image-20210910200517197.png" alt="image-20210910200517197" /></p>
+<p>启动文件，只需要红框圈起来的那个，对应 stm32f103ZE开发板芯片</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/20210910200802_image-20210910200757380.png" alt="image-20210910200757380" /></p>
+<p>系统初始化文件</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/20210910201256_image-20210910201253535.png" alt="image-20210910201253535" /></p>
+<h5 id="lib目录-2"><a class="markdownIt-Anchor" href="#lib目录-2"></a> <code>lib</code>目录-2</h5>
+<p>去固件库的【Libraries】文件夹下【如下图】把文件夹<code>STM32F10x_StdPeriph_Driver</code>拷贝到自己建立的 <code>lib</code> 目录下</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/20210910202001_image-20210910201957385.png" alt="image-20210910201957385" /></p>
+<h5 id="user目录"><a class="markdownIt-Anchor" href="#user目录"></a> <code>user</code>目录</h5>
+<p>这是添加完成后的<code>user</code>目录：</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/20210910202446_image-20210910202442964.png" alt="image-20210910202442964" /></p>
+<p>这些文件在哪里找：</p>
+<ul>
+<li>main.c: 可以自己新建一个空的<code>main.c</code>文件，也可以去官方模板那里拷贝过来(官方模板在 <code>/Project/STM32F10x_StdPeriph_Template/</code>目录下, 下面第1幅图)</li>
+<li>最下面的三个<code>stm32f10x_conf.h</code>、<code>stm32f10x_it.c</code>、<code>stm32f10x_it.h</code>: 去官方模板拷贝</li>
+<li>第二个stm32f10x.h: 在库的<code>Libraries/CMSIS/CM3/DeviceSupport/ST/STM32F10x</code>路径下找(下面第2幅图)</li>
+</ul>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/20210910202708_image-20210910202705273.png" alt="image-20210910202705273" /></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/20210910203042_image-20210910203037259.png" alt="image-20210910203037259" /></p>
+<div class="tag-plugin note" ><div class="title"><strong>注意</strong></div><div class="body"><p>注意，以上步骤只是在磁盘上建立了这么一个目录结构，keil还不知道有这个工程，所以我们要在keil新建一个工程，然后把这个工程与存放在磁盘上的目录（还不能叫工程）进行关联，这样才能形成一个完整结构的工程。</p></div></div>
+<h3 id="打开mdk-keil新建stm32工程"><a class="markdownIt-Anchor" href="#打开mdk-keil新建stm32工程"></a> 打开mdk keil新建stm32工程</h3>
+<p>这个步骤是为了在keil中新建一个工程与存放在磁盘上的目录（还不能叫工程）进行关联映射，所以有2步：1-新建工程， 2-进行关联</p>
+<h4 id="新建工程"><a class="markdownIt-Anchor" href="#新建工程"></a> 新建工程</h4>
+<p>注意新建工程时，有几个步骤：</p>
+<ol>
+<li>工程名，任意（根据自己的命名风格，不能有中文）</li>
+<li>选择芯片，这里使用 <code>STM32F103ZE</code></li>
+<li>选择库，这里先不选，后面再选，直接跳过</li>
+</ol>
+<details class="tag-plugin folding" color="blue"><summary><span>具体步骤</span></summary><div class="body"><p>点击 <code>new uVision Project</code></p><p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/20210910210853_image-20210910210845401.png" alt="image-20210910210845401" /></p><p>自己命名，选择保存；</p><p>选择芯片 <code>STM32F103ZE</code></p><p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/20210910211318_image-20210910211314033.png" alt="image-20210910211314033" /></p><p>选择库，直接跳过，后面再选</p><p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/20210910211421_image-20210910211418672.png" alt="image-20210910211418672" /></p><p>完成</p><p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/20210910211512_image-20210910211508362.png" alt="image-20210910211508362" /></p></div></details>
+<h4 id="完善工程结构"><a class="markdownIt-Anchor" href="#完善工程结构"></a> 完善工程结构</h4>
+<p>这里要把这个工程与磁盘上的目录和文件进行映射关联</p>
+<p>选择工程管理，如下：</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/20210910212322_image-20210910212307092.png" alt="image-20210910212307092" /></p>
+<p>依次新建这几个目录：</p>
+<ul>
+<li>user: 存放用户代码文件</li>
+<li>startup: 存放启动文件</li>
+<li>CMSIS: 内核库文件</li>
+<li>StdPeriph_Driver: 外设库文件</li>
+</ul>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/20210910212706_image-20210910212703182.png" alt="image-20210910212703182" /></p>
+<p>分别往这几个目录添加文件：</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/20210910214215_image-20210910214210061.png" alt="image-20210910214210061" /></p>
+<p>user(从 <code>/user/</code>目录下选择)</p>
+<ul>
+<li>main.c</li>
+<li>stm32f10x_it.c</li>
+</ul>
+<p>startup(从 <code>/lib/CMSIS/</code> 目录下选择)</p>
+<ul>
+<li>startup_stm32f10x_hd.s（注意添加时没显示出来要选择 文件类型为 “<code>All files(*.*)</code>”）</li>
+</ul>
+<p>CMSIS(从 <code>/lib/CMSIS/</code>目录下选择)</p>
+<ul>
+<li>core_cm3.c</li>
+<li>system_stm32f10x.c</li>
+</ul>
+<p>StdPeriph_Driver(从<code>/lib/STM32F10x_StdPeriph_Driver/src/</code>目录下选择，可以选择全部，也可以只选择下面两个，根据自己需要，下面这2个一般都会用到，所以都添加进来)</p>
+<ul>
+<li>stm32f10x_rcc.c</li>
+<li>stm32f10x_gpio.c</li>
+</ul>
+<p>添加完成如下：</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/20210910214416_image-20210910214412880.png" alt="image-20210910214412880" /></p>
+<div class="tag-plugin note" ><div class="title"><strong>注意</strong></div><div class="body"><p>到此工程结构已经建立完成，可以在main.c文件下写代码了，但是现在还不能编译，因为编译需要的头文件还没包含进来，以及编译时的其它一些配置还没完成</p></div></div>
+<h2 id="编译配置"><a class="markdownIt-Anchor" href="#编译配置"></a> 编译配置</h2>
+<p>选择这个魔法棒</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/20210910215324_image-20210910215321021.png" alt="image-20210910215321021" /></p>
+<p>配置Target项</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/20210910215248_image-20210910215245013.png" alt="image-20210910215245013" /></p>
+<p>配置output项</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/20210910220004_image-20210910220000653.png" alt="image-20210910220000653" /></p>
+<p>配置 listing项</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/20210910220059_image-20210910220055189.png" alt="image-20210910220055189" /></p>
+<p>配置 C/C++ 项，目的是为了把头文件添加进来</p>
+<p>下图的第2步添加的是：<code>USE_STDPERIPH_DRIVER,STM32F10X_HD</code>（注意中间有个英文逗号），表示使用外部库函数驱动</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/20210910220629_image-20210910220625228.png" alt="image-20210910220625228" /></p>
+<p>配置Debug项：ARM仿真器选项配置（手中有开发板可以先通过ARM仿真器连接电脑）</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/20210910221523_image-20210910221520551.png" alt="image-20210910221520551" /></p>
+<p>下载配置（在上一步的Debugger配置中：Debugger-&gt;Settings-&gt;FlashDownload）</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/20210910221917_image-20210910221912505.png" alt="image-20210910221912505" /></p>
+<div class="tag-plugin note" ><div class="title"><strong>注意</strong></div><div class="body"><p>到此所有配置完成，选择ok，可以愉快的写代码了</p></div></div>
+<h2 id="测试"><a class="markdownIt-Anchor" href="#测试"></a> 测试</h2>
+<p>打开main.c文件，删除原有代码（如果有的话），添加如下代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;stm32f10x.h&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span>&#123;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">        </span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>编译运行，没有报错，完美。。。。</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/20210910222420_image-20210910222416127.png" alt="image-20210910222416127" /></p>
+
+  
+
+
+  </article>
+  
+<div class="related-wrap reveal" id="read-next"><section class="header cap theme"><span>接下来阅读</span></section><section class="body fs14"><a id="next" href="/wiki/embed/stm32/stm32_4/">stm32第一个程序<span class="note">下一篇</span></a><div class="line"></div><a id="prev" href="/wiki/embed/stm32/stm32_2/">stm32标准外设库介绍<span class="note">上一篇</span></a></section></div>
+
+  
+
+  <div class='related-wrap md reveal' id="comments">
+    <div class='cmt-title cap theme'>
+      快来参与讨论吧
+    </div>
+    <div class='cmt-body valine'>
+      
+
+<div id="valine_container" class="valine_thread"><svg class="loading" style="vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2709"><path d="M832 512c0-176-144-320-320-320V128c211.2 0 384 172.8 384 384h-64zM192 512c0 176 144 320 320 320v64C300.8 896 128 723.2 128 512h64z" p-id="2710"></path></svg></div>
+
+    </div>
+  </div>
+
+
+
+
+      
+<footer class="page-footer reveal fs12"><hr><div class="sitemap"><div class="sitemap-group"><span class="fs14">博客</span><a href="/">近期</a><a href="/categories/">分类</a><a href="/tags/">标签</a><a href="/archievs/">归档</a></div><div class="sitemap-group"><span class="fs14">专栏</span><a href="/wiki/">全部</a><a href="/wiki/tags/Java/">Java</a><a href="/wiki/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/">嵌入式</a></div><div class="sitemap-group"><span class="fs14">社交</span><a href="/friends/">友链</a><a href="/about/#comments">留言板</a></div><div class="sitemap-group"><span class="fs14">更多</span><a href="/about/">关于本站</a><a target="_blank" rel="noopener" href="https://github.com/ajream">GitHub</a></div></div><div class="text"><p>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+<p>本站由 <a href="https://ajream-n.netlify.app/">@aJream</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.9.0" title="v1.9.0">Stellar</a> 主题创建。</p>
+</div></footer>
+
+      <div class='float-panel mobile-only blur' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15301"><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 2.3 26.8 24.6 47.5 51.6 47.6h416.5v4z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15302"></path><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 1.9 27.7 23.9 49.7 51.6 51.6h416.5z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15303"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.9.0';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://fastly.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js',
+    sitesjs: '/js/plugins/sites.js',
+    friendsjs: '/js/plugins/friends.js',
+  };
+
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://fastly.jsdelivr.net/npm/vanilla-lazyload@17.3.1/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper@6/swiper-bundle.min.css","js":"https://unpkg.com/swiper@6/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://fastly.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://fastly.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://fastly.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.fancybox = Object.assign({"enable":true,"js":"https://fastly.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js","css":"https://fastly.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css","selector":".swiper-slide img"});
+  }
+  if ('false' == 'true') {
+    stellar.plugins.heti = Object.assign({"enable":false,"css":"https://unpkg.com/heti/umd/heti.min.css","js":"https://unpkg.com/heti/umd/heti-addon.min.js"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+  <script>
+  function getEmojiMaps() {
+    function emoji(path, idx, ext) {
+      return path + "/" + path + "-" + idx + "." + ext;
+    }
+    var emojiMaps = {};
+    for (var i = 1; i <= 54; i++) {
+      emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+    }
+    for (var i = 1; i <= 101; i++) {
+      emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+    }
+    for (var i = 1; i <= 116; i++) {
+      emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+    }
+    for (var i = 1; i <= 125; i++) {
+      emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+    }
+    for (var i = 1; i <= 4; i++) {
+      emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+    }
+    return emojiMaps;
+  }
+  function load_comment(){
+    if(!document.getElementById("valine_container"))return;
+    stellar.loadScript('https://fastly.jsdelivr.net/gh/XuxuGood/simple-blog-cdn@main/js/Valine.min.js', {defer:true}).then(function () {
+      const el = document.getElementById("valine_container");
+      var path = el.getAttribute('comment_id');
+      const placeholder = "";
+      if (!path) {
+        path = decodeURI(window.location.pathname);
+      }
+      var valine = new Valine();
+      valine.init(Object.assign({"js":"https://fastly.jsdelivr.net/gh/XuxuGood/simple-blog-cdn@main/js/Valine.min.js","appId":"pzbFTXqhpBeDgCeiSD4IU3Uo-gzGzoHsz","appKey":"8t6hlt5VaX21ITVWzzNRGAWe","placeholder":null,"requiredFields":["nick","mail"],"enableQQ":true,"recordIP":false,"avatar":"robohash","pageSize":10,"lang":"zh-cn","highlight":true,"mathJax":false,"tagMeta":["博主","小伙伴","访客"],"metaPlaceholder":{"nick":"昵称/QQ号(必填)","mail":"邮箱（必填，完全保密）","link":"网址(https://)"},"master":["6783037F2DF30EAB99F9FC256157D875"],"friends":["6783037F2DF30EAB99F9FC256157D875"]}, {
+        el: '#valine_container',
+        path: path,
+        placeholder: placeholder,
+        emojiCDN: 'https://fastly.jsdelivr.net/gh/volantis-x/cdn-emoji/valine/',
+        emojiMaps: getEmojiMaps(),
+      }));
+    });
+  }
+  window.addEventListener('DOMContentLoaded', (event) => {
+    console.log('DOM fully loaded and parsed');
+    load_comment();
+  });
+
+</script>
+
+
+
+
+<!-- inject -->
+
+  
+    <script defer src="/live2d-widget/autoload.js"></script>
+  
+    <script defer src="/js/custom/custom.js"></script>
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.js"></script>
+  
+    <script defer src="/js/custom/code_unfold.js"></script>
+  
+
+
+  </div>
+
+</body>
+</html>

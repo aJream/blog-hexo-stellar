@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+
+<head>
+  <meta name="generator" content="Hexo 5.4.2">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://fastly.jsdelivr.net'>
+  <link rel="preconnect" href="https://fastly.jsdelivr.net" crossorigin>
+  <link rel='dns-prefetch' href='//unpkg.com'>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" content="#f8f8f8">
+  <title>JavaSE：Swing基本操作与使用 - aJream</title>
+
+  
+    <meta name="description" content="JFrame窗口 JFrame 用来设计类似于 Windows 系统中窗口形式的界面。JFrame 是 Swing 组件的顶层容器，该类继承了 AWT 的 Frame 类，支持 Swing 体系结构的高级 GUI 属性。 当创建一个 JFrame 类的实例化对象后，其他组件并不能够直接放到容器上面，需要将组件添加至内容窗格，而不是直接添加至 JFrame 对象。示例代码如下： 1frame.ge">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Swing基本操作与使用">
+<meta property="og:url" content="https://ajream-n.netlify.app/wiki/JavaSE/swing/">
+<meta property="og:site_name" content="aJream">
+<meta property="og:description" content="JFrame窗口 JFrame 用来设计类似于 Windows 系统中窗口形式的界面。JFrame 是 Swing 组件的顶层容器，该类继承了 AWT 的 Frame 类，支持 Swing 体系结构的高级 GUI 属性。 当创建一个 JFrame 类的实例化对象后，其他组件并不能够直接放到容器上面，需要将组件添加至内容窗格，而不是直接添加至 JFrame 对象。示例代码如下： 1frame.ge">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20210919162613_image-20210919162608804.png">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20210919165457_image-20210919165454208.png">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20210919165835_image-20210919165831380.png">
+<meta property="article:published_time" content="2022-09-04T16:42:41.654Z">
+<meta property="article:modified_time" content="2022-09-04T16:42:41.654Z">
+<meta property="article:author" content="aJream">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitcode.net/ajream/myimages/-/raw/master/img/20210919162613_image-20210919162608804.png">
+  
+  
+
+  <!-- feed -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/main.css">
+
+  
+
+  
+
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"onload="renderMathInElement(document.body);"></script>
+  
+
+
+  
+    
+      <script defer src="https://fastly.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+    
+      <link rel="stylesheet" href="https://npm.elemecdn.com/font-awesome/css/font-awesome.min.css"/ media="defer" onload="this.media='all'">
+    
+      <link rel="shortcut icon" href="/images/favicon.png">
+    
+      <link rel="stylesheet" type="text/css" href="/css/custom/return_top_bilibili.css" />
+    
+      <link rel="stylesheet" type="text/css" href="/css/custom/code_copy.css" />
+    
+      <link rel="stylesheet" type="text/css" href="/css/custom/code_unfold.css" />
+    
+      <link rel="stylesheet" type="text/css" href="/css/custom/light_dark_mode.css" />
+    
+  
+</head>
+
+<body>
+  
+
+
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left' layout='wiki'>
+    
+
+
+<header class="header">
+
+<div class="logo-wrap wiki"><a style="filter: grayscale(100%)" class="wiki-home cap" href="/wiki"><svg aria-hidden="true" viewBox="0 0 16 16" width="1rem" height="1rem" fill="currentColor"><path fill-rule="evenodd" d="M7.78 12.53a.75.75 0 01-1.06 0L2.47 8.28a.75.75 0 010-1.06l4.25-4.25a.75.75 0 011.06 1.06L4.81 7h7.44a.75.75 0 010 1.5H4.81l2.97 2.97a.75.75 0 010 1.06z"></path></svg>所有专栏</a><a class="title" href="/wiki/JavaSE/javase_1/"><div class="main">☕JavaSE学习笔记</div><div class="sub cap">Java基础(含少量javaEE)</div></a></div>
+</header>
+
+<div class="widgets">
+
+<div class="widget-wrap multi" id="toc"><div class="widget-header cap dis-select"><span class="name">基础学习</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/javase_1/"><span class="toc-text">Java(1) 类与对象</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/javase_2/"><span class="toc-text">Java(2.1) 类和对象的属性初始化</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/javase_3/"><span class="toc-text">Java(2.2) 访问修饰符</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/javase_4/"><span class="toc-text">Java(3.1) 数据类型</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/javase_5/"><span class="toc-text">Java(3.2) 数组</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/javase_6/"><span class="toc-text">Java(4) 变量</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/javase_7/"><span class="toc-text">Java(5) 操作符</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/javase_8/"><span class="toc-text">Java(6) 输入语句</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/javase_9/"><span class="toc-text">Java(7) 条件语句</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/javase_10/"><span class="toc-text">Java(8) 循环语句</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/javase_11/"><span class="toc-text">Java(9) package包</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/javase_12/"><span class="toc-text">Java(10) 装箱与拆箱</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/javase_13/"><span class="toc-text">Java(11) 数字与字符串相互转换</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/javase_14/"><span class="toc-text">Java(12) 字符串操作</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/javase_15/"><span class="toc-text">Java(13) 日期与日历</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/javase_16/"><span class="toc-text">Java(14) 接口与继承</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/javase_17/"><span class="toc-text">Java(15) 异常处理</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/javase_18/"><span class="toc-text">Java(16) 文件IO</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/javase_19/"><span class="toc-text">Java(17) 集合框架</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/javase_20/"><span class="toc-text">Java(17) 容器</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/javase_21/"><span class="toc-text">Java(18) 泛型</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/javase_22/"><span class="toc-text">Java(19) 多线程系列</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/javase_23/"><span class="toc-text">Java(20) 反射机制</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/javase_24/"><span class="toc-text">Java(21) 注解</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/javase_25/"><span class="toc-text">Java(22) Lambda表达式</span></a></div></div><div class="widget-header cap dis-select"><span class="name">面试八股</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/mianshi1/"><span class="toc-text">java垃圾回收算法</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/mianshi2/"><span class="toc-text">Java面试基础题</span></a></div></div><div class="widget-header cap dis-select"><span class="name">GUI开发</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/awt/"><span class="toc-text">AWT基本操作与使用</span></a></div><div class="doc-tree active"><a class="doc-tree-link active" href="/wiki/JavaSE/swing/"><span class="toc-text">Swing基本操作与使用</span></a><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#jframe%E7%AA%97%E5%8F%A3"><span class="toc-text"> JFrame窗口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#jpanel%E9%9D%A2%E6%9D%BF"><span class="toc-text"> JPanel面板</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%83%E5%B1%80%E7%AE%A1%E7%90%86%E5%99%A8"><span class="toc-text"> 布局管理器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B8%B8%E7%94%A8%E7%BB%84%E4%BB%B6"><span class="toc-text"> 常用组件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#jlabel%E6%A0%87%E7%AD%BE"><span class="toc-text"> JLabel标签</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jbutton%E6%8C%89%E9%92%AE"><span class="toc-text"> JButton按钮</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jtextfield%E5%8D%95%E8%A1%8C%E6%96%87%E6%9C%AC%E6%A1%86"><span class="toc-text"> JTextField单行文本框</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jtextarea%E6%96%87%E6%9C%AC%E5%9F%9F%E7%BB%84%E4%BB%B6"><span class="toc-text"> JTextArea文本域组件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jcheckbox%E5%A4%8D%E9%80%89%E6%A1%86"><span class="toc-text"> JCheckBox复选框</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jradiobutton%E5%8D%95%E9%80%89%E6%A1%86"><span class="toc-text"> JRadioButton单选框</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jcombobox%E4%B8%8B%E6%8B%89%E5%88%97%E8%A1%A8"><span class="toc-text"> JComboBox下拉列表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jlist%E5%88%97%E8%A1%A8%E6%A1%86"><span class="toc-text"> JList列表框</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%8B%E4%BB%B6%E7%9B%91%E5%90%AC"><span class="toc-text"> 事件监听</span></a></li></ol></div></div><div class="widget-header cap dis-select"><span class="name">其它</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/servlet1/"><span class="toc-text">1-Servlet</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/servlet2/"><span class="toc-text">2-Servlet生命周期</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/servlet3/"><span class="toc-text">3-ServletRequest对象</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/servlet4/"><span class="toc-text">4-请求转发</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/tomcat1/"><span class="toc-text">Tomcat基础</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/tomcat2/"><span class="toc-text">IDEA配置Tomcat</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/JavaSE/http/"><span class="toc-text">HTTP协议</span></a></div></div></div>
+
+
+
+<div class="widget-wrap" id="related"><div class="widget-header cap dis-select"><span class="name">更多Java</span></div><div class="widget-body fs14"><a class="more-item wiki" href="/wiki/ssm/spring/spring_1/">🚀SSM学习笔记<div class="excerpt">SSM框架是Spring MVC ，Spring和Mybatis框架的整合，是标准的MVC模式，将整个系统划分为View层，Controller层，Service层，DAO层四层，使用Spring MVC负责请求的转发和视图管理，Spring实现业务对象管理，Mybatis作为数据对象的持久化引擎。</div></a><a class="more-item wiki" href="/wiki/mysql/mysql_1/">🍬MySQL学习笔记<div class="excerpt">MySQL是一种关系型数据库管理系统，采用了双授权政策，分为社区版和商业版，由于其体积小、速度快、总体拥有成本低，尤其是开放源码这一特点，一般中小型和大型网站的开发都选择 MySQL 作为网站数据库。</div></a></div></div>
+</div>
+
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+  
+  
+<div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" id="home" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" id="menu" href="/wiki/">专栏</a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/wiki/JavaSE/javase_1/">☕JavaSE学习笔记</a></div><div id="post-meta">更新于&nbsp;<time datetime="2022-09-04T16:42:41.654Z">2022-09-04</time></div></div>
+
+  <article class='content md wiki'>
+  <h1 class="article-title"><span>Swing基本操作与使用</span></h1>
+  <h2 id="jframe窗口"><a class="markdownIt-Anchor" href="#jframe窗口"></a> JFrame窗口</h2>
+<p>JFrame 用来设计类似于 Windows 系统中窗口形式的界面。JFrame 是 Swing 组件的顶层容器，该类继承了 AWT 的 Frame 类，支持 Swing 体系结构的高级 GUI 属性。</p>
+<p>当创建一个 JFrame 类的实例化对象后，其他组件并<u>不能够直接放到容器上面</u>，需要将组件添加至内容窗格，而不是直接添加至 JFrame 对象。示例代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">frame.getContentPane().add(b);</span><br></pre></td></tr></table></figure>
+<p>例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.ajream.lesson3;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.swing.*;</span><br><span class="line"><span class="keyword">import</span> java.awt.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JFrameTest</span> <span class="keyword">extends</span> <span class="title class_">JFrame</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">JFrameTest</span><span class="params">()</span> &#123;</span><br><span class="line">        setTitle(<span class="string">&quot;Swing JFrame&quot;</span>);    <span class="comment">//设置显示窗口标题</span></span><br><span class="line">        setSize(<span class="number">400</span>, <span class="number">200</span>);    <span class="comment">//设置窗口显示尺寸</span></span><br><span class="line"></span><br><span class="line">        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);    <span class="comment">//置窗口是否可以关闭</span></span><br><span class="line"></span><br><span class="line">        <span class="type">JLabel</span> <span class="variable">jl</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JLabel</span>(<span class="string">&quot;这是使用JFrame类创建的窗口&quot;</span>);    <span class="comment">//创建一个标签</span></span><br><span class="line">        <span class="type">Container</span> <span class="variable">c</span> <span class="operator">=</span> getContentPane();    <span class="comment">//获取当前窗口的内容窗格</span></span><br><span class="line">        c.add(jl);    <span class="comment">//将标签组件添加到内容窗格上</span></span><br><span class="line"></span><br><span class="line">        setVisible(<span class="literal">true</span>);    <span class="comment">//设置窗口是否可见</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] agrs)</span> &#123;</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">JFrameTest</span>();    <span class="comment">//创建一个实例化对象</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>JFrame 类中的常用方法如下表所示。</p>
+<table>
+<thead>
+<tr>
+<th>方法名称</th>
+<th>概述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>getContentPane()</td>
+<td>返回此窗体的 contentPane 对象</td>
+</tr>
+<tr>
+<td>getDefaultCloseOperation()</td>
+<td>返回用户在此窗体上单击“关闭”按钮时执行的操作</td>
+</tr>
+<tr>
+<td>setContentPane(Container contentPane)</td>
+<td>设置 contentPane 属性</td>
+</tr>
+<tr>
+<td>setDefaultCloseOperation(int operation)</td>
+<td>设置用户在此窗体上单击“关闭”按钮时默认执行的操作</td>
+</tr>
+<tr>
+<td>setDefaultLookAndFeelDecorated (boolean defaultLookAndFeelDecorated)</td>
+<td>设置 JFrame 窗口使用的 Windows 外观（如边框、关 闭窗口的 小部件、标题等）</td>
+</tr>
+<tr>
+<td>setIconImage(Image image)</td>
+<td>设置要作为此窗口图标显示的图像</td>
+</tr>
+<tr>
+<td>setJMenuBar( JMenuBar menubar)</td>
+<td>设置此窗体的菜单栏</td>
+</tr>
+<tr>
+<td>setLayout(LayoutManager manager)</td>
+<td>设置 LayoutManager 属性</td>
+</tr>
+</tbody>
+</table>
+<h2 id="jpanel面板"><a class="markdownIt-Anchor" href="#jpanel面板"></a> JPanel面板</h2>
+<p>JPanel 是一种中间层容器，能容纳组件并将组件组合在一起，但<u>它本身必须添加到其他容器中使用</u>。JPanel 类的<u>构造方法</u>如下。</p>
+<ul>
+<li><code>JPanel()</code>：使用默认的布局管理器创建新面板，默认的布局管理器为 FlowLayout。</li>
+<li><code>JPanel(LayoutManagerLayout layout)</code>：创建指定布局管理器的 JPanel 对象。</li>
+</ul>
+<p>JPanel 类的常用方法如下表所示</p>
+<table>
+<thead>
+<tr>
+<th>方法名及返回值类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Component add(Component comp)</td>
+<td>将指定的组件追加到此容器的尾部</td>
+</tr>
+<tr>
+<td>void remove(Component comp)</td>
+<td>从容器中移除指定的组件</td>
+</tr>
+<tr>
+<td>void setFont(Font f)</td>
+<td>设置容器的字体</td>
+</tr>
+<tr>
+<td>void setLayout(LayoutManager mgr)</td>
+<td>设置容器的布局管理器</td>
+</tr>
+<tr>
+<td>void setBackground(Color c)</td>
+<td>设置组件的背景色</td>
+</tr>
+</tbody>
+</table>
+<p>例子：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.ajream.lesson3;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> javax.swing.*;</span><br><span class="line"><span class="keyword">import</span> java.awt.*;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JPanelTest</span> <span class="keyword">extends</span> <span class="title class_">JFrame</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">JPanelTest</span><span class="params">()</span> &#123;</span><br><span class="line">        setTitle(<span class="string">&quot;Swing JFrame&quot;</span>);    <span class="comment">//设置显示窗口标题</span></span><br><span class="line">        setSize(<span class="number">400</span>, <span class="number">200</span>);    <span class="comment">//设置窗口显示尺寸</span></span><br><span class="line"></span><br><span class="line">        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);    <span class="comment">//置窗口是否可以关闭</span></span><br><span class="line"></span><br><span class="line">        <span class="type">JPanel</span> <span class="variable">jp</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JPanel</span>();</span><br><span class="line">        jp.setBackground(Color.pink);   <span class="comment">//JPanel背景色设置</span></span><br><span class="line"></span><br><span class="line">        <span class="type">JLabel</span> <span class="variable">jl</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JLabel</span>(<span class="string">&quot;JPanel Test&quot;</span>);</span><br><span class="line">        jp.add(jl);    <span class="comment">//将标签组件添加到内容窗格上</span></span><br><span class="line"></span><br><span class="line">        add(jp);  <span class="comment">//JFrame添加JPanel</span></span><br><span class="line">        setVisible(<span class="literal">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] agrs)</span> &#123;</span><br><span class="line">        <span class="keyword">new</span> <span class="title class_">JPanelTest</span>();    <span class="comment">//创建一个实例化对象</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/20210919162613_image-20210919162608804.png" alt="image-20210919162608804" /></p>
+<h2 id="布局管理器"><a class="markdownIt-Anchor" href="#布局管理器"></a> 布局管理器</h2>
+<p>与awt相同，或者参考<a target="_blank" rel="noopener" href="http://c.biancheng.net/view/1212.html">Java Swing布局管理器（详解版）</a></p>
+<h2 id="常用组件"><a class="markdownIt-Anchor" href="#常用组件"></a> 常用组件</h2>
+<h3 id="jlabel标签"><a class="markdownIt-Anchor" href="#jlabel标签"></a> JLabel标签</h3>
+<p>主要构造方法有如下几种形式：</p>
+<ul>
+<li>
+<p><code>JLabel()</code>：创建无图像并且标题为空字符串的 JLabel。</p>
+</li>
+<li>
+<p><code>JLabel(Icon image)</code>：创建具有指定图像的 JLabel。</p>
+</li>
+<li>
+<p><code>JLabel(String text)</code>：创建具有指定文本的 JLabel。</p>
+</li>
+<li>
+<p><code>JLabel(String text, Icon image,int horizontalAlignment)</code>：创建具有指定文本、图像和水平对齐方式的 JLabel</p>
+<p>horizontalAlignment 的取值有 3 个: JLabel.LEFT、JLabel.RIGHT 和 JLabel.CENTER。</p>
+</li>
+</ul>
+<p>创建图标的方式：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">ImageIcon</span> <span class="variable">img</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ImageIcon</span>(<span class="string">&quot;D:\\money.png&quot;</span>);    <span class="comment">//创建一个图标</span></span><br></pre></td></tr></table></figure>
+<p>JLabel 的常用方法如表所示。</p>
+<table>
+<thead>
+<tr>
+<th>方法名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>void setText(Stxing text)</td>
+<td>定义 JLabel 将要显示的单行文本</td>
+</tr>
+<tr>
+<td>void setIcon(Icon image)</td>
+<td>定义 JLabel 将要显示的图标</td>
+</tr>
+<tr>
+<td>void setIconTextGap(int iconTextGap)</td>
+<td>如果 JLabel 同时显示图标和文本，则此属性定义它们之间的间隔</td>
+</tr>
+<tr>
+<td>void setHorizontalTextPosition(int textPosition)</td>
+<td>设置 JLabel 的文本相对其图像的水平位置</td>
+</tr>
+<tr>
+<td>void setHorizontalAlignment(int alignment)</td>
+<td>设置标签内容沿 X 轴的对齐方式</td>
+</tr>
+<tr>
+<td>String getText()</td>
+<td>返回 JLabel 所显示的文本字符串</td>
+</tr>
+<tr>
+<td>Icon getIcon()</td>
+<td>返回 JLabel 显示的图形图像</td>
+</tr>
+<tr>
+<td>Component getLabelFor()</td>
+<td>获得将 JLabel 添加到的组件</td>
+</tr>
+<tr>
+<td>int getIconTextGap()</td>
+<td>返回此标签中显示的文本和图标之间的间隔量</td>
+</tr>
+<tr>
+<td>int getHorizontalTextPosition()</td>
+<td>返回 JLabel 的文本相对其图像的水平位置</td>
+</tr>
+<tr>
+<td>int getHorizontalAlignment()</td>
+<td>返回 JLabel 沿 X 轴的对齐方式</td>
+</tr>
+</tbody>
+</table>
+<h3 id="jbutton按钮"><a class="markdownIt-Anchor" href="#jbutton按钮"></a> JButton按钮</h3>
+<p>构造方法：</p>
+<ul>
+<li><code>JButton()</code>：创建一个无标签文本、无图标的按钮。</li>
+<li><code>JButton(Icon icon)</code>：创建一个无标签文本、有图标的按钮。</li>
+<li><code>JButton(String text)</code>：创建一个有标签文本、无图标的按钮。</li>
+<li><code>JButton(String text,Icon icon)</code>：创建一个有标签文本、有图标的按钮。</li>
+</ul>
+<p>常用方法：</p>
+<table>
+<thead>
+<tr>
+<th>方法名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>addActionListener(ActionListener listener)</td>
+<td>为按担组件注册 ActionListener 监听</td>
+</tr>
+<tr>
+<td>void setIcon(Icon icon)</td>
+<td>设置按钮的默认图标</td>
+</tr>
+<tr>
+<td>void setText(String text)</td>
+<td>设置按钮的文本</td>
+</tr>
+<tr>
+<td>void setMargin(Insets m)</td>
+<td>设置按钮边框和标签之间的空白</td>
+</tr>
+<tr>
+<td>void setMnemonic(int nmemonic)</td>
+<td>设置按钮的键盘快捷键，所设置的快捷键在实际操作时需要结合 Alt 键进行实现</td>
+</tr>
+<tr>
+<td>void setPressedIcon(Icon icon)</td>
+<td>设置按下按钮时的图标</td>
+</tr>
+<tr>
+<td>void setSelectedIcon(Icon icon)</td>
+<td>设置选择按钮时的图标</td>
+</tr>
+<tr>
+<td>void setRolloveiicon(Icon icon)</td>
+<td>设置鼠标移动到按扭区域时的图标</td>
+</tr>
+<tr>
+<td>void setDisabledIcon(Icon icon)</td>
+<td>设置按钮无效状态下的图标</td>
+</tr>
+<tr>
+<td>void setVerticalAlignment(int alig)</td>
+<td>设置图标和文本的垂直对齐方式</td>
+</tr>
+<tr>
+<td>void setHorizontalAlignment(int alig)</td>
+<td>设置图标和文本的水平对齐方式</td>
+</tr>
+<tr>
+<td>void setEnable(boolean flag)</td>
+<td>启用或禁用按扭</td>
+</tr>
+<tr>
+<td>void setVerticalTextPosition(int textPosition)</td>
+<td>设置文本相对于图标的垂直位置</td>
+</tr>
+<tr>
+<td>void setHorizontalTextPosition(int textPosition)</td>
+<td>设置文本相对于图标的水平位置</td>
+</tr>
+</tbody>
+</table>
+<h3 id="jtextfield单行文本框"><a class="markdownIt-Anchor" href="#jtextfield单行文本框"></a> JTextField单行文本框</h3>
+<p>构造方法：</p>
+<ul>
+<li><code>JTextField()</code>：创建一个默认的文本框。</li>
+<li><code>JTextField(String text)</code>：创建一个指定初始化文本信息的文本框。</li>
+<li><code>JTextField(int columns)</code>：创建一个指定列数（字符数）的文本框。</li>
+<li><code>JTextField(String text,int columns)</code>：创建一个既指定初始化文本信息，又指定列数的文本框。</li>
+</ul>
+<p>常用方法：</p>
+<table>
+<thead>
+<tr>
+<th>方法名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Dimension getPreferredSize()</td>
+<td>获得文本框的首选大小</td>
+</tr>
+<tr>
+<td>void scrollRectToVisible(Rectangle r)</td>
+<td>向左或向右滚动文本框中的内容</td>
+</tr>
+<tr>
+<td>void setColumns(int columns)</td>
+<td>设置文本框最多可显示内容的列数</td>
+</tr>
+<tr>
+<td>void setFont(Font f)</td>
+<td>设置文本框的字体</td>
+</tr>
+<tr>
+<td>void setScrollOffset(int scrollOffset)</td>
+<td>设置文本框的滚动偏移量（以像素为单位）</td>
+</tr>
+<tr>
+<td>void setHorizontalAlignment(int alignment)</td>
+<td>设置文本框内容的水平对齐方式</td>
+</tr>
+</tbody>
+</table>
+<p>字体设置方法：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jTextField.setFont(<span class="keyword">new</span> <span class="title class_">Font</span>(<span class="string">&quot;楷体&quot;</span>, Font.BOLD, <span class="number">16</span>));    <span class="comment">//修改字体样式</span></span><br></pre></td></tr></table></figure>
+<h3 id="jtextarea文本域组件"><a class="markdownIt-Anchor" href="#jtextarea文本域组件"></a> JTextArea文本域组件</h3>
+<p>构造方法：</p>
+<ul>
+<li><code>JTextArea()</code>：创建一个默认的文本域。</li>
+<li><code>JTextArea(int rows,int columns)</code>：创建一个具有指定行数和列数的文本域。</li>
+<li><code>JTextArea(String text)</code>：创建一个包含指定文本的文本域。</li>
+<li><code>JTextArea(String text, int rows, int columns)</code>：创建一个既包含指定文本，又包含指定行数和列数的多行文本域。</li>
+</ul>
+<p>常用方法：</p>
+<table>
+<thead>
+<tr>
+<th>方法名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>void append(String str)</td>
+<td>将字符串 str 添加到文本域的最后位置</td>
+</tr>
+<tr>
+<td>void setColumns(int columns)</td>
+<td>设置文本域的行数</td>
+</tr>
+<tr>
+<td>void setRows(int rows)</td>
+<td>设置文本域的列数</td>
+</tr>
+<tr>
+<td>int getColumns()</td>
+<td>获取文本域的行数</td>
+</tr>
+<tr>
+<td>void setLineWrap(boolean wrap)</td>
+<td>设置文本域的换行策略</td>
+</tr>
+<tr>
+<td>int getRows()</td>
+<td>获取文本域的列数</td>
+</tr>
+<tr>
+<td>void insert(String str,int position)</td>
+<td>插入指定的字符串到文本域的指定位置</td>
+</tr>
+<tr>
+<td>void replaceRange(String str,int start,int end)</td>
+<td>将指定的开始位 start 与结束位 end 之间的字符串用指定的字符串 str 取代</td>
+</tr>
+</tbody>
+</table>
+<h3 id="jcheckbox复选框"><a class="markdownIt-Anchor" href="#jcheckbox复选框"></a> JCheckBox复选框</h3>
+<p>构造方法：</p>
+<ul>
+<li><code>JCheckBox()</code>：创建一个默认的复选框，在默认情况下既未指定文本，也未指定图像，并且未被选择。</li>
+<li><code>JCheckBox(String text)</code>：创建一个指定文本的复选框。</li>
+<li><code>JCheckBox(String text, boolean selected)</code>：创建一个指定文本和选择状态的复选框。</li>
+</ul>
+<h3 id="jradiobutton单选框"><a class="markdownIt-Anchor" href="#jradiobutton单选框"></a> JRadioButton单选框</h3>
+<p>构造方法：</p>
+<ul>
+<li><code>JRadioButton()</code>：创建一个初始化为未选择的单选按钮，其文本未设定。</li>
+<li><code>JRadioButton(Icon icon)</code>：创建一个初始化为未选择的单选按钮，其具有指定的图像但无文本。</li>
+<li><code>JRadioButton(Icon icon, boolean selected)</code>：创建一个具有指定图像和选择状态的单选按钮，但无文本。</li>
+<li><code>JRadioButton(String text)</code>：创建一个具有指定文本但未选择的单选按钮。</li>
+<li><code>JRadioButton(String text,boolean selected)</code>：创建一个具有指定文本和选择状态的单选按钮。</li>
+<li><code>JRadioButton(String text,Icon icon)</code>：创建一个具有指定的文本和图像并初始化为未选择的单选按钮。</li>
+<li><code>JRadioButton(String text,Icon icon,boolean selected)</code>：创建一个具有指定的文本、图像和选择状态的单选按钮。</li>
+</ul>
+<p>用法：</p>
+<p>由于单选框指的是在多个可选择的情况下，只能选择一个，因此使用时需要把几个单选框添加到一个组 <code>group</code>，表示这几个只能选择一个</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">ButtonGroup</span> <span class="variable">group</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ButtonGroup</span>();  <span class="comment">// 创建组</span></span><br><span class="line">group.add(radioButton1);</span><br><span class="line">group.add(radioButton2);</span><br></pre></td></tr></table></figure>
+<h3 id="jcombobox下拉列表"><a class="markdownIt-Anchor" href="#jcombobox下拉列表"></a> JComboBox下拉列表</h3>
+<p>什么是下拉列表：</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/20210919165457_image-20210919165454208.png" alt="image-20210919165454208" /></p>
+<p>构造方法：</p>
+<ul>
+<li><code>JComboBox()</code>：创建一个空的 JComboBox 对象。</li>
+<li><code>JComboBox(ComboBoxModel aModel)</code>：创建一个 JComboBox，其选项取自现有的 ComboBoxModel。</li>
+<li><code>JComboBox(Object[] items)</code>：创建包含指定<u>数组</u>中元素的 JComboBox。</li>
+</ul>
+<p>常用方法：</p>
+<p>框中的项，如表 1 所示。</p>
+<table>
+<thead>
+<tr>
+<th>方法名称</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>void addItem(Object anObject)</td>
+<td>将指定的对象作为选项添加到下拉列表框中</td>
+</tr>
+<tr>
+<td>void insertItemAt(Object anObject,int index)</td>
+<td>在下拉列表框中的指定索引处插入项</td>
+</tr>
+<tr>
+<td>void removeltem(0bject anObject)</td>
+<td>在下拉列表框中删除指定的对象项</td>
+</tr>
+<tr>
+<td>void removeItemAt(int anlndex)</td>
+<td>在下拉列表框中删除指定位置的对象项</td>
+</tr>
+<tr>
+<td>void removeAllItems()</td>
+<td>从下拉列表框中删除所有项</td>
+</tr>
+<tr>
+<td>int getItemCount()</td>
+<td>返回下拉列表框中的项数</td>
+</tr>
+<tr>
+<td>Object getItemAt(int index)</td>
+<td>获取指定索引的列表项，索引从 0 开始</td>
+</tr>
+<tr>
+<td>int getSelectedIndex()</td>
+<td>获取当前选择的索引</td>
+</tr>
+<tr>
+<td>Object getSelectedltem()</td>
+<td>获取当前选择的项</td>
+</tr>
+</tbody>
+</table>
+<h3 id="jlist列表框"><a class="markdownIt-Anchor" href="#jlist列表框"></a> JList列表框</h3>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/img/20210919165835_image-20210919165831380.png" alt="image-20210919165831380" /></p>
+<p>构造方法：</p>
+<ul>
+<li>JList()：构造一个空的只读模型的列表框。</li>
+<li>JList(ListModel dataModel)：根据指定的非 null 模型对象构造一个显示元素的列表框。</li>
+<li>JList(Object[] listData)：使用 listData 指定的元素构造—个列表框。</li>
+<li>JList(Vector&lt;?&gt; listData)：使用 listData 指定的元素构造一个列表框。</li>
+</ul>
+<p>上述的第一个构造方法没有参数，使用此方法创建列表框后可以使用 <code>setListData()</code> 方法对列表框的元素进行填充，也可以调用其他形式的构造方法在初始化时对列表框的元素进行填充。</p>
+<p>常用的元素类型有 3 种，分别是数组、Vector 对象和 ListModel 模型。</p>
+<blockquote>
+<p>列表框与下拉列表的区别不仅仅表现在外观上，当激活下拉列表时，会出现下拉列表框中的内容。但列表框只是在窗体系上占据固定的大小，如果需要列表框具有滚动效果，可以将列表框放到滚动面板中。</p>
+<p>当用户选择列表框中的某一项时，按住 Shift 键并选择列表框中的其他项目，可以连续选择两个选项之间的所有项目，也可以按住 Ctrl 键选择多个项目。</p>
+</blockquote>
+<p>JList 组件在默认情况下支持<u>单选和多选</u>，可以通过 <code>setSelectionMode()</code> 方法来限制选择行为。例如，下面的代码将限制只能在列表框中进行单选操作。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">JList</span> <span class="variable">list</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JList</span>();</span><br><span class="line"><span class="comment">//限制只能选择一个元素</span></span><br><span class="line">list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);</span><br><span class="line"><span class="comment">//ListSelectionModel.SINGLE_INTERVAL_SELECTION：允许选择一个或多个连续的元素。</span></span><br><span class="line"><span class="comment">//ListSelectionModel.MULTIPLE_INTERVAL_SELECTION：允许选择一个连续的元素。</span></span><br></pre></td></tr></table></figure>
+<h2 id="事件监听"><a class="markdownIt-Anchor" href="#事件监听"></a> 事件监听</h2>
+<p><a target="_blank" rel="noopener" href="http://c.biancheng.net/view/1235.html">点击查看教程</a></p>
+
+  
+
+
+  </article>
+  
+<div class="related-wrap reveal" id="read-next"><section class="header cap theme"><span>接下来阅读</span></section><section class="body fs14"><a id="next" href="/wiki/JavaSE/servlet1/">1-Servlet<span class="note">下一篇</span></a><div class="line"></div><a id="prev" href="/wiki/JavaSE/awt/">AWT基本操作与使用<span class="note">上一篇</span></a></section></div>
+
+  
+
+  <div class='related-wrap md reveal' id="comments">
+    <div class='cmt-title cap theme'>
+      快来参与讨论吧
+    </div>
+    <div class='cmt-body valine'>
+      
+
+<div id="valine_container" class="valine_thread"><svg class="loading" style="vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2709"><path d="M832 512c0-176-144-320-320-320V128c211.2 0 384 172.8 384 384h-64zM192 512c0 176 144 320 320 320v64C300.8 896 128 723.2 128 512h64z" p-id="2710"></path></svg></div>
+
+    </div>
+  </div>
+
+
+
+
+      
+<footer class="page-footer reveal fs12"><hr><div class="sitemap"><div class="sitemap-group"><span class="fs14">博客</span><a href="/">近期</a><a href="/categories/">分类</a><a href="/tags/">标签</a><a href="/archievs/">归档</a></div><div class="sitemap-group"><span class="fs14">专栏</span><a href="/wiki/">全部</a><a href="/wiki/tags/Java/">Java</a><a href="/wiki/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/">嵌入式</a></div><div class="sitemap-group"><span class="fs14">社交</span><a href="/friends/">友链</a><a href="/about/#comments">留言板</a></div><div class="sitemap-group"><span class="fs14">更多</span><a href="/about/">关于本站</a><a target="_blank" rel="noopener" href="https://github.com/ajream">GitHub</a></div></div><div class="text"><p>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+<p>本站由 <a href="https://ajream-n.netlify.app/">@aJream</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.9.0" title="v1.9.0">Stellar</a> 主题创建。</p>
+</div></footer>
+
+      <div class='float-panel mobile-only blur' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15301"><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 2.3 26.8 24.6 47.5 51.6 47.6h416.5v4z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15302"></path><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 1.9 27.7 23.9 49.7 51.6 51.6h416.5z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15303"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.9.0';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://fastly.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js',
+    sitesjs: '/js/plugins/sites.js',
+    friendsjs: '/js/plugins/friends.js',
+  };
+
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://fastly.jsdelivr.net/npm/vanilla-lazyload@17.3.1/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper@6/swiper-bundle.min.css","js":"https://unpkg.com/swiper@6/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://fastly.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://fastly.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://fastly.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.fancybox = Object.assign({"enable":true,"js":"https://fastly.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js","css":"https://fastly.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css","selector":".swiper-slide img"});
+  }
+  if ('false' == 'true') {
+    stellar.plugins.heti = Object.assign({"enable":false,"css":"https://unpkg.com/heti/umd/heti.min.css","js":"https://unpkg.com/heti/umd/heti-addon.min.js"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+  <script>
+  function getEmojiMaps() {
+    function emoji(path, idx, ext) {
+      return path + "/" + path + "-" + idx + "." + ext;
+    }
+    var emojiMaps = {};
+    for (var i = 1; i <= 54; i++) {
+      emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+    }
+    for (var i = 1; i <= 101; i++) {
+      emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+    }
+    for (var i = 1; i <= 116; i++) {
+      emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+    }
+    for (var i = 1; i <= 125; i++) {
+      emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+    }
+    for (var i = 1; i <= 4; i++) {
+      emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+    }
+    return emojiMaps;
+  }
+  function load_comment(){
+    if(!document.getElementById("valine_container"))return;
+    stellar.loadScript('https://fastly.jsdelivr.net/gh/XuxuGood/simple-blog-cdn@main/js/Valine.min.js', {defer:true}).then(function () {
+      const el = document.getElementById("valine_container");
+      var path = el.getAttribute('comment_id');
+      const placeholder = "";
+      if (!path) {
+        path = decodeURI(window.location.pathname);
+      }
+      var valine = new Valine();
+      valine.init(Object.assign({"js":"https://fastly.jsdelivr.net/gh/XuxuGood/simple-blog-cdn@main/js/Valine.min.js","appId":"pzbFTXqhpBeDgCeiSD4IU3Uo-gzGzoHsz","appKey":"8t6hlt5VaX21ITVWzzNRGAWe","placeholder":null,"requiredFields":["nick","mail"],"enableQQ":true,"recordIP":false,"avatar":"robohash","pageSize":10,"lang":"zh-cn","highlight":true,"mathJax":false,"tagMeta":["博主","小伙伴","访客"],"metaPlaceholder":{"nick":"昵称/QQ号(必填)","mail":"邮箱（必填，完全保密）","link":"网址(https://)"},"master":["6783037F2DF30EAB99F9FC256157D875"],"friends":["6783037F2DF30EAB99F9FC256157D875"]}, {
+        el: '#valine_container',
+        path: path,
+        placeholder: placeholder,
+        emojiCDN: 'https://fastly.jsdelivr.net/gh/volantis-x/cdn-emoji/valine/',
+        emojiMaps: getEmojiMaps(),
+      }));
+    });
+  }
+  window.addEventListener('DOMContentLoaded', (event) => {
+    console.log('DOM fully loaded and parsed');
+    load_comment();
+  });
+
+</script>
+
+
+
+
+<!-- inject -->
+
+  
+    <script defer src="/live2d-widget/autoload.js"></script>
+  
+    <script defer src="/js/custom/custom.js"></script>
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.js"></script>
+  
+    <script defer src="/js/custom/code_unfold.js"></script>
+  
+
+
+  </div>
+
+</body>
+</html>
