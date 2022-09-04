@@ -28,7 +28,7 @@
 <meta property="og:site_name" content="aJream">
 <meta property="og:description" content="IDE内部下载(不推荐) 网上看到有些通过在IDE内部直接下载开发板的，首先打开【文件】-&gt;【首选项】：  然后添加开发板管理器网址(第三条是esp8266的，因为之前使用过，我这里没有删除，这里不用管)  123https:&#x2F;&#x2F;git.oschina.net&#x2F;dfrobot&#x2F;FireBeetle-ESP32&#x2F;raw&#x2F;master&#x2F;package_esp32_index.jsonhttp">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://i0.hdslb.com/bfs/album/8fd5fc66f872c9ad959f8e000d49c40cefa93ce0.png">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/pictures/2022/09/4_10_24_48_8fd5fc66f872c9ad959f8e000d49c40cefa93ce0.png">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/1a83874a11f2d68fb93173bddd84d8f1.png">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/5369c18272aa1cd5d04591707bef544d.png">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/6fab561442d1ad8160543636a3e41471.png">
@@ -40,11 +40,11 @@
 <meta property="og:image" content="https://docs.espressif.com/projects/esp-idf/zh_CN/latest/esp32/_images/esp32-devkitC-v4-pinout.png">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/img_convert/d91f3d828d6d0c2347fe305bff869b93.png">
 <meta property="og:image" content="https://img-blog.csdnimg.cn/907a367f58514952be5c222d3aa482b5.png">
-<meta property="article:published_time" content="2022-06-22T16:12:20.000Z">
-<meta property="article:modified_time" content="2022-06-23T02:21:13.000Z">
+<meta property="article:published_time" content="2022-06-23T00:12:20.000Z">
+<meta property="article:modified_time" content="2022-06-23T10:21:13.000Z">
 <meta property="article:author" content="aJream">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://i0.hdslb.com/bfs/album/8fd5fc66f872c9ad959f8e000d49c40cefa93ce0.png">
+<meta name="twitter:image" content="https://gitcode.net/ajream/myimages/-/raw/master/pictures/2022/09/4_10_24_48_8fd5fc66f872c9ad959f8e000d49c40cefa93ce0.png">
   
   
 
@@ -81,6 +81,8 @@
       <link rel="stylesheet" type="text/css" href="/css/custom/code_copy.css" />
     
       <link rel="stylesheet" type="text/css" href="/css/custom/code_unfold.css" />
+    
+      <link rel="stylesheet" type="text/css" href="/css/custom/light_dark_mode.css" />
     
   
 </head>
@@ -119,11 +121,11 @@
 
   
   
-<div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" id="home" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" id="menu" href="/wiki/">专栏</a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/wiki/embed/esp8266/0-Arduino%E9%85%8D%E7%BD%AEesp8266%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83.html">🎬ESPxx系列笔记</a></div><div id="post-meta">更新于&nbsp;<time datetime="2022-06-23T02:21:13.000Z">2022-06-23</time></div></div>
+<div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" id="home" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" id="menu" href="/wiki/">专栏</a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/wiki/embed/esp8266/0-Arduino%E9%85%8D%E7%BD%AEesp8266%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83.html">🎬ESPxx系列笔记</a></div><div id="post-meta">更新于&nbsp;<time datetime="2022-06-23T10:21:13.000Z">2022-06-23</time></div></div>
 
   <article class='content md wiki'>
   <h1 class="article-title"><span>ArduinoIDE搭建ESP32开发环境</span></h1>
-  <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://i0.hdslb.com/bfs/album/8fd5fc66f872c9ad959f8e000d49c40cefa93ce0.png" alt="image-20220623101342429" /></p>
+  <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/pictures/2022/09/4_10_24_48_8fd5fc66f872c9ad959f8e000d49c40cefa93ce0.png" alt="image-20220623101342429" /></p>
 <h2 id="ide内部下载不推荐"><a class="markdownIt-Anchor" href="#ide内部下载不推荐"></a> IDE内部下载(不推荐)</h2>
 <p>网上看到有些通过在IDE内部直接下载开发板的，首先打开【文件】-&gt;【首选项】：<br />
 <img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://img-blog.csdnimg.cn/img_convert/1a83874a11f2d68fb93173bddd84d8f1.png" alt="image" /></p>
@@ -216,7 +218,7 @@
 
 
       
-<footer class="page-footer reveal fs12"><hr><div class="sitemap"><div class="sitemap-group"><span class="fs14">博客</span><a href="/">近期</a><a href="/categories/">分类</a><a href="/tags/">标签</a><a href="/archievs/">归档</a></div><div class="sitemap-group"><span class="fs14">专栏</span><a href="/wiki/">全部</a><a href="/wiki/tags/Java/">Java</a><a href="/wiki/tags/%E5%8D%95%E7%89%87%E6%9C%BA/">嵌入式</a></div><div class="sitemap-group"><span class="fs14">社交</span><a href="/friends/">友链</a><a href="/about/#comments">留言板</a></div><div class="sitemap-group"><span class="fs14">更多</span><a href="/about/">关于本站</a><a target="_blank" rel="noopener" href="https://github.com/ajream">GitHub</a></div></div><div class="text"><p>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+<footer class="page-footer reveal fs12"><hr><div class="sitemap"><div class="sitemap-group"><span class="fs14">博客</span><a href="/">近期</a><a href="/categories/">分类</a><a href="/tags/">标签</a><a href="/archievs/">归档</a></div><div class="sitemap-group"><span class="fs14">专栏</span><a href="/wiki/">全部</a><a href="/wiki/tags/Java/">Java</a><a href="/wiki/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/">嵌入式</a></div><div class="sitemap-group"><span class="fs14">社交</span><a href="/friends/">友链</a><a href="/about/#comments">留言板</a></div><div class="sitemap-group"><span class="fs14">更多</span><a href="/about/">关于本站</a><a target="_blank" rel="noopener" href="https://github.com/ajream">GitHub</a></div></div><div class="text"><p>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
 <p>本站由 <a href="https://ajream-n.netlify.app/">@aJream</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.9.0" title="v1.9.0">Stellar</a> 主题创建。</p>
 </div></footer>
 

@@ -73,3 +73,30 @@ $(function () {
     }(window, document);
 
 })
+
+
+// 添加按钮：白天夜间模式切换
+
+// $(function() {
+//     document.body.insertAdjacentHTML("beforeend", `<div class="btn-light-dark"><div class='light' id='btn-kaiguan'></div></div>`);
+//     var btnKaiguan =$('#btn-kaiguan');
+//     var btnLightDark = $('.btn-light-dark');
+//     var body = $('body');
+//     var temp = 1;
+//     btnKaiguan.click(function () {
+//         if (temp == 1) {
+//             btnKaiguan.attr('class', 'dark');
+//             temp = 0;
+//             btnLightDark.css({'border':'2px solid  rgb(11, 243, 81)'});
+//             body.css('background-color', 'rgb(7, 7, 29)');
+//             body.css('color', 'white');
+//         } else {
+//             btnKaiguan.attr('class', 'light');
+//             temp = 1;
+//             btnLightDark.css({ 'border': '2px solid  black' });
+//             body.css('background-color', '#f8f8f8');
+//             body.css('color', 'black');
+//         }
+
+//     })
+// })

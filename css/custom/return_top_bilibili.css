@@ -10,8 +10,8 @@
     
     cursor: pointer;
     position: fixed;
-    bottom: 75px;
-    right: 200px;
+    bottom: 300px;
+    right: 20px;
     transition: bottom 1s;
     display: block; 
     z-index: 10;    
