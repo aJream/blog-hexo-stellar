@@ -33,31 +33,6 @@
   --theme-highlight: #03c7fa;
   --theme-bg: #e8fafe;
 }
-:root {
-  --site-bg: #313438;
-  --block: #2b2f33;
-  --block-border: #393e44;
-  --block-hover: #222528;
-  --text-p0: #fff;
-  --text-p1: #d1d2d2;
-  --text-p2: #b5b6b7;
-  --text-p3: #868789;
-  --text-p4: #737577;
-  --text-meta: #696b6e;
-  --text-code: #ff7043;
-  --card: #464d56;
-  --theme-highlight: #1bcdfc;
-  --theme-bg: #415966;
-}
-@media screen and (max-width: 768px) {
-  :root {
-    --site-bg: #313438;
-    --card: #383e45;
-    --block: #222528;
-    --block-border: #303439;
-    --block-hover: #181b1d;
-  }
-}
 pre {
   font-family: Menlo, Monaco, Consolas, system-ui, "Courier New", monospace, sans-serif;
   font-size: 0.8125rem;
