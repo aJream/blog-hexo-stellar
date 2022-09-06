@@ -32,7 +32,7 @@
 <meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/pictures/2022/09/3_16_17_1_o_220503132502_space-to-top.png">
 <meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/pictures/2022/09/3_16_26_17_image-20220903162616640.png">
 <meta property="article:published_time" content="2022-09-03T15:56:51.000Z">
-<meta property="article:modified_time" content="2022-09-06T06:03:02.823Z">
+<meta property="article:modified_time" content="2022-09-06T13:25:34.403Z">
 <meta property="article:author" content="aJream">
 <meta property="article:tag" content="stellar">
 <meta name="twitter:card" content="summary_large_image">
@@ -148,7 +148,7 @@
 <p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/pictures/2022/09/3_16_26_17_image-20220903162616640.png" alt="" /></p>
 <h2 id="小问题"><a class="markdownIt-Anchor" href="#小问题"></a> 小问题</h2>
 <ol>
-<li>在wiki项目的文章点击<code>&lt;-所有项目</code>会返回主页，而不是wiki页，需要在<code>_config.yml</code>添加下面这行代码：<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">wiki_dir:</span> <span class="string">wiki</span></span><br></pre></td></tr></table></figure>
+<li>在wiki项目的文章点击<code>&lt;-所有项目</code>会返回主页，而不是wiki所在项目页，需要在<code>_config.yml</code>添加下面这行代码：<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">wiki_dir:</span> <span class="string">wiki</span></span><br></pre></td></tr></table></figure>
 </li>
 <li>文章链接不想显示后面的 <code>index.html</code>，修改 <code>_config.yml</code>如下配置，同时每篇md文章都要分开放在一个文件夹内，然后md文件名为 <code>index.md</code><figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">pretty_urls:</span></span><br><span class="line">    <span class="attr">trailing_index:</span> <span class="literal">false</span> <span class="comment"># Set to false to remove trailing &#x27;index.html&#x27; from permalinks</span></span><br><span class="line">    <span class="attr">trailing_html:</span> <span class="literal">true</span> <span class="comment"># Set to false to remove trailing &#x27;.html&#x27; from permalinks</span></span><br></pre></td></tr></table></figure>
 </li>
