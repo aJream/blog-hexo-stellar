@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang='zh-CN'>
+
+<head>
+  <meta name="generator" content="Hexo 5.4.2">
+  <meta charset="utf-8">
+  
+
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://fastly.jsdelivr.net'>
+  <link rel="preconnect" href="https://fastly.jsdelivr.net" crossorigin>
+  <link rel='dns-prefetch' href='//unpkg.com'>
+
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="theme-color" content="#f8f8f8">
+  <title>捡起你的C++基础 - aJream</title>
+
+  
+    <meta name="description" content="关于C++的一些基本知识概念总结">
+<meta property="og:type" content="article">
+<meta property="og:title" content="捡起你的C++基础">
+<meta property="og:url" content="https://ajream-n.netlify.app/posts/d43cfe19/">
+<meta property="og:site_name" content="aJream">
+<meta property="og:description" content="关于C++的一些基本知识概念总结">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-09-07T11:30:34.000Z">
+<meta property="article:modified_time" content="2022-09-07T12:30:03.000Z">
+<meta property="article:author" content="aJream">
+<meta property="article:tag" content="C&#x2F;C++">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+
+  <!-- feed -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/main.css">
+
+  
+
+  
+
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.css" integrity="sha384-Xi8rHCmBmhbuyyhbI88391ZKP2dmfnOl4rT9ZfRI7mLTdk1wblIUnrIq35nqwEvC" crossorigin="anonymous">
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/katex.min.js" integrity="sha384-X/XCfMm41VSsqRNQgDerQczD69XqmjOOOwYQvr/uuC+j4OPoNhVgjdGFwhvN02Ja" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.0/dist/contrib/auto-render.min.js" integrity="sha384-+XBljXPPiv+OzfbB3cVmLHf4hdUFHlWNZN5spNQ7rmHTXpd7WvJum6fIACpNNfIR" crossorigin="anonymous"onload="renderMathInElement(document.body);"></script>
+  
+
+
+  
+    
+      <script defer src="https://fastly.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+    
+      <link rel="stylesheet" href="https://npm.elemecdn.com/font-awesome/css/font-awesome.min.css"/ media="defer" onload="this.media='all'">
+    
+      <link rel="shortcut icon" href="/images/favicon.png">
+    
+      <link rel="stylesheet" type="text/css" href="/css/custom/return_top_bilibili.css" />
+    
+      <link rel="stylesheet" type="text/css" href="/css/custom/code_copy.css" />
+    
+      <link rel="stylesheet" type="text/css" href="/css/custom/code_unfold.css" />
+    
+      <link rel="stylesheet" type="text/css" href="/css/custom/light_dark_mode.css" />
+    
+  
+</head>
+
+<body>
+  
+
+<div class="l_cover post"><div class="cover"><div class="lazy img bg" data-bg="https://pic.rmb.bdstatic.com/bjh/ac75ed99f5855e1d5a0e70d4c7f6e7a4.png"></div></div></div>
+
+
+  <div class='l_body' id='start'>
+    <aside class='l_left' layout='post'>
+    
+
+
+<header class="header">
+
+<div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://fastly.jsdelivr.net/gh/cdn-x/placeholder@1.0.2/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="/images/avatar2.png" onerror="javascript:this.classList.add('error');this.src='https://fastly.jsdelivr.net/gh/cdn-x/placeholder@1.0.1/image/2659360.svg';"></a><a class="title" href="/"><div class="main">aJream</div><div class="sub normal cap">🛫依梦🛬</div><div class="sub hover cap" style="opacity:0">ajream-n.netlify.app</div></a></div>
+<nav class="menu dis-select"><a class="nav-item active" href="/">文章</a><a class="nav-item" href="/wiki/">专栏</a><a class="nav-item" href="/notes/">便笺</a><a class="nav-item" href="/about/">更多</a></nav></header>
+
+<div class="widgets">
+
+<div class="widget-wrap single" id="toc"><div class="widget-header cap dis-select"><span class="name">本文目录</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#c%E6%A6%82%E8%BF%B0"><span class="toc-text"> C++概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-text"> 数据类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%98%E9%87%8F"><span class="toc-text"> 变量</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%BD%E6%95%B0"><span class="toc-text"> 函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%86%85%E8%81%94%E5%87%BD%E6%95%B0"><span class="toc-text"> 内联函数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E9%87%8D%E8%BD%BD"><span class="toc-text"> 函数重载</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%87%BD%E6%95%B0%E6%A8%A1%E6%9D%BF"><span class="toc-text"> 函数模板</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E7%BB%93%E6%9E%84"><span class="toc-text"> 内存结构</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB"><span class="toc-text"> 文件包含</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B"><span class="toc-text"> 引用类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%B8%E5%BC%95%E7%94%A8"><span class="toc-text"> 常引用</span></a></li></ol></li></ol></div></div></div>
+
+
+</div>
+<footer class="footer dis-select"><div class="social-wrap"><a class="social" href="https://github.com/ajream" target="_blank" rel="external nofollow noopener noreferrer"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://fastly.jsdelivr.net/gh/cdn-x/placeholder@1.0.3/social/08a41b181ce68.svg"/></a><a class="social" href="https://music.163.com/#/user/home?id=3962513076" target="_blank" rel="external nofollow noopener noreferrer"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://fastly.jsdelivr.net/gh/cdn-x/placeholder@1.0.3/social/3845874.svg"/></a><a class="social" href="/about/#comments" rel="noopener noreferrer"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://fastly.jsdelivr.net/gh/cdn-x/placeholder@1.0.3/social/942ebbf1a4b91.svg"/></a></div></footer>
+
+    </aside>
+    <div class='l_main'>
+      
+
+      
+
+
+<div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a></div><div id="post-meta">发布于&nbsp;<time datetime="2022-09-07T11:30:34.000Z">2022-09-07</time></div></div>
+
+<article class='content md post'>
+<h1 class="article-title"><span>捡起你的C++基础</span></h1>
+<h2 id="c概述"><a class="markdownIt-Anchor" href="#c概述"></a> C++概述</h2>
+<p>由C发展而来，兼容C</p>
+<p>组成：</p>
+<ul>
+<li>C语言</li>
+<li>面向对象设计</li>
+<li>泛型编程</li>
+<li>标准模板库（STL）</li>
+</ul>
+<h2 id="数据类型"><a class="markdownIt-Anchor" href="#数据类型"></a> 数据类型</h2>
+<p>整型、浮点型、字符型、布尔型、空类型（void）、指针(<code>*</code>)、引用(&amp;)</p>
+<p>结构体（struct）、共用体（union）、枚举（enum）、类（class）</p>
+<blockquote>
+<p>整型字节长度：</p>
+<ul>
+<li>一般<code>short int</code>（2B） &lt;= <code>int</code>（4B） &lt;= <code>long int</code> （4B、8B）</li>
+</ul>
+</blockquote>
+<p>类型转换：</p>
+<ul>
+<li>隐式类型转换：存储空间提升原则（<code>short -&gt; int-&gt; long</code>, <code>signed-&gt;unsigned</code>…）</li>
+<li>显式类型转换，用法：自右向左<code>(type)expr</code>、自左向右<code>type(expr)</code></li>
+</ul>
+<h3 id="变量"><a class="markdownIt-Anchor" href="#变量"></a> 变量</h3>
+<p>可以指定变量的存储空间</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> <span class="type">int</span> a;  </span><br><span class="line"><span class="comment">//自动存储，默认使用（auto可以不写）</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">register</span> <span class="type">int</span> a;  </span><br><span class="line"><span class="comment">//使用cpu的寄存器来存放局部变量，变量不能用寄存器存储时，会转为auto存储</span></span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">int</span> a;  </span><br><span class="line"><span class="comment">//静态存储，声明周期与程序运行周期相同，函数未调用时已经分配好空间，但作用域为块作用域</span></span><br></pre></td></tr></table></figure>
+<h2 id="函数"><a class="markdownIt-Anchor" href="#函数"></a> 函数</h2>
+<ul>
+<li>无返回值函数：返回语句用 <code>return;</code> 或不使用返回语句</li>
+<li>有返回值函数：返回语句只能用 <code>return 表达式;</code></li>
+</ul>
+<blockquote>
+<p>main函数由操作系统调用，返回0表示正常退出，否则表示异常退出</p>
+</blockquote>
+<p>形式参数：函数在未调用前不占用内存</p>
+<p>参数入栈：最右边的参数先进栈</p>
+<p>const参数：用于限制对一个对象的修改操作，函数体内不能对该对象修改。</p>
+<blockquote>
+<p>对于基本类型，不必使用const限定参数，但对于数组、指针这种传进来的是地址的参数，就有必要了</p>
+</blockquote>
+<p>可变参数，用法：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">返回类型 func(type a,...)&#123;&#125;  <span class="comment">//用三个点来表示可变参数，三个点只能位于最后，前面至少有一个普通的参数</span></span><br><span class="line">    </span><br><span class="line"><span class="comment">//获取可变参数方式：需要 #include&lt;cstdarg&gt;，具体可以百度</span></span><br></pre></td></tr></table></figure>
+<p><u>函数原型</u>（或函数声明），如:(注意区别于函数定义)</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> <span class="title function_">add</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b)</span>;  <span class="comment">//参数名可以省略</span></span><br></pre></td></tr></table></figure>
+<p>默认参数：只能设置一次（函数声明中设置了默认参数，函数定义就不能再设置，反之也一样）</p>
+<ul>
+<li>
+<p>一般在声明时设置函数参数</p>
+</li>
+<li>
+<p>默认参数要自右向左设置</p>
+</li>
+<li>
+<p>默认值可以是<u>常数或全局变量</u>，甚至是一个函数的调用（但调用的函数的实参必须是常量或全局变量，如下）</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">void</span> <span class="title function_">func1</span><span class="params">(<span class="type">int</span> a, <span class="type">int</span> b=func2(<span class="number">666</span>))</span>; <span class="comment">//调用的函数func2传入的参数是常数666</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h3 id="内联函数"><a class="markdownIt-Anchor" href="#内联函数"></a> 内联函数</h3>
+<p><u>编译时</u>直接将函数代码嵌入主调函数中，取消调用环节</p>
+<p>内联函数的<u>函数原型</u>：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">inline</span> 返回类型 funcName(形参列表);</span><br></pre></td></tr></table></figure>
+<p>内联函数定义</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">inline</span> 返回类型 <span class="built_in">funcName</span>(形参列表)&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<div class="tag-plugin note" ><div class="title"><strong>注意</strong></div><div class="body"><ol><li>内联函数不能是递归函数</li><li>内联函数内部不能用 【循环语句】和【switch】语句</li><li>编译器无法将内联函数嵌入时，会忽略 <code>inline</code>声明，按照普通函数处理</li></ol></div></div>
+<h3 id="函数重载"><a class="markdownIt-Anchor" href="#函数重载"></a> 函数重载</h3>
+<p>针对的是一组同名函数</p>
+<p>特征：</p>
+<ul>
+<li>函数名相同，参数列表（参数类型或个数）不同</li>
+<li>返回类型不一定相同</li>
+<li>函数体没有要求</li>
+</ul>
+<p>调用时，编译器根据传入的实参判断该使用哪个函数</p>
+<h3 id="函数模板"><a class="markdownIt-Anchor" href="#函数模板"></a> 函数模板</h3>
+<p>目的：设计通用型函数，与类型无关</p>
+<p>定义：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T1, <span class="keyword">typename</span> T2&gt; 返回类型 <span class="built_in">funcName</span>(参数列表)&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// &lt;typename T1, typename T2&gt;表示模板参数列表</span></span><br><span class="line"><span class="comment">// typename 也可以换成class，但不建议换</span></span><br></pre></td></tr></table></figure>
+<p>如：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt; T <span class="title">add</span><span class="params">(T a, T b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a+b;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><u>模板参数列表</u>不必都表示类型，也可以是非类型形参(调用时要传入值)，如</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T1, <span class="type">int</span> N&gt; <span class="type">void</span> <span class="title">func</span><span class="params">(T a)</span></span>&#123;</span><br><span class="line">    cout&lt;&lt;N&lt;&lt;<span class="string">&quot; &quot;</span>&lt;&lt;a;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//调用：</span></span><br><span class="line"><span class="built_in">func</span>&lt;<span class="type">int</span>, <span class="number">100</span>&gt;(<span class="number">20</span>);</span><br></pre></td></tr></table></figure>
+<p>内联模板函数</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T1, <span class="keyword">typename</span> T2&gt; <span class="keyword">inline</span> 返回类型 <span class="built_in">funcName</span>(参数列表)&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="内存结构"><a class="markdownIt-Anchor" href="#内存结构"></a> 内存结构</h2>
+<ul>
+<li>
+<p>代码段(text)</p>
+<p>存放程序执行的机器指令</p>
+</li>
+<li>
+<p>已初始化数据段(data)</p>
+<p>全局变量、静态变量，包括字符串、数组等常量</p>
+<p><u>基本类型的常量</u>一般被编译成指令存放在【代码区】</p>
+</li>
+<li>
+<p>未初始化数据段(bss)</p>
+<p>程序<u>没有运行</u>的时候bss段是不存在的，在<u>运行时（main函数运行前）</u>由操作系统根据变量类型分配内存空间</p>
+<p>main函数运行前会把变量初始化为0，保证【全局、静态】变量在main函数运行前就已经分配好内存空间。</p>
+</li>
+<li>
+<p>栈</p>
+<p>存放所有局部、非静态变量；临时变量，包含函数形参、返回值</p>
+<p>函数调用时，才分配存储空间，调用结束，释放相应内存空间</p>
+</li>
+<li>
+<p>堆</p>
+<p>存放动态分配的存储空间，其存储空间由程序员分配和释放，即执行到相应的代码块才会分配或释放存储空间</p>
+</li>
+</ul>
+<h2 id="文件包含"><a class="markdownIt-Anchor" href="#文件包含"></a> 文件包含</h2>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;xxx&gt;</span>  <span class="comment">//只搜索系统路径的头文件</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;xxx&quot;</span>  <span class="comment">//先搜索源文件所处文件夹，再搜索系统路径的头文件</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 头文件路径不是C++语法，因此不能理解为字符串，例如</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;D:\a\b\c.h&quot;</span>     <span class="comment">//正确</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&quot;D:\\a\\b\\c.h&quot;</span>  <span class="comment">//错误</span></span></span><br></pre></td></tr></table></figure>
+<p>使用 #ifdef、#ifndef等避免重复包含头文件（或 <code>#pragma once</code> 特殊预处理命令）</p>
+<h2 id="引用类型"><a class="markdownIt-Anchor" href="#引用类型"></a> 引用类型</h2>
+<blockquote>
+<p>主意啊，这里的&quot;引用&quot;要理解为名词，而不是动词</p>
+</blockquote>
+<p>简单说来就是变量的别名，声明方式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">类型 &amp;引用名=被引用的对象名</span><br></pre></td></tr></table></figure>
+<p>如：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> x;</span><br><span class="line"><span class="type">int</span> &amp;r=x;</span><br></pre></td></tr></table></figure>
+<div class="tag-plugin note" color="red"><div class="title"><strong>引用的本质</strong></div><div class="body"><p>本质是位于某个内存地址上的指定类型的对象。</p><p>上例中 <code>r</code>与<code>x</code>占用内存中【同一个存储单元】</p></div></div>
+<p>其它需要注意的点：</p>
+<ul>
+<li>
+<p>引用在声明时必须指定引用的对象是谁</p>
+</li>
+<li>
+<p>引用在声明后，不能再修改作为其它对象的引用</p>
+<ul>
+<li>注意：函数参数是引用时，通常用const修饰，表示引用的对象不能通过引用修改，而不是说引用不能被修改（因为引用本身就不能被修改）</li>
+</ul>
+</li>
+<li>
+<p>编译器不会专门开辟内存单元存储引用</p>
+</li>
+<li>
+<p><u>引用的类型</u>与<u>被引用的类型</u>要相同</p>
+</li>
+</ul>
+<blockquote>
+<p>函数返回类型是引用？</p>
+<p>首先说明：函数返回<strong>值</strong>时会产生一个【临时变量】作为函数返回值的副本（因为函数调用后局部变量会被销毁），而返回<strong>引用</strong>时不会产生临时变量。因此</p>
+<ul>
+<li>千万不要引用函数中的局部变量（因为如果函数销毁了，引用变量指向谁？）如</li>
+<li>如果函数参数是引用，可以返回引用，如下</li>
+</ul>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">int</span>&amp; <span class="title">func</span><span class="params">(<span class="type">int</span> &amp;a, <span class="type">int</span>&amp;b)</span></span>&#123;</span><br><span class="line">	<span class="keyword">return</span> a;	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="type">int</span> x=<span class="number">1</span>, y=<span class="number">2</span>, z=<span class="number">9</span>;</span><br><span class="line">	<span class="built_in">func</span>(x, y) = z;     <span class="comment">//因为函数内return a; a引用的是x，所以这相当于x=z;</span></span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;x=&quot;</span> &lt;&lt; x &lt;&lt;endl;</span><br><span class="line">	cout &lt;&lt; <span class="string">&quot;y=&quot;</span> &lt;&lt; y &lt;&lt;endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//运行结果：</span></span><br><span class="line"><span class="comment">//x=9</span></span><br><span class="line"><span class="comment">//y=2</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<h3 id="常引用"><a class="markdownIt-Anchor" href="#常引用"></a> 常引用</h3>
+<p>如果是常引用，表示不能通过引用来修改对象的值</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a=<span class="number">66</span>;</span><br><span class="line"><span class="type">const</span> <span class="type">int</span> &amp;r = a;</span><br><span class="line">a = <span class="number">55</span>; <span class="comment">//正确</span></span><br><span class="line">r = <span class="number">10</span>; <span class="comment">//错误，不能通过引用来修改对象的值</span></span><br></pre></td></tr></table></figure>
+
+
+<div class="article-footer reveal fs14"><section id="license"><div class="header"><span>许可协议</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
+</div></section><section id="share"><div class="header"><span>分享文章</span></div><div class="body"><div class="link"><input class="copy-area" readonly="true" id="copy-link" value="https://ajream-n.netlify.app/posts/d43cfe19/" /></div><div class="social-wrap dis-select"><a class="social share-item wechat" onclick="util.toggle(&quot;qrcode-wechat&quot)"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://fastly.jsdelivr.net/gh/cdn-x/placeholder@1.0.1/social/b32ef3da1162a.svg"/></a><a class="social share-item weibo" target="_blank" rel="external nofollow noopener noreferrer" href="https://service.weibo.com/share/share.php?url=https://ajream-n.netlify.app/posts/d43cfe19/&title=捡起你的C++基础 - aJream&summary=关于C++的一些基本知识概念总结"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://fastly.jsdelivr.net/gh/cdn-x/placeholder@1.0.1/social/80c07e4dbb303.svg"/></a><a class="social share-item email" href="mailto:?subject=捡起你的C++基础 - aJream&amp;body=https://ajream-n.netlify.app/posts/d43cfe19/"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://fastly.jsdelivr.net/gh/cdn-x/placeholder@1.0.1/social/a1b00e20f425d.svg"/></a><a class="social share-item link" onclick="util.copy(&quot;copy-link&quot;, &quot;复制成功&quot;)"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://fastly.jsdelivr.net/gh/cdn-x/placeholder@1.0.1/social/8411ed322ced6.svg"/></a></div><div class="qrcode" id="qrcode-wechat" style="visibility:hidden;height:0"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=https://ajream-n.netlify.app/posts/d43cfe19/index.html"/></div></div></section></div>
+
+</article>
+
+<div class="related-wrap reveal" id="read-next"><section class="header cap theme"><span>接下来阅读</span></section><section class="body fs14"><a id="next" href="/posts/94c1e505/">stellar博客改进方案<span class="note">较早</span></a><div class="line"></div></section></div>
+
+
+
+
+
+
+  <div class='related-wrap md reveal' id="comments">
+    <div class='cmt-title cap theme'>
+      快来参与讨论吧
+    </div>
+    <div class='cmt-body valine'>
+      
+
+<div id="valine_container" class="valine_thread"><svg class="loading" style="vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2709"><path d="M832 512c0-176-144-320-320-320V128c211.2 0 384 172.8 384 384h-64zM192 512c0 176 144 320 320 320v64C300.8 896 128 723.2 128 512h64z" p-id="2710"></path></svg></div>
+
+    </div>
+  </div>
+
+
+
+      
+<footer class="page-footer reveal fs12"><hr><div class="sitemap"><div class="sitemap-group"><span class="fs14">博客</span><a href="/">近期</a><a href="/categories/">分类</a><a href="/tags/">标签</a><a href="/archievs/">归档</a></div><div class="sitemap-group"><span class="fs14">专栏</span><a href="/wiki/">全部</a><a href="/wiki/tags/Java/">Java</a><a href="/wiki/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/">嵌入式</a><a href="/wiki/tags/%E8%80%83%E7%A0%94/">考研</a></div><div class="sitemap-group"><span class="fs14">社交</span><a href="/friends/">友链</a><a href="/about/#comments">留言板</a></div><div class="sitemap-group"><span class="fs14">更多</span><a href="/about/">关于本站</a><a target="_blank" rel="noopener" href="https://github.com/ajream">GitHub</a></div></div><div class="text"><p>本博客所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">CC BY-NC-SA 4.0</a> 许可协议，转载请注明出处。</p>
+<p>本站由 <a href="https://ajream-n.netlify.app/">@aJream</a> 使用 <a target="_blank" rel="noopener" href="https://github.com/xaoxuu/hexo-theme-stellar/tree/1.9.0" title="v1.9.0">Stellar</a> 主题创建。</p>
+</div></footer>
+
+      <div class='float-panel mobile-only blur' style='display:none'>
+  <button type='button' class='sidebar-toggle mobile' onclick='sidebar.toggle()'>
+    <svg class="icon" style="width: 1em; height: 1em;vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15301"><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 2.3 26.8 24.6 47.5 51.6 47.6h416.5v4z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15302"></path><path d="M566.407 808.3c26.9-0.1 49.3-20.8 51.6-47.6-1.9-27.7-23.9-49.7-51.6-51.6h-412.6c-28.2-1.4-52.6 19.5-55.5 47.6 1.9 27.7 23.9 49.7 51.6 51.6h416.5z m309.3-249.9c26.9-0.1 49.3-20.8 51.6-47.6-2.2-26.8-24.6-47.5-51.6-47.6h-721.9c-27.7-2.8-52.5 17.4-55.3 45.1-0.1 0.8-0.1 1.7-0.2 2.5 0.9 27.2 23.6 48.5 50.7 47.6H875.707z m-103.1-245.9c26.9-0.1 49.3-20.8 51.6-47.6-0.4-28.3-23.2-51.1-51.5-51.6h-618.9c-29.5-1.1-54.3 21.9-55.5 51.4v0.2c1.4 27.8 25.2 49.2 53 47.8 0.8 0 1.7-0.1 2.5-0.2h618.8z" p-id="15303"></path></svg>
+  </button>
+</div>
+
+    </div>
+  </div>
+  <div class='scripts'>
+    <script type="text/javascript">
+  stellar = {
+    // 懒加载 css https://github.com/filamentgroup/loadCSS
+    loadCSS: (href, before, media, attributes) => {
+      var doc = window.document;
+      var ss = doc.createElement("link");
+      var ref;
+      if (before) {
+        ref = before;
+      } else {
+        var refs = (doc.body || doc.getElementsByTagName("head")[0]).childNodes;
+        ref = refs[refs.length - 1];
+      }
+      var sheets = doc.styleSheets;
+      if (attributes) {
+        for (var attributeName in attributes) {
+          if (attributes.hasOwnProperty(attributeName)) {
+            ss.setAttribute(attributeName, attributes[attributeName]);
+          }
+        }
+      }
+      ss.rel = "stylesheet";
+      ss.href = href;
+      ss.media = "only x";
+      function ready(cb) {
+        if (doc.body) {
+          return cb();
+        }
+        setTimeout(function () {
+          ready(cb);
+        });
+      }
+      ready(function () {
+        ref.parentNode.insertBefore(ss, before ? ref : ref.nextSibling);
+      });
+      var onloadcssdefined = function (cb) {
+        var resolvedHref = ss.href;
+        var i = sheets.length;
+        while (i--) {
+          if (sheets[i].href === resolvedHref) {
+            return cb();
+          }
+        }
+        setTimeout(function () {
+          onloadcssdefined(cb);
+        });
+      };
+      function loadCB() {
+        if (ss.addEventListener) {
+          ss.removeEventListener("load", loadCB);
+        }
+        ss.media = media || "all";
+      }
+      if (ss.addEventListener) {
+        ss.addEventListener("load", loadCB);
+      }
+      ss.onloadcssdefined = onloadcssdefined;
+      onloadcssdefined(loadCB);
+      return ss;
+    },
+
+    // 从 butterfly 和 volantis 获得灵感
+    loadScript: (src, opt) => new Promise((resolve, reject) => {
+      var script = document.createElement('script');
+      script.src = src;
+      if (opt) {
+        for (let key of Object.keys(opt)) {
+          script[key] = opt[key]
+        }
+      } else {
+        // 默认异步，如果需要同步，第二个参数传入 {} 即可
+        script.async = true
+      }
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    }),
+
+    // https://github.com/jerryc127/hexo-theme-butterfly
+    jQuery: (fn) => {
+      if (typeof jQuery === 'undefined') {
+        stellar.loadScript(stellar.plugins.jQuery).then(fn)
+      } else {
+        fn()
+      }
+    }
+  };
+  stellar.github = 'https://github.com/xaoxuu/hexo-theme-stellar/tree/1.9.0';
+  stellar.config = {
+    date_suffix: {
+      just: '刚刚',
+      min: '分钟前',
+      hour: '小时前',
+      day: '天前',
+      month: '个月前',
+    },
+  };
+
+  // required plugins (only load if needs)
+  stellar.plugins = {
+    jQuery: 'https://fastly.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js',
+    sitesjs: '/js/plugins/sites.js',
+    friendsjs: '/js/plugins/friends.js',
+  };
+
+  // optional plugins
+  if ('true' == 'true') {
+    stellar.plugins.lazyload = Object.assign({"enable":true,"js":"https://fastly.jsdelivr.net/npm/vanilla-lazyload@17.3.1/dist/lazyload.min.js","transition":"blur"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.swiper = Object.assign({"enable":true,"css":"https://unpkg.com/swiper@6/swiper-bundle.min.css","js":"https://unpkg.com/swiper@6/swiper-bundle.min.js"});
+  }
+  if ('' == 'true') {
+    stellar.plugins.scrollreveal = Object.assign({"enable":null,"js":"https://fastly.jsdelivr.net/npm/scrollreveal@4.0.9/dist/scrollreveal.min.js","distance":"8px","duration":500,"interval":100,"scale":1});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.preload = Object.assign({"enable":true,"service":"flying_pages","instant_page":"https://fastly.jsdelivr.net/gh/volantis-x/cdn-volantis@4.1.2/js/instant_page.js","flying_pages":"https://fastly.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"});
+  }
+  if ('true' == 'true') {
+    stellar.plugins.fancybox = Object.assign({"enable":true,"js":"https://fastly.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js","css":"https://fastly.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css","selector":".swiper-slide img"});
+  }
+  if ('false' == 'true') {
+    stellar.plugins.heti = Object.assign({"enable":false,"css":"https://unpkg.com/heti/umd/heti.min.css","js":"https://unpkg.com/heti/umd/heti-addon.min.js"});
+  }
+</script>
+
+<!-- required -->
+
+  
+<script src="/js/main.js" async></script>
+
+
+
+<!-- optional -->
+
+  <script>
+  function getEmojiMaps() {
+    function emoji(path, idx, ext) {
+      return path + "/" + path + "-" + idx + "." + ext;
+    }
+    var emojiMaps = {};
+    for (var i = 1; i <= 54; i++) {
+      emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+    }
+    for (var i = 1; i <= 101; i++) {
+      emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+    }
+    for (var i = 1; i <= 116; i++) {
+      emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+    }
+    for (var i = 1; i <= 125; i++) {
+      emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+    }
+    for (var i = 1; i <= 4; i++) {
+      emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+    }
+    return emojiMaps;
+  }
+  function load_comment(){
+    if(!document.getElementById("valine_container"))return;
+    stellar.loadScript('https://fastly.jsdelivr.net/gh/XuxuGood/simple-blog-cdn@main/js/Valine.min.js', {defer:true}).then(function () {
+      const el = document.getElementById("valine_container");
+      var path = el.getAttribute('comment_id');
+      const placeholder = "";
+      if (!path) {
+        path = decodeURI(window.location.pathname);
+      }
+      var valine = new Valine();
+      valine.init(Object.assign({"js":"https://fastly.jsdelivr.net/gh/XuxuGood/simple-blog-cdn@main/js/Valine.min.js","appId":"pzbFTXqhpBeDgCeiSD4IU3Uo-gzGzoHsz","appKey":"8t6hlt5VaX21ITVWzzNRGAWe","placeholder":null,"requiredFields":["nick","mail"],"enableQQ":true,"recordIP":false,"avatar":"robohash","pageSize":10,"lang":"zh-cn","highlight":true,"mathJax":false,"tagMeta":["博主","小伙伴","访客"],"metaPlaceholder":{"nick":"昵称/QQ号(必填)","mail":"邮箱（必填，完全保密）","link":"网址(https://)"},"master":["6783037F2DF30EAB99F9FC256157D875"],"friends":["6783037F2DF30EAB99F9FC256157D875"]}, {
+        el: '#valine_container',
+        path: path,
+        placeholder: placeholder,
+        emojiCDN: 'https://fastly.jsdelivr.net/gh/volantis-x/cdn-emoji/valine/',
+        emojiMaps: getEmojiMaps(),
+      }));
+    });
+  }
+  window.addEventListener('DOMContentLoaded', (event) => {
+    console.log('DOM fully loaded and parsed');
+    load_comment();
+  });
+
+</script>
+
+
+
+
+<!-- inject -->
+
+  
+    <script defer src="/live2d-widget/autoload.js"></script>
+  
+    <script defer src="/js/custom/custom.js"></script>
+  
+    <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.js"></script>
+  
+    <script defer src="/js/custom/code_unfold.js"></script>
+  
+
+
+  </div>
+
+</body>
+</html>
