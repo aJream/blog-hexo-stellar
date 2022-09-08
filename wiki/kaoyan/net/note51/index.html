@@ -18,20 +18,23 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="theme-color" content="#f8f8f8">
-  <title>MySQL：MySQL(6)-权限-备份 - aJream</title>
+  <title>jiwang：传输层 - aJream</title>
 
   
-    <meta name="description" content="权限管理和备份 1234567891011121314151617181920212223-- 创建用户 create user 用户名 identified by &amp;#x27;密码&amp;#x27;create user &amp;#x27;kjn&amp;#x27; identified by &amp;#x27;123456&amp;#x27;;-- 修改当前用户密码set password &#x3D; password(&amp;#x27;">
+    <meta name="description" content="传输层提供的服务 传输层使用的数据单元为：报文段 传输层向上层（应用层）提供通信服务，属于面向通信的最高层，也是用户功能的最底层。   传输层运行在网络层之上，为不同主机的不同进程之间提供了【逻辑通信】功能   复用和分用功能  复用指【发送方】不同的应用进程可以用同一传输层协议传送数据 分用是指【接收方】收到数据可以在剥去报文首部后交给指定的应用程序（通过端口来实现）    差错检测（检测首部">
 <meta property="og:type" content="website">
-<meta property="og:title" content="MySQL(6)-权限-备份">
-<meta property="og:url" content="https://ajream-n.netlify.app/wiki/mysql/mysql_6/">
+<meta property="og:title" content="传输层">
+<meta property="og:url" content="https://ajream-n.netlify.app/wiki/kaoyan/net/note51/">
 <meta property="og:site_name" content="aJream">
-<meta property="og:description" content="权限管理和备份 1234567891011121314151617181920212223-- 创建用户 create user 用户名 identified by &amp;#x27;密码&amp;#x27;create user &amp;#x27;kjn&amp;#x27; identified by &amp;#x27;123456&amp;#x27;;-- 修改当前用户密码set password &#x3D; password(&amp;#x27;">
+<meta property="og:description" content="传输层提供的服务 传输层使用的数据单元为：报文段 传输层向上层（应用层）提供通信服务，属于面向通信的最高层，也是用户功能的最底层。   传输层运行在网络层之上，为不同主机的不同进程之间提供了【逻辑通信】功能   复用和分用功能  复用指【发送方】不同的应用进程可以用同一传输层协议传送数据 分用是指【接收方】收到数据可以在剥去报文首部后交给指定的应用程序（通过端口来实现）    差错检测（检测首部">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/pictures/2022/09/8_23_14_8_image-20220908231406590.png">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/pictures/2022/09/8_23_26_12_image-20220908232610771.png">
 <meta property="article:published_time" content="2022-09-08T15:43:30.262Z">
 <meta property="article:modified_time" content="2022-09-08T15:43:30.262Z">
 <meta property="article:author" content="aJream">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitcode.net/ajream/myimages/-/raw/master/pictures/2022/09/8_23_14_8_image-20220908231406590.png">
   
   
 
@@ -87,16 +90,16 @@
 
 <header class="header">
 
-<div class="logo-wrap wiki"><a style="filter: grayscale(100%)" class="wiki-home cap" href="/wiki"><svg aria-hidden="true" viewBox="0 0 16 16" width="1rem" height="1rem" fill="currentColor"><path fill-rule="evenodd" d="M7.78 12.53a.75.75 0 01-1.06 0L2.47 8.28a.75.75 0 010-1.06l4.25-4.25a.75.75 0 011.06 1.06L4.81 7h7.44a.75.75 0 010 1.5H4.81l2.97 2.97a.75.75 0 010 1.06z"></path></svg>所有专栏</a><a class="title" href="/wiki/mysql/mysql_1/"><div class="main">🍬MySQL学习笔记</div><div class="sub cap">MySQL</div></a></div>
+<div class="logo-wrap wiki"><a style="filter: grayscale(100%)" class="wiki-home cap" href="/wiki"><svg aria-hidden="true" viewBox="0 0 16 16" width="1rem" height="1rem" fill="currentColor"><path fill-rule="evenodd" d="M7.78 12.53a.75.75 0 01-1.06 0L2.47 8.28a.75.75 0 010-1.06l4.25-4.25a.75.75 0 011.06 1.06L4.81 7h7.44a.75.75 0 010 1.5H4.81l2.97 2.97a.75.75 0 010 1.06z"></path></svg>所有专栏</a><a class="title" href="/wiki/kaoyan/net/note01/"><div class="main">计算机网络</div><div class="sub cap">801计网</div></a></div>
 </header>
 
 <div class="widgets">
 
-<div class="widget-wrap multi" id="toc"><div class="widget-header cap dis-select"><span class="name">本文目录</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/mysql/mysql_1/"><span class="toc-text">MySQL(1)-数据库认识</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/mysql/mysql_2/"><span class="toc-text">MySQL(2)-MySQL基础</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/mysql/mysql_3/"><span class="toc-text">MySQL(3)-数据管理</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/mysql/mysql_4/"><span class="toc-text">MySQL(4)-MySQL事务</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/mysql/mysql_5/"><span class="toc-text">MySQL(5)-索引</span></a></div><div class="doc-tree active"><a class="doc-tree-link active" href="/wiki/mysql/mysql_6/"><span class="toc-text">MySQL(6)-权限-备份</span></a><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9D%83%E9%99%90%E7%AE%A1%E7%90%86%E5%92%8C%E5%A4%87%E4%BB%BD"><span class="toc-text"> 权限管理和备份</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E5%A4%87%E4%BB%BD"><span class="toc-text"> 数据库备份</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%84%E8%8C%83%E6%95%B0%E6%8D%AE%E5%BA%93%E8%AE%BE%E8%AE%A1"><span class="toc-text"> 规范数据库设计</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F"><span class="toc-text"> 三大范式</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%89%E5%A4%A7%E8%8C%83%E5%BC%8F-2"><span class="toc-text"> 三大范式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A7%84%E8%8C%83%E6%80%A7%E5%92%8C%E6%80%A7%E8%83%BD%E9%97%AE%E9%A2%98"><span class="toc-text"> 规范性和性能问题</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#sql%E6%B3%A8%E5%85%A5%E9%97%AE%E9%A2%98"><span class="toc-text"> SQL注入问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#preparestatement%E5%AF%B9%E8%B1%A1"><span class="toc-text"> PrepareStatement对象</span></a></li></ol></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/mysql/mysql_7/"><span class="toc-text">MySQL(7)-JDBC</span></a></div></div></div>
+<div class="widget-wrap multi" id="toc"><div class="widget-header cap dis-select"><span class="name">基础概念</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/kaoyan/net/note01/"><span class="toc-text">1.1 计算机网络基本概念</span></a></div></div><div class="widget-header cap dis-select"><span class="name">数据链路层</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/kaoyan/net/note34/"><span class="toc-text">3.5 介质访问控制</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/wiki/kaoyan/net/note35/"><span class="toc-text">3.6 局域网</span></a></div></div><div class="widget-header cap dis-select"><span class="name">应用层</span></div><div class="widget-body fs14"><div class="doc-tree active"><a class="doc-tree-link active" href="/wiki/kaoyan/net/note51/"><span class="toc-text">传输层</span></a><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BC%A0%E8%BE%93%E5%B1%82%E6%8F%90%E4%BE%9B%E7%9A%84%E6%9C%8D%E5%8A%A1"><span class="toc-text"> 传输层提供的服务</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#udp%E5%8D%8F%E8%AE%AE"><span class="toc-text"> UDP协议</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#udp%E6%95%B0%E6%8D%AE%E6%8A%A5"><span class="toc-text"> UDP数据报</span></a></li></ol></li></ol></div></div></div>
 
 
 
-<div class="widget-wrap" id="related"><div class="widget-header cap dis-select"><span class="name">更多Java</span></div><div class="widget-body fs14"><a class="more-item wiki" href="/wiki/JavaSE/javase_1/">☕JavaSE学习笔记<div class="excerpt">Java SE（Java Standard Edition，Java 标准版）是Java技术的核心和基础，是Java ME和Java EE编程的基础。Java SE是由Sun Microsystems公司于1995年5月推出的Java程序设计语言和Java平台的总称。【百度百科】</div></a><a class="more-item wiki" href="/wiki/ssm/spring/spring_1/">🚀SSM学习笔记<div class="excerpt">SSM框架是Spring MVC ，Spring和Mybatis框架的整合，是标准的MVC模式，将整个系统划分为View层，Controller层，Service层，DAO层四层，使用Spring MVC负责请求的转发和视图管理，Spring实现业务对象管理，Mybatis作为数据对象的持久化引擎。</div></a></div></div>
+<div class="widget-wrap" id="related"><div class="widget-header cap dis-select"><span class="name">更多考研</span></div><div class="widget-body fs14"><a class="more-item wiki" href="/wiki/kaoyan/datastruct/note1/">数据结构<div class="excerpt">nothing</div></a></div></div>
 </div>
 
 
@@ -108,122 +111,108 @@
 
   
   
-<div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" id="home" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" id="menu" href="/wiki/">专栏</a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/wiki/mysql/mysql_1/">🍬MySQL学习笔记</a></div><div id="post-meta">更新于&nbsp;<time datetime="2022-09-08T15:43:30.262Z">2022-09-08</time></div></div>
+<div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" id="home" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" id="menu" href="/wiki/">专栏</a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/wiki/kaoyan/net/note01/">计算机网络</a></div><div id="post-meta">更新于&nbsp;<time datetime="2022-09-08T15:43:30.262Z">2022-09-08</time></div></div>
 
   <article class='content md wiki'>
-  <h1 class="article-title"><span>MySQL(6)-权限-备份</span></h1>
-  <h2 id="权限管理和备份"><a class="markdownIt-Anchor" href="#权限管理和备份"></a> 权限管理和备份</h2>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">-- 创建用户 create user 用户名 identified by &#x27;密码&#x27;</span><br><span class="line">create user &#x27;kjn&#x27; identified by &#x27;123456&#x27;;</span><br><span class="line"></span><br><span class="line">-- 修改当前用户密码</span><br><span class="line">set password = password(&#x27;98765&#x27;);</span><br><span class="line"></span><br><span class="line">-- 修改指定用户密码</span><br><span class="line">set password for &#x27;用户名&#x27; = password(&#x27;98765&#x27;);</span><br><span class="line"></span><br><span class="line">-- 重命名用户 rename ... to ...</span><br><span class="line">rename user 原来名字 to 新名字;</span><br><span class="line"></span><br><span class="line">-- 授权用户全部权限 [all privileges]-&gt;除了给别人授权，什么都能干</span><br><span class="line">grant all privileges on *.* to 用户名;</span><br><span class="line"></span><br><span class="line">-- 查看权限</span><br><span class="line">show grants for 用户名;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">-- 撤销权限</span><br><span class="line">revoke all privileges on *.* from 用户名;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<h2 id="数据库备份"><a class="markdownIt-Anchor" href="#数据库备份"></a> 数据库备份</h2>
-<p>备份方式</p>
+  <h1 class="article-title"><span>传输层</span></h1>
+  <h2 id="传输层提供的服务"><a class="markdownIt-Anchor" href="#传输层提供的服务"></a> 传输层提供的服务</h2>
+<p><u>传输层使用的数据单元为：报文段</u></p>
+<p>传输层向上层（应用层）提供通信服务，属于面向通信的最高层，也是用户功能的最底层。</p>
 <ul>
 <li>
-<p>直接拷贝物理文件</p>
+<p>传输层运行在网络层之上，为不同主机的不同<u>进程之间</u>提供了【逻辑通信】功能</p>
 </li>
 <li>
-<p>在软件中导出</p>
-<p>navicat右键点击表导出</p>
+<p>复用和分用功能</p>
+<ul>
+<li>复用指【发送方】不同的应用进程可以用同一传输层协议传送数据</li>
+<li>分用是指【接收方】收到数据可以在剥去报文首部后交给指定的应用程序（通过端口来实现）</li>
+</ul>
 </li>
 <li>
-<p>cmd命令行导出</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-- mysqldump -h本机服务</span><br><span class="line">mysqldump -hlocalhost -u用户名 -p密码 数据库名 表名 &gt; 导出路径/导出文件名</span><br></pre></td></tr></table></figure>
+<p>差错检测（检测首部和数据部分，网络层只检测IP数据报的首部）</p>
 </li>
 <li>
-<p>导入（mysql命令行）</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-- 导入D：/a.sql</span><br><span class="line">mysql &gt; source d:/a.sql;</span><br></pre></td></tr></table></figure>
+<p>提供2种不同传输协议：TCP和UDP</p>
 </li>
 </ul>
-<h2 id="规范数据库设计"><a class="markdownIt-Anchor" href="#规范数据库设计"></a> 规范数据库设计</h2>
-<p>数据库比较复杂时就要设计</p>
-<p><strong>良好的数据库设计：</strong></p>
-<ul>
-<li>节省内存空间</li>
-<li>保证数据库完整性</li>
-<li>方便开发系统</li>
-</ul>
-<p><strong>软件开发中：</strong></p>
-<ul>
-<li>分析需求：分析业务和需要处理的数据库的需求</li>
-<li>概要设计：设计关系图E-R图</li>
-</ul>
-<p><strong>设计数据库步骤</strong>（个人博客）</p>
-<ul>
-<li>收集信息，分析需求
-<ul>
-<li>用户表（用户登录、注销、个人信息，写博客，创建分支）</li>
-<li>分类表（文章分类、谁创建的）</li>
-<li>文章表</li>
-<li>评论表</li>
-<li>粉丝表</li>
-<li>自定义表（系统信息、某个关键字、字段）</li>
-<li>说说表（用户id、内容、发表时间）</li>
-</ul>
-</li>
-<li>标识实体（把需求落实到每个字段）</li>
-<li>标识实体之间关系
-<ul>
-<li>写博客：user-&gt;blog</li>
-<li>创建分类：user-&gt;catagory</li>
-<li>关注：user-&gt;user</li>
-<li>粉丝链接：links</li>
-<li>评论：user-&gt;user-blog</li>
-</ul>
-</li>
-</ul>
-<h3 id="三大范式"><a class="markdownIt-Anchor" href="#三大范式"></a> 三大范式</h3>
 <blockquote>
-<p>为什么需要数据规范化</p>
+<p>服务访问点SAP</p>
+<ul>
+<li>传输层的SAP：端口（属于软件端口）</li>
+<li>网络层的SAP：IP地址</li>
+<li>数据链路层的SAP：MAC地址</li>
+</ul>
 </blockquote>
+<p>端口号：16bit</p>
 <ul>
-<li>信息重写</li>
-<li>更新异常</li>
-<li>插入异常
-<ul>
-<li>无法正常显示信息</li>
-</ul>
-</li>
-<li>删除异常
-<ul>
-<li>丢失有效信息</li>
-</ul>
-</li>
-</ul>
-<h4 id="三大范式-2"><a class="markdownIt-Anchor" href="#三大范式-2"></a> 三大范式</h4>
-<ol>
 <li>
-<p><strong>第一范式（1NF）</strong></p>
-<p>原子性：保持列不可再分</p>
+<p>服务端：</p>
+<ul>
+<li>
+<p>熟知端口号：0~1023</p>
+<p>FTP(21), TFTP(69), Telnet(23), SMTP(25), DNS(53), HTTP(80), HTTPS(443), SNMP(161)</p>
 </li>
 <li>
-<p><strong>第二范式（2NF）</strong></p>
-<p>前提：满足1NF</p>
-<p>每张表只描述一件事</p>
+<p>登记端口号：1024~49151</p>
+</li>
+</ul>
 </li>
 <li>
-<p><strong>第三范式（3NF）</strong></p>
-<p>前提：满足1NF与2NF</p>
-<p>确保数据表中每一列数据都和主键直接相关，而不能间接相关</p>
+<p>客户端：使用49152~65535（仅在客户端进程运行时，动态选择使用，也叫“短暂端口号”或“临时端口”）</p>
 </li>
-</ol>
-<h4 id="规范性和性能问题"><a class="markdownIt-Anchor" href="#规范性和性能问题"></a> 规范性和性能问题</h4>
-<p>关联查询的表不能超过3张表</p>
-<ul>
-<li>考虑商业化的需求和目标（成本、用户体验），数据库性能更重要</li>
-<li>在规范性能的问题时候，需要适当考虑一下规范性</li>
-<li>可以故意给某些表增加一些冗余的字段（多表查询变为单表查询）</li>
-<li>故意增加一些计算列（从大数据量降低为小数据量的查询：索引）</li>
 </ul>
-<h2 id="sql注入问题"><a class="markdownIt-Anchor" href="#sql注入问题"></a> SQL注入问题</h2>
-<p>sql存在漏洞，会被攻击，导致数据泄露</p>
-<h2 id="preparestatement对象"><a class="markdownIt-Anchor" href="#preparestatement对象"></a> PrepareStatement对象</h2>
-<p>防止SQL注入</p>
+<p>套接字：格式 <code>IP:端口号</code></p>
+<h2 id="udp协议"><a class="markdownIt-Anchor" href="#udp协议"></a> UDP协议</h2>
+<p>UDP协议仅在ip协议添加了2个基本服务：</p>
+<ul>
+<li>复用、分用</li>
+<li>差错检测</li>
+</ul>
+<p>udp适用于一次传输较少数据的网络应用，如DNS，SNMP</p>
+<p>udp面向报文，即可以处理<u>应用层交下来的报文</u></p>
+<h3 id="udp数据报"><a class="markdownIt-Anchor" href="#udp数据报"></a> UDP数据报</h3>
+<p>UDP优点</p>
+<ul>
+<li>无需建立连接，无建立连接的时延</li>
+<li>无连接状态，因为不建立连接，也就没有连接状态，不跟踪这些参数</li>
+<li>分组首部开销小：UDP首部8B，TCP是20B</li>
+<li>udp没有拥塞控制，网络拥塞不影响主机发送，因此可以实时稳定发送</li>
+<li>udp支持1对1，1对多，多对1，多对多通信</li>
+</ul>
+<p><strong>UDP数据报首部格式</strong></p>
+<p>udp数据报包含<u>首部和用户数据</u>，首部占8B，有4个字段，每个字段2B</p>
+<p>【首部】包含以下字段</p>
+<ul>
+<li>
+<p>源端口（16bit）</p>
+</li>
+<li>
+<p>目的端口（16bit）</p>
+</li>
+<li>
+<p>长度（16bit）：UDP数据报长度，包含<u>首部和数据</u>部分</p>
+</li>
+<li>
+<p>校验和（16bit）：检测传输过程是否出错，有错就丢弃。（校验首部+数据部分，而IP只校验首部）</p>
+<p>该字段可选，当主机不想计算校验和时，<u>全部置0</u>即可</p>
+</li>
+</ul>
+<img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/pictures/2022/09/8_23_14_8_image-20220908231406590.png" alt="image-20220908231406590" style="zoom:80%;" />
+<p>校验和计算：</p>
+<p>计算过程会在UDP数据报前面添加<u>12B的【伪首部】</u>，这个部分是临时的</p>
+<img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/pictures/2022/09/8_23_26_12_image-20220908232610771.png" alt="image-20220908232610771" style="zoom:80%;" />
+<p>数据部分：</p>
+<p>若数据部分长度不是<u>偶数个字节</u>，要在后面填充一个 “全0”的字节（该字节不发送），然后计算这些16bit“字”的和，</p>
+<p>将和的二进制反码写入<u>校验和</u>字段，并发送。</p>
+<p>接收方收到后，如果是奇数个字节，先在后面添加一个全0的字节，按二进制反码计算16bit“字”的和。无差错时结果应为1，否则就说明有差错出现，要丢弃该udp数据报。</p>
 
   
 
 
   </article>
   
-<div class="related-wrap reveal" id="read-next"><section class="header cap theme"><span>接下来阅读</span></section><section class="body fs14"><a id="next" href="/wiki/mysql/mysql_7/">MySQL(7)-JDBC<span class="note">下一篇</span></a><div class="line"></div><a id="prev" href="/wiki/mysql/mysql_5/">MySQL(5)-索引<span class="note">上一篇</span></a></section></div>
+<br>
 
   
 
