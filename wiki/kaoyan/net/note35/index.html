@@ -29,8 +29,8 @@
 <meta property="og:description" content="3.6.1 局域网基本概念和体系 局域网特性主要由三个要素决定：拓扑结构、传输介质、介质访问控制方式（最主要） 局域网拓扑结构：  星形结构 环形 总线形结构 星形与总线结合的复合型结构  传输介质：  双绞线（主流） 铜缆（同轴电缆，传输距离远） 光纤  介质访问控制方式：  CSMA&#x2F;CD（总线型拓扑） 令牌总线（总线型拓扑） 令牌环（环形拓扑）  三种特殊局域网的拓扑实现：     逻辑拓">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/pictures/2022/09/6_13_15_29_b2d0cb74b6063c7547e16802ff715b13880419cb.png">
-<meta property="article:published_time" content="2022-09-07T09:51:43.839Z">
-<meta property="article:modified_time" content="2022-09-07T09:51:43.839Z">
+<meta property="article:published_time" content="2022-09-08T13:49:08.695Z">
+<meta property="article:modified_time" content="2022-09-08T13:49:08.695Z">
 <meta property="article:author" content="aJream">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://gitcode.net/ajream/myimages/-/raw/master/pictures/2022/09/6_13_15_29_b2d0cb74b6063c7547e16802ff715b13880419cb.png">
@@ -89,12 +89,12 @@
 
 <header class="header">
 
-<div class="logo-wrap wiki"><a style="filter: grayscale(100%)" class="wiki-home cap" href="/wiki"><svg aria-hidden="true" viewBox="0 0 16 16" width="1rem" height="1rem" fill="currentColor"><path fill-rule="evenodd" d="M7.78 12.53a.75.75 0 01-1.06 0L2.47 8.28a.75.75 0 010-1.06l4.25-4.25a.75.75 0 011.06 1.06L4.81 7h7.44a.75.75 0 010 1.5H4.81l2.97 2.97a.75.75 0 010 1.06z"></path></svg>所有专栏</a><a class="title" href="/wiki/kaoyan/net/note34/"><div class="main">计算机网络</div><div class="sub cap">801计网</div></a></div>
+<div class="logo-wrap wiki"><a style="filter: grayscale(100%)" class="wiki-home cap" href="/wiki"><svg aria-hidden="true" viewBox="0 0 16 16" width="1rem" height="1rem" fill="currentColor"><path fill-rule="evenodd" d="M7.78 12.53a.75.75 0 01-1.06 0L2.47 8.28a.75.75 0 010-1.06l4.25-4.25a.75.75 0 011.06 1.06L4.81 7h7.44a.75.75 0 010 1.5H4.81l2.97 2.97a.75.75 0 010 1.06z"></path></svg>所有专栏</a><a class="title" href="/wiki/kaoyan/net/note01/"><div class="main">计算机网络</div><div class="sub cap">801计网</div></a></div>
 </header>
 
 <div class="widgets">
 
-<div class="widget-wrap multi" id="toc"><div class="widget-header cap dis-select"><span class="name">数据链路层</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/kaoyan/net/note34/"><span class="toc-text">3.5 介质访问控制</span></a></div><div class="doc-tree active"><a class="doc-tree-link active" href="/wiki/kaoyan/net/note35/"><span class="toc-text">3.6 局域网</span></a><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#361-%E5%B1%80%E5%9F%9F%E7%BD%91%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E5%92%8C%E4%BD%93%E7%B3%BB"><span class="toc-text"> 3.6.1 局域网基本概念和体系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#362-%E4%BB%A5%E5%A4%AA%E7%BD%91%E4%B8%8Eieee8023"><span class="toc-text"> 3.6.2 以太网与IEEE802.3</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%A0%E8%BE%93%E4%BB%8B%E8%B4%A8%E4%B8%8E%E7%BD%91%E5%8D%A1"><span class="toc-text"> 传输介质与网卡</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A5%E5%A4%AA%E7%BD%91%E7%9A%84mac%E5%B8%A7%E7%BB%93%E6%9E%84"><span class="toc-text"> 以太网的MAC帧结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AB%98%E9%80%9F%E4%BB%A5%E5%A4%AA%E7%BD%91"><span class="toc-text"> 高速以太网</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#363-ieee80211%E6%97%A0%E7%BA%BF%E5%B1%80%E5%9F%9F%E7%BD%91"><span class="toc-text"> 3.6.3 IEEE802.11无线局域网</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#364-vlan%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E5%92%8C%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="toc-text"> 3.6.4 VLAN基本概念和基本原理</span></a></li></ol></div></div></div>
+<div class="widget-wrap multi" id="toc"><div class="widget-header cap dis-select"><span class="name">基础概念</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/kaoyan/net/note01/"><span class="toc-text">1.1 计算机网络基本概念</span></a></div></div><div class="widget-header cap dis-select"><span class="name">数据链路层</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/wiki/kaoyan/net/note34/"><span class="toc-text">3.5 介质访问控制</span></a></div><div class="doc-tree active"><a class="doc-tree-link active" href="/wiki/kaoyan/net/note35/"><span class="toc-text">3.6 局域网</span></a><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#361-%E5%B1%80%E5%9F%9F%E7%BD%91%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E5%92%8C%E4%BD%93%E7%B3%BB"><span class="toc-text"> 3.6.1 局域网基本概念和体系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#362-%E4%BB%A5%E5%A4%AA%E7%BD%91%E4%B8%8Eieee8023"><span class="toc-text"> 3.6.2 以太网与IEEE802.3</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BC%A0%E8%BE%93%E4%BB%8B%E8%B4%A8%E4%B8%8E%E7%BD%91%E5%8D%A1"><span class="toc-text"> 传输介质与网卡</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%A5%E5%A4%AA%E7%BD%91%E7%9A%84mac%E5%B8%A7%E7%BB%93%E6%9E%84"><span class="toc-text"> 以太网的MAC帧结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%AB%98%E9%80%9F%E4%BB%A5%E5%A4%AA%E7%BD%91"><span class="toc-text"> 高速以太网</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#363-ieee80211%E6%97%A0%E7%BA%BF%E5%B1%80%E5%9F%9F%E7%BD%91"><span class="toc-text"> 3.6.3 IEEE802.11无线局域网</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#364-vlan%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5%E5%92%8C%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86"><span class="toc-text"> 3.6.4 VLAN基本概念和基本原理</span></a></li></ol></div></div></div>
 
 
 
@@ -110,7 +110,7 @@
 
   
   
-<div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" id="home" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" id="menu" href="/wiki/">专栏</a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/wiki/kaoyan/net/note34/">计算机网络</a></div><div id="post-meta">更新于&nbsp;<time datetime="2022-09-07T09:51:43.839Z">2022-09-07</time></div></div>
+<div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" id="home" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" id="menu" href="/wiki/">专栏</a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/wiki/kaoyan/net/note01/">计算机网络</a></div><div id="post-meta">更新于&nbsp;<time datetime="2022-09-08T13:49:08.695Z">2022-09-08</time></div></div>
 
   <article class='content md wiki'>
   <h1 class="article-title"><span>3.6 局域网</span></h1>
