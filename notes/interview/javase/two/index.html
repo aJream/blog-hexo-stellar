@@ -18,12 +18,12 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="theme-color" content="#f8f8f8">
-  <title>Notes：javaSE基础简单整理 - aJream</title>
+  <title>Notes：javaSE基础整理(一) - aJream</title>
 
   
     <meta name="description" content="Java的final修饰符 Java中final修饰的变量是引用不可变，但引用指向的内容可变。 但对于String来说，如下一个例子： 12String a &#x3D; &quot;aaa&quot;; a &#x3D; a + &quot;bbb&quot;;  这个代码是没有错的，因为引用变量a没有被final修饰，所以引用变量a可变。 而String类说的不可变，指的是其内容不可变，当执行第二行代码后，a重">
 <meta property="og:type" content="website">
-<meta property="og:title" content="javaSE基础简单整理">
+<meta property="og:title" content="javaSE基础整理(一)">
 <meta property="og:url" content="https://ajream-n.netlify.app/notes/interview/javase/two/">
 <meta property="og:site_name" content="aJream">
 <meta property="og:description" content="Java的final修饰符 Java中final修饰的变量是引用不可变，但引用指向的内容可变。 但对于String来说，如下一个例子： 12String a &#x3D; &quot;aaa&quot;; a &#x3D; a + &quot;bbb&quot;;  这个代码是没有错的，因为引用变量a没有被final修饰，所以引用变量a可变。 而String类说的不可变，指的是其内容不可变，当执行第二行代码后，a重">
@@ -92,7 +92,7 @@
 
 <div class="widgets">
 
-<div class="widget-wrap multi" id="toc"><div class="widget-header cap dis-select"><span class="name">win10问题解决</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/notes/win10/beautify/"><span class="toc-text">win10主题美化</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/notes/win10/taskcol/"><span class="toc-text">win10任务栏透明 - win10</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/notes/win10/recovery1/"><span class="toc-text">win10创建系统还原及如何还原</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/notes/win10/network/"><span class="toc-text">WIN10突然无法上网(WiFi)的解决方法</span></a></div></div><div class="widget-header cap dis-select"><span class="name">面经</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/notes/interview/embed/one/"><span class="toc-text">嵌入式软件开发基础知识</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/notes/interview/javase/one/"><span class="toc-text">javaSE基础知识</span></a></div><div class="doc-tree active"><a class="doc-tree-link active" href="/notes/interview/javase/two/"><span class="toc-text">javaSE基础简单整理</span></a><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#java%E7%9A%84final%E4%BF%AE%E9%A5%B0%E7%AC%A6"><span class="toc-text"> Java的final修饰符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#java%E4%B8%AD%E5%92%8Cequals%E5%8C%BA%E5%88%AB"><span class="toc-text"> Java中&#x3D;&#x3D;和equals()区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88static%E6%96%B9%E6%B3%95%E4%B8%AD%E4%B8%8D%E8%83%BD%E5%BC%95%E7%94%A8%E9%9D%9Estatic%E6%88%90%E5%91%98"><span class="toc-text"> 为什么static方法中不能引用非static成员？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#synchronized%E4%B8%8Elock%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text"> Synchronized与Lock的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B9%8B%E9%97%B4%E9%80%9A%E4%BF%A1%E6%96%B9%E5%BC%8F"><span class="toc-text"> Java多线程之间通信方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%AF%B4java%E6%98%AF%E8%B7%A8%E5%B9%B3%E5%8F%B0%E7%9A%84%E8%AF%AD%E8%A8%80"><span class="toc-text"> 为什么说java是跨平台的语言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#hashcode%E4%B8%8Eequals%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-text"> hashCode()与equals()的关系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BAout-of-memory%E4%B8%8E%E5%86%85%E5%AD%98%E6%B3%84%E9%9C%B2memory-leak"><span class="toc-text"> 内存溢出out of memory与内存泄露memory leak</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#arraylist%E6%89%A9%E5%AE%B9%E7%89%B9%E7%82%B9"><span class="toc-text"> ArrayList扩容特点</span></a></li></ol></div></div><div class="widget-header cap dis-select"><span class="name">工具</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/notes/json/"><span class="toc-text">Json在线解析工具</span></a></div></div></div>
+<div class="widget-wrap multi" id="toc"><div class="widget-header cap dis-select"><span class="name">win10问题解决</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/notes/win10/beautify/"><span class="toc-text">win10主题美化</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/notes/win10/taskcol/"><span class="toc-text">win10任务栏透明 - win10</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/notes/win10/recovery1/"><span class="toc-text">win10创建系统还原及如何还原</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/notes/win10/network/"><span class="toc-text">WIN10突然无法上网(WiFi)的解决方法</span></a></div></div><div class="widget-header cap dis-select"><span class="name">面经</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/notes/interview/embed/one/"><span class="toc-text">嵌入式软件开发基础知识</span></a></div><div class="doc-tree"><a class="doc-tree-link" href="/notes/interview/javase/one/"><span class="toc-text">javaSE基础知识（全）</span></a></div><div class="doc-tree active"><a class="doc-tree-link active" href="/notes/interview/javase/two/"><span class="toc-text">javaSE基础整理(一)</span></a><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#java%E7%9A%84final%E4%BF%AE%E9%A5%B0%E7%AC%A6"><span class="toc-text"> Java的final修饰符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#java%E4%B8%AD%E5%92%8Cequals%E5%8C%BA%E5%88%AB"><span class="toc-text"> Java中&#x3D;&#x3D;和equals()区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88static%E6%96%B9%E6%B3%95%E4%B8%AD%E4%B8%8D%E8%83%BD%E5%BC%95%E7%94%A8%E9%9D%9Estatic%E6%88%90%E5%91%98"><span class="toc-text"> 为什么static方法中不能引用非static成员？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#synchronized%E4%B8%8Elock%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-text"> Synchronized与Lock的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#java%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%B9%8B%E9%97%B4%E9%80%9A%E4%BF%A1%E6%96%B9%E5%BC%8F"><span class="toc-text"> Java多线程之间通信方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%AF%B4java%E6%98%AF%E8%B7%A8%E5%B9%B3%E5%8F%B0%E7%9A%84%E8%AF%AD%E8%A8%80"><span class="toc-text"> 为什么说java是跨平台的语言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#hashcode%E4%B8%8Eequals%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-text"> hashCode()与equals()的关系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E5%AD%98%E6%BA%A2%E5%87%BAout-of-memory%E4%B8%8E%E5%86%85%E5%AD%98%E6%B3%84%E9%9C%B2memory-leak"><span class="toc-text"> 内存溢出out of memory与内存泄露memory leak</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#arraylist%E7%89%B9%E7%82%B9"><span class="toc-text"> ArrayList特点</span></a></li></ol></div></div><div class="widget-header cap dis-select"><span class="name">工具</span></div><div class="widget-body fs14"><div class="doc-tree"><a class="doc-tree-link" href="/notes/json/"><span class="toc-text">Json在线解析工具</span></a></div></div></div>
 </div>
 
 
@@ -107,7 +107,7 @@
 <div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" id="home" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" id="menu" href="/notes/">便笺</a></div><div id="post-meta">更新于&nbsp;<time datetime="2022-09-12T22:40:13.000Z">2022-09-12</time></div></div>
 
   <article class='content md wiki'>
-  <h1 class="article-title"><span>javaSE基础简单整理</span></h1>
+  <h1 class="article-title"><span>javaSE基础整理(一)</span></h1>
   <h2 id="java的final修饰符"><a class="markdownIt-Anchor" href="#java的final修饰符"></a> Java的final修饰符</h2>
 <p>Java中final修饰的变量是引用不可变，但引用指向的内容可变。 但对于String来说，如下一个例子：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">a</span> <span class="operator">=</span> <span class="string">&quot;aaa&quot;</span>; </span><br><span class="line">a = a + <span class="string">&quot;bbb&quot;</span>; </span><br></pre></td></tr></table></figure>
@@ -160,9 +160,9 @@
 <p><u>内存泄露最终导致内存溢出</u></p>
 </li>
 </ul>
-<h2 id="arraylist扩容特点"><a class="markdownIt-Anchor" href="#arraylist扩容特点"></a> ArrayList扩容特点</h2>
+<h2 id="arraylist特点"><a class="markdownIt-Anchor" href="#arraylist特点"></a> ArrayList特点</h2>
 <ol>
-<li>ArrayList底层是一个Object类型的空数组</li>
+<li>ArrayList底层是一个Object类型的空数组，可以理解为【动态数组】，可以动态修改数组大小。</li>
 <li>创建ArrayList对象时，如果是使用<u>无参构造器创建，初始化数组长度是0</u>(有参构造器创建，初始化数组长度就是指定的大小)，第一次添加数据的时候，数组长度扩容为10，以后每一次调用add()方法添加数据的时候，都会检测是否需要扩容，如果<u>需要扩容，则扩容为数组长度的1.5倍</u></li>
 <li>ArrayList扩容的时候，调用的是<code>Arrays.copyOf()</code>方法，保留已经存在的数据，增加的长度用空值填充</li>
 </ol>
@@ -172,7 +172,7 @@
 
   </article>
   
-<div class="related-wrap reveal" id="read-next"><section class="header cap theme"><span>接下来阅读</span></section><section class="body fs14"><a id="next" href="/notes/json/">Json在线解析工具<span class="note">下一篇</span></a><div class="line"></div><a id="prev" href="/notes/interview/javase/one/">javaSE基础知识<span class="note">上一篇</span></a></section></div>
+<div class="related-wrap reveal" id="read-next"><section class="header cap theme"><span>接下来阅读</span></section><section class="body fs14"><a id="next" href="/notes/json/">Json在线解析工具<span class="note">下一篇</span></a><div class="line"></div><a id="prev" href="/notes/interview/javase/one/">javaSE基础知识（全）<span class="note">上一篇</span></a></section></div>
 
   
 
