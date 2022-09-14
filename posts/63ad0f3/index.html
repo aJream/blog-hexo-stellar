@@ -18,26 +18,21 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="theme-color" content="#f8f8f8">
-  <title>补码 and [127+1] - aJream</title>
+  <title>C语言scanf输入匹配 - aJream</title>
 
   
-    <meta name="description" content="是否还对 [127 + 1] 疑虑重重，本篇将解决你心中的困扰">
+    <meta name="description" content="关于C语言scanf输入匹配（适用于sscanf）">
 <meta property="og:type" content="article">
-<meta property="og:title" content="补码 and [127+1]">
-<meta property="og:url" content="https://ajream-n.netlify.app/posts/2bf21981/">
+<meta property="og:title" content="C语言scanf输入匹配">
+<meta property="og:url" content="https://ajream-n.netlify.app/posts/63ad0f3/">
 <meta property="og:site_name" content="aJream">
-<meta property="og:description" content="是否还对 [127 + 1] 疑虑重重，本篇将解决你心中的困扰">
+<meta property="og:description" content="关于C语言scanf输入匹配（适用于sscanf）">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/pictures/2022/09/6_13_29_56_612a53ba55a0b2140aef2c6aaf3942dec4edb72c.png">
-<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/pictures/2022/09/6_13_30_37_966a78e8673f4305449a1a9e26c3a885b6a96d46.png">
-<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/pictures/2022/09/6_13_31_6_612a53ba55a0b2140aef2c6aaf3942dec4edb72c.png">
-<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/pictures/2022/09/6_13_31_41_fc3cf92d5d7a0683dbdfca9541ec2151ef1cfd3e.png">
-<meta property="article:published_time" content="2022-06-14T22:15:15.000Z">
-<meta property="article:modified_time" content="2022-09-14T04:15:29.287Z">
+<meta property="article:published_time" content="2022-09-14T11:30:34.000Z">
+<meta property="article:modified_time" content="2022-09-14T12:46:03.000Z">
 <meta property="article:author" content="aJream">
-<meta property="article:tag" content="补码">
+<meta property="article:tag" content="C&#x2F;C++">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://gitcode.net/ajream/myimages/-/raw/master/pictures/2022/09/6_13_29_56_612a53ba55a0b2140aef2c6aaf3942dec4edb72c.png">
   
   
 
@@ -98,7 +93,7 @@
 
 <div class="widgets">
 
-<div class="widget-wrap single" id="toc"><div class="widget-header cap dis-select"><span class="name">本文目录</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%80%E4%B8%AA%E5%AD%97%E8%8A%82%E8%83%BD%E5%AD%98%E4%B8%8B%E5%A4%9A%E5%A4%A7%E7%9A%84%E6%95%B4%E6%95%B0"><span class="toc-text"> 一个字节能存下多大的整数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8E%9F%E7%A0%81-%E5%8F%8D%E7%A0%81-%E8%A1%A5%E7%A0%81%E4%BA%92%E7%9B%B8%E8%BD%AC%E6%8D%A2"><span class="toc-text"> 原码、反码、补码互相转换</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%B4%9F%E6%95%B0%E8%A1%A5%E7%A0%81%E4%B8%8E%E5%8E%9F%E7%A0%81%E7%9B%B8%E4%BA%92%E8%BD%AC%E6%8D%A2"><span class="toc-text"> 负数补码与原码相互转换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E7%AE%97%E6%AD%A5%E9%AA%A4"><span class="toc-text"> 运算步骤</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#c%E7%A8%8B%E5%BA%8F%E9%AA%8C%E8%AF%81"><span class="toc-text"> C程序验证</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A6%81%E7%82%B9%E6%80%BB%E7%BB%93"><span class="toc-text"> 要点总结</span></a></li></ol></div></div></div>
+<div class="widget-wrap single" id="toc"><div class="widget-header cap dis-select"><span class="name">本文目录</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-text"> </span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%99%90%E5%AE%9A%E8%BE%93%E5%85%A5%E9%95%BF%E5%BA%A6"><span class="toc-text"> 限定输入长度</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BE%93%E5%85%A5char%E7%B1%BB%E5%9E%8B"><span class="toc-text"> 输入char类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BE%93%E5%85%A5%E6%8C%87%E5%AE%9A%E9%95%BF%E5%BA%A6%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-text"> 输入指定长度字符串</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BE%93%E5%85%A5%E5%8F%AA%E6%9C%89%E6%8C%87%E5%AE%9A%E5%AD%97%E7%AC%A6%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-text"> 输入只有指定字符的字符串</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%AA%E5%90%AB%E6%9C%89%E5%A4%A7%E5%86%99%E5%AD%97%E6%AF%8D"><span class="toc-text"> 只含有大写字母</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%AA%E5%90%AB%E6%9C%89%E5%B0%8F%E5%86%99%E5%AD%97%E6%AF%8D"><span class="toc-text"> 只含有小写字母</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%AA%E5%90%AB%E6%9C%89%E5%A4%A7%E5%B0%8F%E5%86%99%E5%AD%97%E6%AF%8D"><span class="toc-text"> 只含有大小写字母</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%AA%E5%90%AB%E6%9C%89%E6%95%B0%E5%AD%97"><span class="toc-text"> 只含有数字</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%B7%E5%90%88%E8%BE%93%E5%85%A5"><span class="toc-text"> 混合输入</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8D%E5%8C%B9%E9%85%8D%E6%9F%90%E4%BA%9B%E5%AD%97%E7%AC%A6"><span class="toc-text"> 不匹配某些字符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%A2%E5%BC%83%E8%AF%BB%E5%8F%96%E5%88%B0%E7%9A%84%E5%AD%97%E7%AC%A6"><span class="toc-text"> 丢弃读取到的字符</span></a></li></ol></div></div></div>
 
 
 </div>
@@ -111,96 +106,63 @@
       
 
 
-<div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/%E7%BC%96%E7%A8%8B/">编程</a></div><div id="post-meta">发布于&nbsp;<time datetime="2022-06-14T22:15:15.000Z">2022-06-14</time></div></div>
+<div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" href="/">文章</a><span class="sep"></span><a class="cap breadcrumb-link" href="/categories/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/">编程语言</a></div><div id="post-meta">发布于&nbsp;<time datetime="2022-09-14T11:30:34.000Z">2022-09-14</time></div></div>
 
 <article class='content md post'>
-<h1 class="article-title"><span>补码 and [127+1]</span></h1>
-<h2 id="一个字节能存下多大的整数"><a class="markdownIt-Anchor" href="#一个字节能存下多大的整数"></a> 一个字节能存下多大的整数</h2>
-<p><strong>【无符号数】</strong>  一个字节有8位，如果全部用来表示数值，一共可以表示 <code>2^8=256</code> 个数 <code>0,1,2,3,...,255</code></p>
-<p><strong>【有符号数】</strong>  如果用最高位表示符号(0表示正，1表示负)，那么只剩下7位表示数值:</p>
-<ol>
-<li>用 <code>&quot;0000 0001&quot; ~ &quot;0111 1111&quot;</code> 表示127个正数</li>
-<li>用 <code>&quot;1000 0001&quot; ~ &quot;1111 1111&quot;</code> 表示127个负数</li>
-<li>但是，现在还剩下 <code>&quot;0000 0000&quot;</code> 和 <code>&quot;1000 0000&quot;</code>未表示任何数，由于平时<code>+0</code>等于<code>0</code>，于是规定
-<ul>
-<li>用<code>&quot;0000 0000&quot;</code> 表示 0</li>
-<li>还剩下 <code>&quot;1000 0000&quot;</code> 可以表示一个数（肯定不能是<code>-0</code>吧），显然应该是一个负数，而 <code>-1 ~ -127</code> 都已经表示了，所以用<code>&quot;1000 0000&quot;</code> 表示 -128</li>
-</ul>
-</li>
-<li>因此，有符号数的表示范围是：<code>-128~127</code> 共256个数</li>
-</ol>
+<h1 class="article-title"><span>C语言scanf输入匹配</span></h1>
+<h2 id=""><a class="markdownIt-Anchor" href="#"></a> </h2>
+<h2 id="限定输入长度"><a class="markdownIt-Anchor" href="#限定输入长度"></a> 限定输入长度</h2>
+<p>输入int类型时可以限定输入长度</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a;</span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">&quot;%3d&quot;</span>, &amp;a);  </span><br><span class="line"><span class="comment">//取前3个数字，转为int类型存储到a变量中</span></span><br></pre></td></tr></table></figure>
+<h2 id="输入char类型"><a class="markdownIt-Anchor" href="#输入char类型"></a> 输入char类型</h2>
+<p>注意输入char字符类型时不能限定长度（注意是字符，不是字符串）</p>
+<p>笔者目前能查到的信息给出的原因：<strong>语法规定</strong>，其实想一下也说得通，读取一个字符，总不能scanf(“%2c”)把两个字符塞到一个字符的空间里吧</p>
+<h2 id="输入指定长度字符串"><a class="markdownIt-Anchor" href="#输入指定长度字符串"></a> 输入指定长度字符串</h2>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> ss[<span class="number">20</span>];</span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">&quot;%5s&quot;</span>, ss);</span><br></pre></td></tr></table></figure>
+<h2 id="输入只有指定字符的字符串"><a class="markdownIt-Anchor" href="#输入只有指定字符的字符串"></a> 输入只有指定字符的字符串</h2>
 <blockquote>
-<p>注：以上二进制不是反码也不是补码，均为原码</p>
+<p>scanf匹配特定字符的格式为：%[xxx]，<code>[ ]</code>包围起来的是需要读取的字符集合</p>
 </blockquote>
-<h2 id="原码-反码-补码互相转换"><a class="markdownIt-Anchor" href="#原码-反码-补码互相转换"></a> 原码、反码、补码互相转换</h2>
-<p>首先注意几点：</p>
-<ol>
-<li>在计算机中，数字的存储、运算都用补码进行。</li>
-<li>并且在运算时，补码的符号位也参与运算，因为在计算机看来，这些都是数字&quot;0&quot;或&quot;1&quot;, 都能参与运算。</li>
-<li>而人要想认出这个计算结果到底是多少，就需要转化为原码才可以。</li>
-</ol>
-<p><strong>正数</strong>以及0的原码、反码、补码相同，就不多说了</p>
-<h3 id="负数补码与原码相互转换"><a class="markdownIt-Anchor" href="#负数补码与原码相互转换"></a> 负数补码与原码相互转换</h3>
-<p>将负数的【原码转为补码】，需要经历几个步骤：</p>
-<p>假设一个8位类型的数字 <code>-1</code>：</p>
-<ol>
-<li>写出原码：符号位用1表示，如-1的原码：<code>1000 0001</code></li>
-<li>写出反码：【符号位不变】，其余各位取反，如-1的反码：<code>1111 1110</code></li>
-<li>计算补码：在反码的基础上 <code>+1</code> ，如-1的补码：<code>1111 1111</code></li>
-</ol>
+<p>例如输入一个只含有 <code>'x'</code>,<code>'y'</code>,<code>'z'</code>的字符串</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">char</span> ss[<span class="number">10</span>];</span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">&quot;%[xyz]&quot;</span>, ss); <span class="comment">// 输入xzab，则ss为xz，遇到a停止</span></span><br></pre></td></tr></table></figure>
+<p>注意，遇到其它字符就会停止输入</p>
 <blockquote>
-<p>将负数的【补码转为原码】，只需要记住：“补码的补码==&gt;原码”，也就是通过计算补码的补码即可还原出原码。</p>
-<p>如：-1的补码 <code>1111 1111</code>  —[符号位不变，其余取反]—&gt; <code>1000 0000</code> —[+1]—&gt; <code>1000 0001</code></p>
-<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/pictures/2022/09/6_13_29_56_612a53ba55a0b2140aef2c6aaf3942dec4edb72c.png" alt="" /></p>
+<p>注意：xyz的顺序没有要求，输入yxz，zyx等是可以正常读入的</p>
 </blockquote>
-<p>下图来源于维基百科，是几个特殊的数字的补码</p>
-<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/pictures/2022/09/6_13_30_37_966a78e8673f4305449a1a9e26c3a885b6a96d46.png" alt="" /></p>
-<h3 id="运算步骤"><a class="markdownIt-Anchor" href="#运算步骤"></a> 运算步骤</h3>
-<p>前面说过，在计算机内部，数字的存储、运算都是以补码形式进行</p>
-<p>那么 &quot;127+1&quot;的运算过程如下</p>
-<ol>
-<li>
-<p>127 的补码是： <code>0111 1111</code></p>
-</li>
-<li>
-<p>1的补码是：    <code>0000 0001</code></p>
-</li>
-<li>
-<p>相加后的补码：  <code>1000 0000</code>   （补码运算时，符号位也参与运算）</p>
-</li>
-<li>
-<p>然后，要把补码转换为人方便阅读的原码：<br />
-<img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/pictures/2022/09/6_13_31_6_612a53ba55a0b2140aef2c6aaf3942dec4edb72c.png" alt="" /></p>
-<p>根据<a href="#%E4%B8%80%E4%B8%AA%E5%AD%97%E8%8A%82%E8%83%BD%E5%AD%98%E5%82%A8%E7%9A%84%E6%95%B0%E6%8D%AE%E8%8C%83%E5%9B%B4">最前面</a>说到的结论可知，<code>1000 0000(原码)</code> 不表示 <code>-0</code> 而表示 <code>-128</code></p>
-</li>
-</ol>
-<blockquote>
-<p>同理，&quot;127+2&quot;的运算步骤：</p>
-<ol>
-<li>127 的补码是： <code>0111 1111</code></li>
-<li>2的补码是：    <code>0000 0010</code></li>
-<li>相加后的补码：  <code>1000 0001</code>   （补码运算时，符号位也参与运算）</li>
-<li>相加结果转为原码： <code>1000 0001(补码)</code> —&gt; <code>1111 1110(反码)</code>—&gt; <code>1111 1111(原码)=-127</code></li>
-</ol>
-</blockquote>
-<h3 id="c程序验证"><a class="markdownIt-Anchor" href="#c程序验证"></a> C程序验证</h3>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">	<span class="type">char</span> a=<span class="number">127</span>, b=<span class="number">127</span>;</span><br><span class="line">	a+=<span class="number">1</span>;</span><br><span class="line">	b+=<span class="number">2</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;计算结果：%d ，%d\n&quot;</span>, a, b); <span class="comment">// 输出: 计算结果：-128 ，-127</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p><a target="_blank" rel="noopener" href="https://c.runoob.com/compile/11/">去菜鸟工具验证</a></p>
-<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/pictures/2022/09/6_13_31_41_fc3cf92d5d7a0683dbdfca9541ec2151ef1cfd3e.png" alt="" /></p>
-<h2 id="要点总结"><a class="markdownIt-Anchor" href="#要点总结"></a> 要点总结</h2>
-<ol>
-<li>正数以及0的原码、反码、补码相同</li>
-<li>计算机存储和运算时使用【补码】，补码运算时，符号位也参与</li>
-<li>负数的原码、反码、补码转换过程中，符号位不变；转换过程中，即使有进位，符号位也不参与运算</li>
-</ol>
+<h3 id="只含有大写字母"><a class="markdownIt-Anchor" href="#只含有大写字母"></a> 只含有大写字母</h3>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">scanf</span>(<span class="string">&quot;%[A-Z]&quot;</span>, ss);</span><br></pre></td></tr></table></figure>
+<h3 id="只含有小写字母"><a class="markdownIt-Anchor" href="#只含有小写字母"></a> 只含有小写字母</h3>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">scanf</span>(<span class="string">&quot;%[a-z]&quot;</span>, ss);</span><br></pre></td></tr></table></figure>
+<h3 id="只含有大小写字母"><a class="markdownIt-Anchor" href="#只含有大小写字母"></a> 只含有大小写字母</h3>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">scanf</span>(<span class="string">&quot;%[a-zA-Z]&quot;</span>, ss);</span><br></pre></td></tr></table></figure>
+<h3 id="只含有数字"><a class="markdownIt-Anchor" href="#只含有数字"></a> 只含有数字</h3>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">scanf</span>(<span class="string">&quot;%[0-9]&quot;</span>, ss);</span><br></pre></td></tr></table></figure>
+<h3 id="混合输入"><a class="markdownIt-Anchor" href="#混合输入"></a> 混合输入</h3>
+<p>例如要求输入的字符包括大小写字母以及空格</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">scanf</span>(<span class="string">&quot;%[a-z A-Z]&quot;</span>, ss);</span><br></pre></td></tr></table></figure>
+<p>其实就是在中间加一个空格，意思是空格也算匹配字符如果输入中有空格符也会被正常读取;</p>
+<p>空格的位置不一定要放在中间，可以放在最前面，也可以放在最后面</p>
+<h2 id="不匹配某些字符"><a class="markdownIt-Anchor" href="#不匹配某些字符"></a> 不匹配某些字符</h2>
+<p>不匹配某些字符只需要在[ ]内的最前面加一个<code>^</code>就可以了</p>
+<p>例1，遇到数字就停止（不包含数字）</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">scanf</span>(<span class="string">&quot;%[^0-9]&quot;</span>, ss);</span><br></pre></td></tr></table></figure>
+<p>例2，遇到换行符就停止，不包含换行符</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">scanf</span>(<span class="string">&quot;%[^\n]&quot;</span>, ss);</span><br></pre></td></tr></table></figure>
+<p>例3，遇到指定字符’a’, ‘c’, 'f’就停止</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">scanf</span>(<span class="string">&quot;%[^acf]&quot;</span>, ss);</span><br></pre></td></tr></table></figure>
+<h2 id="丢弃读取到的字符"><a class="markdownIt-Anchor" href="#丢弃读取到的字符"></a> 丢弃读取到的字符</h2>
+<p>scanf() 允许把读取到的数据直接丢弃，不往变量中存放，具体方法就是在 % 后面加一个<code>*</code>，</p>
+<p>例如：将读取到的小写字母丢弃</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">scanf</span>(<span class="string">&quot;%*[a-z]&quot;</span>);  <span class="comment">//因为丢弃了，所以不用放到一个变量中</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> a, b;</span><br><span class="line"><span class="built_in">scanf</span>(<span class="string">&quot;%d%*[a-z]%d&quot;</span>, &amp;a, &amp;b);</span><br><span class="line"><span class="comment">// 输入 123ajfjfdfm654，则a为123，b为654，中间的小写字母被忽略了</span></span><br></pre></td></tr></table></figure>
 
 
 <div class="article-footer reveal fs14"><section id="license"><div class="header"><span>许可协议</span></div><div class="body"><p>本文采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/">署名-非商业性使用-相同方式共享 4.0 国际</a> 许可协议，转载请注明出处。</p>
-</div></section><section id="share"><div class="header"><span>分享文章</span></div><div class="body"><div class="link"><input class="copy-area" readonly="true" id="copy-link" value="https://ajream-n.netlify.app/posts/2bf21981/" /></div><div class="social-wrap dis-select"><a class="social share-item wechat" onclick="util.toggle(&quot;qrcode-wechat&quot)"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://fastly.jsdelivr.net/gh/cdn-x/placeholder@1.0.1/social/b32ef3da1162a.svg"/></a><a class="social share-item weibo" target="_blank" rel="external nofollow noopener noreferrer" href="https://service.weibo.com/share/share.php?url=https://ajream-n.netlify.app/posts/2bf21981/&title=补码 and [127+1] - aJream&summary=是否还对 [127 + 1] 疑虑重重，本篇将解决你心中的困扰"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://fastly.jsdelivr.net/gh/cdn-x/placeholder@1.0.1/social/80c07e4dbb303.svg"/></a><a class="social share-item email" href="mailto:?subject=补码 and [127+1] - aJream&amp;body=https://ajream-n.netlify.app/posts/2bf21981/"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://fastly.jsdelivr.net/gh/cdn-x/placeholder@1.0.1/social/a1b00e20f425d.svg"/></a><a class="social share-item link" onclick="util.copy(&quot;copy-link&quot;, &quot;复制成功&quot;)"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://fastly.jsdelivr.net/gh/cdn-x/placeholder@1.0.1/social/8411ed322ced6.svg"/></a></div><div class="qrcode" id="qrcode-wechat" style="visibility:hidden;height:0"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=https://ajream-n.netlify.app/posts/2bf21981/index.html"/></div></div></section></div>
+</div></section><section id="share"><div class="header"><span>分享文章</span></div><div class="body"><div class="link"><input class="copy-area" readonly="true" id="copy-link" value="https://ajream-n.netlify.app/posts/63ad0f3/" /></div><div class="social-wrap dis-select"><a class="social share-item wechat" onclick="util.toggle(&quot;qrcode-wechat&quot)"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://fastly.jsdelivr.net/gh/cdn-x/placeholder@1.0.1/social/b32ef3da1162a.svg"/></a><a class="social share-item weibo" target="_blank" rel="external nofollow noopener noreferrer" href="https://service.weibo.com/share/share.php?url=https://ajream-n.netlify.app/posts/63ad0f3/&title=C语言scanf输入匹配 - aJream&summary=关于C语言scanf输入匹配（适用于sscanf）"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://fastly.jsdelivr.net/gh/cdn-x/placeholder@1.0.1/social/80c07e4dbb303.svg"/></a><a class="social share-item email" href="mailto:?subject=C语言scanf输入匹配 - aJream&amp;body=https://ajream-n.netlify.app/posts/63ad0f3/"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://fastly.jsdelivr.net/gh/cdn-x/placeholder@1.0.1/social/a1b00e20f425d.svg"/></a><a class="social share-item link" onclick="util.copy(&quot;copy-link&quot;, &quot;复制成功&quot;)"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://fastly.jsdelivr.net/gh/cdn-x/placeholder@1.0.1/social/8411ed322ced6.svg"/></a></div><div class="qrcode" id="qrcode-wechat" style="visibility:hidden;height:0"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://api.qrserver.com/v1/create-qr-code/?size=256x256&data=https://ajream-n.netlify.app/posts/63ad0f3/index.html"/></div></div></section></div>
 
 </article>
 
-<div class="related-wrap reveal" id="read-next"><section class="header cap theme"><span>接下来阅读</span></section><section class="body fs14"><a id="next" href="/posts/28d5cef4/">概率论与数理统计<span class="note">较早</span></a><div class="line"></div><a id="prev" href="/posts/6b3e2032/">通信原理期末复习<span class="note">较新</span></a></section></div>
+<div class="related-wrap reveal" id="read-next"><section class="header cap theme"><span>接下来阅读</span></section><section class="body fs14"><a id="next" href="/posts/e66575b7/">明月寄相思<span class="note">较早</span></a><div class="line"></div></section></div>
 
 
 
