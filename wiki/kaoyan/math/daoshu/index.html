@@ -4,7 +4,7 @@
 <head>
   <meta name="generator" content="Hexo 5.4.2">
   <meta charset="utf-8">
-  <meta name="robots" content="noindex,follow">
+  
 
   <meta http-equiv='x-dns-prefetch-control' content='on' />
   <link rel='dns-prefetch' href='https://fastly.jsdelivr.net'>
@@ -18,16 +18,26 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="theme-color" content="#f8f8f8">
-  <title>标签 - aJream</title>
+  <title>math：导数与微分01 - aJream</title>
 
   
-    <meta property="og:type" content="website">
-<meta property="og:title" content="标签">
-<meta property="og:url" content="https://ajream-n.netlify.app/tags/">
+    <meta name="description" content="题目源于1800题（2022） 1800题">
+<meta property="og:type" content="website">
+<meta property="og:title" content="导数与微分01">
+<meta property="og:url" content="https://ajream-n.netlify.app/wiki/kaoyan/math/daoshu/">
 <meta property="og:site_name" content="aJream">
+<meta property="og:description" content="题目源于1800题（2022） 1800题">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/pictures/2022/09/21_21_9_42_IMG_20220921_204124.webp">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/pictures/2022/09/21_21_10_39_IMG_20220921_204405.jpg">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/pictures/2022/09/21_21_10_50_IMG_20220921_204458.jpg">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/pictures/2022/09/21_21_10_57_IMG_20220921_204627.jpg">
+<meta property="og:image" content="https://gitcode.net/ajream/myimages/-/raw/master/pictures/2022/09/21_21_11_13_IMG_20220921_204733.jpg">
+<meta property="article:published_time" content="2022-09-21T10:02:49.000Z">
+<meta property="article:modified_time" content="2022-09-21T13:16:16.665Z">
 <meta property="article:author" content="aJream">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://gitcode.net/ajream/myimages/-/raw/master/pictures/2022/09/21_21_9_42_IMG_20220921_204124.webp">
   
   
 
@@ -74,155 +84,70 @@
   
 
 
+
+
   <div class='l_body' id='start'>
-    <aside class='l_left' layout='tags'>
+    <aside class='l_left' layout='wiki'>
     
 
 
 <header class="header">
 
-<div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://fastly.jsdelivr.net/gh/cdn-x/placeholder@1.0.2/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="/images/avatar2.png" onerror="javascript:this.classList.add('error');this.src='https://fastly.jsdelivr.net/gh/cdn-x/placeholder@1.0.1/image/2659360.svg';"></a><a class="title" href="/"><div class="main">aJream</div><div class="sub normal cap">🛫依梦🛬</div><div class="sub hover cap" style="opacity:0">ajream-n.netlify.app</div></a></div>
-<nav class="menu dis-select"><a class="nav-item active" href="/">文章</a><a class="nav-item" href="/wiki/">专栏</a><a class="nav-item" href="/notes/">便笺</a><a class="nav-item" href="/about/">更多</a></nav></header>
-
-<div class="widgets">
-<div class="widget-wrap" id="markdown"><div class="widget-header cap dis-select"><span class="name">欢迎来到aJream的小屋</span></div><div class="widget-body fs14"><p>“aJream” means “a dream” [yi梦而行]</p>
-<p>博客采用Hexo+<a target="_blank" rel="noopener" href="https://xaoxuu.com/wiki/tags/%E5%8D%9A%E5%AE%A2%E4%B8%BB%E9%A2%98/">stellar</a>主题搭建，其自带wiki功能非常方便实用。</p>
-<p>我的<a target="_blank" rel="noopener" href="https://ajream.netlify.app">另一个博客</a>，采用butterfly主题</p>
-<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/pictures/2022/09/4_16_38_13_aj73283929djskslnf.gif" alt="aJream" /></p>
-</div></div>
-
-<div class="widget-wrap" id="recent"><div class="widget-header cap dis-select"><span class="name">最近更新</span></div><div class="widget-body fs14"><div class="more-item"><a class="title" href="/posts/2bf21981/">补码 and [127+1]</a></div><div class="more-item"><a class="title" href="/posts/94c1e505/">stellar博客改进方案</a></div><div class="more-item"><a class="title" href="/posts/f3a00df2/">利用傅里叶级数绘图</a></div><div class="more-item"><a class="title" href="/posts/5ec1b976/">链表及其操作</a></div><div class="more-item"><a class="title" href="/posts/87d13e4d/">总结一下求极限的技巧</a></div></div></div>
-</div>
-<footer class="footer dis-select"><div class="social-wrap"><a class="social" href="https://github.com/ajream" target="_blank" rel="external nofollow noopener noreferrer"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://fastly.jsdelivr.net/gh/cdn-x/placeholder@1.0.3/social/08a41b181ce68.svg"/></a><a class="social" href="https://music.163.com/#/user/home?id=3962513076" target="_blank" rel="external nofollow noopener noreferrer"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://fastly.jsdelivr.net/gh/cdn-x/placeholder@1.0.3/social/3845874.svg"/></a><a class="social" href="/about/#comments" rel="noopener noreferrer"><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://fastly.jsdelivr.net/gh/cdn-x/placeholder@1.0.3/social/942ebbf1a4b91.svg"/></a></div></footer>
-
-    </aside>
-    <div class='l_main list'>
-      
-  
-
-<header class="header mobile-only">
-
-<div class="logo-wrap"><a class="avatar" href="/about/"><div class="bg" style="opacity:0;background-image:url(https://fastly.jsdelivr.net/gh/cdn-x/placeholder@1.0.2/avatar/round/rainbow64@3x.webp);"></div><img no-lazy class="avatar" src="/images/avatar2.png" onerror="javascript:this.classList.add('error');this.src='https://fastly.jsdelivr.net/gh/cdn-x/placeholder@1.0.1/image/2659360.svg';"></a><a class="title" href="/"><div class="main">aJream</div><div class="sub normal cap">🛫依梦🛬</div><div class="sub hover cap" style="opacity:0">ajream-n.netlify.app</div></a></div>
+<div class="logo-wrap wiki"><a style="filter: grayscale(100%)" class="wiki-home cap" href="/wiki"><svg aria-hidden="true" viewBox="0 0 16 16" width="1rem" height="1rem" fill="currentColor"><path fill-rule="evenodd" d="M7.78 12.53a.75.75 0 01-1.06 0L2.47 8.28a.75.75 0 010-1.06l4.25-4.25a.75.75 0 011.06 1.06L4.81 7h7.44a.75.75 0 010 1.5H4.81l2.97 2.97a.75.75 0 010 1.06z"></path></svg>所有专栏</a><a class="title" href="/wiki/kaoyan/math/daoshu/"><div class="main">math</div></a></div>
 </header>
 
+<div class="widgets">
+
+<div class="widget-wrap single" id="toc"><div class="widget-header cap dis-select"><span class="name">本文目录</span></div><div class="widget-body fs14"><div class="doc-tree active"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E6%BA%90%E4%BA%8E1800%E9%A2%982022"><span class="toc-text"> 题目源于1800题（2022）</span></a></li></ol></div></div></div>
 
 
-      
 
-  
-  
-  <div class='nav-wrap'>
-  <nav class='sub post cap'>
-    
-      <a href='/'>近期发布</a>
-    
-    
-      
-        <a href='/categories'>分类</a>
-      
-    
-    
-      
-        <a class='active' href='/tags'>标签</a>
-      
-    
-    
-      
-        <a href='/archives'>归档</a>
-      
-    
-  </nav>
+
 </div>
 
-  <div class='post-list'>
-    <article class='' id='tags'>
+
+    </aside>
+    <div class='l_main'>
       
-        <a class='tag' href="/tags/C-C/">
-          <span class='name'>C/C++</span>
-        </a>
+
       
-        <a class='tag' href="/tags/stellar/">
-          <span class='name'>stellar</span>
-        </a>
+
+  
+  
+<div class="bread-nav fs12"><div id="breadcrumb"><a class="cap breadcrumb" id="home" href="/">主页</a><span class="sep"></span><a class="cap breadcrumb" id="menu" href="/wiki/">专栏</a><span class="sep"></span><a class="cap breadcrumb" id="proj" href="/wiki/kaoyan/math/daoshu/">math</a></div><div id="post-meta">更新于&nbsp;<time datetime="2022-09-21T13:16:16.665Z">2022-09-21</time></div></div>
+
+  <article class='content md wiki'>
+  <h1 class="article-title"><span>导数与微分01</span></h1>
+  <h3 id="题目源于1800题2022"><a class="markdownIt-Anchor" href="#题目源于1800题2022"></a> 题目源于1800题（2022）</h3>
+<p>1800题</p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/pictures/2022/09/21_21_9_42_IMG_20220921_204124.webp" alt="IMG_20220921_204124" /></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/pictures/2022/09/21_21_10_39_IMG_20220921_204405.jpg" alt="IMG_20220921_204405" /></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/pictures/2022/09/21_21_10_50_IMG_20220921_204458.jpg" alt="IMG_20220921_204458" /></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/pictures/2022/09/21_21_10_57_IMG_20220921_204627.jpg" alt="IMG_20220921_204627" /></p>
+<p><img class="lazy" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" data-src="https://gitcode.net/ajream/myimages/-/raw/master/pictures/2022/09/21_21_11_13_IMG_20220921_204733.jpg" alt="IMG_20220921_204733" /></p>
+
+  
+
+
+  </article>
+  
+<br>
+
+  
+
+  <div class='related-wrap md reveal' id="comments">
+    <div class='cmt-title cap theme'>
+      快来参与讨论吧
+    </div>
+    <div class='cmt-body valine'>
       
-        <a class='tag' href="/tags/%E7%AE%80%E5%8E%86/">
-          <span class='name'>简历</span>
-        </a>
-      
-        <a class='tag' href="/tags/Gitee/">
-          <span class='name'>Gitee</span>
-        </a>
-      
-        <a class='tag' href="/tags/pages/">
-          <span class='name'>pages</span>
-        </a>
-      
-        <a class='tag' href="/tags/%E8%A1%A5%E7%A0%81/">
-          <span class='name'>补码</span>
-        </a>
-      
-        <a class='tag' href="/tags/%E5%9B%BE%E5%BA%8A/">
-          <span class='name'>图床</span>
-        </a>
-      
-        <a class='tag' href="/tags/Github/">
-          <span class='name'>Github</span>
-        </a>
-      
-        <a class='tag' href="/tags/%E6%8A%80%E5%B7%A7/">
-          <span class='name'>技巧</span>
-        </a>
-      
-        <a class='tag' href="/tags/%E8%8A%82%E6%97%A5/">
-          <span class='name'>节日</span>
-        </a>
-      
-        <a class='tag' href="/tags/%E5%82%85%E9%87%8C%E5%8F%B6/">
-          <span class='name'>傅里叶</span>
-        </a>
-      
-        <a class='tag' href="/tags/%E6%95%B0%E5%AD%97%E4%BF%A1%E5%8F%B7%E5%A4%84%E7%90%86/">
-          <span class='name'>数字信号处理</span>
-        </a>
-      
-        <a class='tag' href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/">
-          <span class='name'>自动化</span>
-        </a>
-      
-        <a class='tag' href="/tags/%E4%BA%91%E5%87%BD%E6%95%B0/">
-          <span class='name'>云函数</span>
-        </a>
-      
-        <a class='tag' href="/tags/GitHub/">
-          <span class='name'>GitHub</span>
-        </a>
-      
-        <a class='tag' href="/tags/vercel/">
-          <span class='name'>vercel</span>
-        </a>
-      
-        <a class='tag' href="/tags/%E9%93%BE%E8%A1%A8/">
-          <span class='name'>链表</span>
-        </a>
-      
-        <a class='tag' href="/tags/%E9%AB%98%E6%95%B0/">
-          <span class='name'>高数</span>
-        </a>
-      
-        <a class='tag' href="/tags/leetcode/">
-          <span class='name'>leetcode</span>
-        </a>
-      
-        <a class='tag' href="/tags/%E6%A6%82%E7%8E%87%E8%AE%BA/">
-          <span class='name'>概率论</span>
-        </a>
-      
-        <a class='tag' href="/tags/%E9%80%9A%E4%BF%A1%E5%8E%9F%E7%90%86/">
-          <span class='name'>通信原理</span>
-        </a>
-      
-    </article>
+
+<div id="valine_container" class="valine_thread"><svg class="loading" style="vertical-align: middle;fill: currentColor;overflow: hidden;" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2709"><path d="M832 512c0-176-144-320-320-320V128c211.2 0 384 172.8 384 384h-64zM192 512c0 176 144 320 320 320v64C300.8 896 128 723.2 128 512h64z" p-id="2710"></path></svg></div>
+
+    </div>
   </div>
+
+
 
 
       
