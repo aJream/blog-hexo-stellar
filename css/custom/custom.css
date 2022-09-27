@@ -38,13 +38,14 @@
 .site-statistics {
     margin-top: 10px;
     width: fit-content;
-    border: 1px solid #6982798f;
+    /* border: 1px solid #6982798f; */
     padding: 4px 1px;  /*上下 左右*/
     color: rgb(150, 194, 166);
 }
 
 .site-runtime {
-    margin: 0px 30px 0 0px; /*上右下左*/
+    display: block;
+    margin: 0px 30px 10px 0px; /*上右下左*/
 }
 
 /* 页脚访问量 */
@@ -53,9 +54,9 @@
 }
 
 #busuanzi_value_site_pv {
-    margin-right: 30px;
+    margin-right: 20px;
 }
 
 #busuanzi_value_site_uv {
-    margin-right: 10px;
+    margin-right: 20px;
 }
