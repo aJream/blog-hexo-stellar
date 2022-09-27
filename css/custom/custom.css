@@ -60,3 +60,8 @@
 #busuanzi_value_site_uv {
     margin-right: 20px;
 }
+
+/* 考研倒计时 */
+.kaoyan-time div div span{
+    font-size: 30px;
+}

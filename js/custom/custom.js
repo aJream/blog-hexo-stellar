@@ -76,12 +76,12 @@ $(function () {
 
 
 // 站点运行时间计算，传入参数为站点部署时间
-function showRuntime(startTime) {
+function getTimeDiff(startTime) {
     var startDate = new Date(startTime);
     var now = new Date();
-    var diffms = now - startDate;  // 相差毫秒数
+    var diffms = Math.abs(now - startDate);  // 相差毫秒数
     var diffDays = Math.floor(diffms / (24 * 3600 * 1000));//计算出相差天数
-    var leftms1 = diffms % (24*3600*1000);  // 剩余ms数
+    var leftms1 = diffms % (24 * 3600 * 1000);  // 剩余ms数
     var hours = Math.floor(leftms1 / (3600 * 1000));
     var leftms2 = leftms1 % (3600 * 1000);
     var minutes = Math.floor(leftms2 / (60 * 1000));
@@ -90,24 +90,48 @@ function showRuntime(startTime) {
 
     var ans = [diffDays, hours, minutes, seconds];
     for (var i = 0; i < ans.length; i++) {
-        if(i==0){
-            ans[i] = ''+ans[i];
+        if (i == 0) {
+            ans[i] = '' + ans[i];
         }
         else {
-            if(ans[i]<10) ans[i] = '0' + ans[i];
-            else ans[i] = ''+ans[i]
+            if (ans[i] < 10) ans[i] = '0' + ans[i];
+            else ans[i] = '' + ans[i]
         }
     }
 
-    text = '';
-    text += '<span>';
-    text += '本站已运行 ' + ans[0] + ' 天' + ans[1] + ' 小时 ' + ans[2] + ' 分 ' + ans[3] + ' 秒'; 
-    text += '</span>';
-    $('.site-runtime').empty().append(text);
-    
+    return ans;
+
+
+
 }
 
-$(setInterval('showRuntime("2021-08-20 11:03:45")', 500));
+function showRuntime() {
+    var startTime = '2021-08-20 11:03:45';
+    var t = getTimeDiff(startTime);
+    text = '';
+    text += '<span>';
+    text += '本站已运行 ' + t[0] + ' 天 ' + t[1] + ' 小时 ' + t[2] + ' 分 ' + t[3] + ' 秒';
+    text += '</span>';
+    $('.site-runtime').empty().append(text);
+}
+
+function kaoyanCountDown() {
+    var endTime = "2022-12-24 00:00:00";
+    var timeLeaf = getTimeDiff(endTime);
+    text = '';
+    text += '<div>';
+    text += '<div>';
+    text += '<span>' + timeLeaf[0] + '</span> 天 ';
+    text += '<span>' + timeLeaf[1] + '</span> 时 ';
+    text += '<span>' + timeLeaf[2] + '</span> 分 ';
+    text += '<span>' + timeLeaf[3] + '</span> 秒 ';
+    text += '</div>';
+    text += '</div>';
+    $('.kaoyan-time').empty().append(text);
+}
+
+$(setInterval('showRuntime()', 500));
+$(setInterval('kaoyanCountDown()', 500));
 
 // 添加按钮：白天夜间模式切换
 
