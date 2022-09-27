@@ -75,6 +75,40 @@ $(function () {
 })
 
 
+// 站点运行时间计算，传入参数为站点部署时间
+function showRuntime(startTime) {
+    var startDate = new Date(startTime);
+    var now = new Date();
+    var diffms = now - startDate;  // 相差毫秒数
+    var diffDays = Math.floor(diffms / (24 * 3600 * 1000));//计算出相差天数
+    var leftms1 = diffms % (24*3600*1000);  // 剩余ms数
+    var hours = Math.floor(leftms1 / (3600 * 1000));
+    var leftms2 = leftms1 % (3600 * 1000);
+    var minutes = Math.floor(leftms2 / (60 * 1000));
+    var leftms3 = leftms2 % (60 * 1000);
+    var seconds = Math.floor(leftms3 / (1000));
+
+    var ans = [diffDays, hours, minutes, seconds];
+    for (var i = 0; i < ans.length; i++) {
+        if(i==0){
+            ans[i] = ''+ans[i];
+        }
+        else {
+            if(ans[i]<10) ans[i] = '0' + ans[i];
+            else ans[i] = ''+ans[i]
+        }
+    }
+
+    text = '';
+    text += '<span>';
+    text += '本站已运行 ' + ans[0] + ' 天' + ans[1] + ' 小时 ' + ans[2] + ' 分 ' + ans[3] + ' 秒'; 
+    text += '</span>';
+    $('.site-runtime').empty().append(text);
+    
+}
+
+$(setInterval('showRuntime("2021-08-20 11:03:45")', 500));
+
 // 添加按钮：白天夜间模式切换
 
 // $(function() {
