@@ -133,6 +133,18 @@ function kaoyanCountDown() {
 $(setInterval('showRuntime()', 500));
 $(setInterval('kaoyanCountDown()', 500));
 
+
+// 百度网站统计
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?553a3f5b3e18a928d80ff8fcbb74e726";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+
+
+
 // 添加按钮：白天夜间模式切换
 
 // $(function() {
